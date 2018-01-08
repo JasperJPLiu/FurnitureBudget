@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.edu.zucc.mapper.MaterialMapper">
+    <insert id="add" useGeneratedKeys="true" keyProperty="idrsv">
+        INSERT INTO material(id,material_type,material_name,unit_price,brand,colour,other_information) VALUE (#{id},#{material_type},#{material_name},#{unit_price},#{brand},#{colour},#{other_information})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM material WHERE id=#{id}
+    </delete>
+
+    <update id="update">
+        UPDATE material SET id=#{id}
+        <if test="material_type!=null">
+            ,material_type=#{material_type}
+        </if>
+        <if test="material_name!=null">
+            ,material_name=#{material_name}
+        </if>
+        <if test="unit_price!=null">
+            ,unit_price=#{unit_price}
+        </if>
+        <if test="brand!=null">
+            ,brand=#{brand}
+        </if>
+        <if test="colour!=null">
+            ,colour=#{colour}
+        </if>
+        <if test="other_information!=null">
+            ,other_information=#{other_information}
+        </if>
+        WHERE id=#{id}
+    </update>
+
+    <select id="findAll" resultType="Material">
+        SELECT * FROM material
+    </select>
+
+    <select id="findByKey" resultType="Material">
+        SELECT * FROM material WHERE id=#{id}
+    </select>
+</mapper>

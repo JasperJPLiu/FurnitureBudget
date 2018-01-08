@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.edu.zucc.mapper.FurniturecommonsenseMapper">
+    <insert id="add" useGeneratedKeys="true" keyProperty="idrsv">
+        INSERT INTO furniture_commonsense(id,title,content) VALUE (#{id},#{title},#{content})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM furniture_commonsense WHERE id=#{id}
+    </delete>
+
+    <update id="update">
+        UPDATE furniture_commonsense SET id=#{id}
+        <if test="title!=null">
+            ,title=#{title}
+        </if>
+        <if test="content!=null">
+            ,content=#{content}
+        </if>
+        WHERE id=#{id}
+    </update>
+
+    <select id="findAll" resultType="Furniturecommonsense">
+        SELECT * FROM furniture_commonsense
+    </select>
+
+    <select id="findByKey" resultType="Furniturecommonsense">
+        SELECT * FROM furniture_commonsense WHERE id=#{id}
+    </select>
+
+    <select id="findByTitle" resultType="Furniturecommonsense">
+        SELECT * FROM furniture_commonsense WHERE title like '%${title}%'
+    </select>
+</mapper>

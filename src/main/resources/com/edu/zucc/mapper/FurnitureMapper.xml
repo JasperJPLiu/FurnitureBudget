@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.edu.zucc.mapper.FurnitureMapper">
+    <insert id="add" useGeneratedKeys="true" keyProperty="idrsv">
+        INSERT INTO furniture(id,furniture_type,furniture_name,brand,unit_price,colour,other_information) VALUE (#{id},#{furniture_type},#{furniture_name},#{brand},#{unit_price},#{colour},#{other_information})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM furniture WHERE id=#{id}
+    </delete>
+
+    <update id="update">
+        UPDATE furniture SET id=#{id}
+        <if test="furniture_type!=null">
+            ,furniture_type=#{furniture_type}
+        </if>
+        <if test="furniture_name!=null">
+            ,furniture_name=#{furniture_name}
+        </if>
+        <if test="brand!=null">
+            ,brand=#{brand}
+        </if>
+        <if test="unit_price!=null">
+            ,unit_price=#{unit_price}
+        </if>
+        <if test="colour!=null">
+            ,colour=#{colour}
+        </if>
+        <if test="other_information!=null">
+            ,other_information=#{other_information}
+        </if>
+        WHERE id=#{id}
+    </update>
+
+    <select id="findAll" resultType="Furniture">
+        SELECT * FROM furniture
+    </select>
+
+    <select id="findByKey" resultType="Furniture">
+        SELECT * FROM furniture WHERE id=#{id}
+    </select>
+</mapper>

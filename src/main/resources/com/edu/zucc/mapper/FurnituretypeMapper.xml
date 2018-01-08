@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.edu.zucc.mapper.FurnituretypeMapper">
+    <insert id="add" useGeneratedKeys="true" keyProperty="idrsv">
+        INSERT INTO furniture_type(id,type_name) VALUE (#{id},#{type_name})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM furniture_type WHERE id=#{id}
+    </delete>
+
+    <update id="update">
+        UPDATE furniture_type SET id=#{id}
+        <if test="type_name!=null">
+            ,type_name=#{type_name}
+        </if>
+        WHERE id=#{id}
+    </update>
+
+    <select id="findAll" resultType="Furnituretype">
+        SELECT * FROM furniture_type
+    </select>
+
+    <select id="findByKey" resultType="Furnituretype">
+        SELECT * FROM furniture_type WHERE id=#{id}
+    </select>
+</mapper>
