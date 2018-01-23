@@ -4,9 +4,7 @@ import com.edu.zucc.model.Furniturecommonsense;
 
 import java.util.List;
 
-/**
- * Created by liujiapeng on 2018/1/2.
- */
+
 public interface FurniturecommonsenseMapper {
     int add(Furniturecommonsense furniturecommonsense);
 
@@ -18,5 +16,5 @@ public interface FurniturecommonsenseMapper {
 
     Furniturecommonsense findByKey(Furniturecommonsense furniturecommonsense);
 
-    Furniturecommonsense findByTitle(Furniturecommonsense furniturecommonsense);
+    List<Furniturecommonsense> findByTitle(Furniturecommonsense furniturecommonsense);
 }

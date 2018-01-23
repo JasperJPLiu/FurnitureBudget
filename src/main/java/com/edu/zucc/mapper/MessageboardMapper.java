@@ -4,9 +4,6 @@ import com.edu.zucc.model.Messageboard;
 
 import java.util.List;
 
-/**
- * Created by liujiapeng on 2018/1/2.
- */
 public interface MessageboardMapper {
     int add(Messageboard messageboard);
 
@@ -16,5 +13,11 @@ public interface MessageboardMapper {
 
     List<Messageboard> findAll();
 
-    List<Messageboard> findByKey(Messageboard messageboard);
+    Messageboard findByKey(Messageboard messageboard);
+
+    /*根据标题查*/
+    List<Messageboard> findByTitle(Messageboard messageboard);
+
+    /*根据发布用户查*/
+    List<Messageboard> findByUser(Messageboard messageboard);
 }

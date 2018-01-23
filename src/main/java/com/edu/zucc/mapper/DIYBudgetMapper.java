@@ -4,9 +4,7 @@ import com.edu.zucc.model.DIYBudget;
 
 import java.util.List;
 
-/**
- * Created by liujiapeng on 2018/1/2.
- */
+
 public interface DIYBudgetMapper {
     int add(DIYBudget diyBudget);
 
@@ -16,5 +14,8 @@ public interface DIYBudgetMapper {
 
     List<DIYBudget> findAll();
 
-    List<DIYBudget> findByKey(DIYBudget diyBudget);
+    DIYBudget findByKey(DIYBudget diyBudget);
+
+    /*根据用户查*/
+    List<DIYBudget> findByUser(DIYBudget diyBudget);
 }

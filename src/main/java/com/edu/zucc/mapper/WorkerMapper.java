@@ -4,9 +4,6 @@ import com.edu.zucc.model.Worker;
 
 import java.util.List;
 
-/**
- * Created by liujiapeng on 2018/1/2.
- */
 public interface WorkerMapper {
     int add(Worker worker);
 
@@ -16,5 +13,11 @@ public interface WorkerMapper {
 
     List<Worker> findAll();
 
-    List<Worker> findByKey(Worker worker);
+    Worker findByKey(Worker worker);
+
+    List<Worker> findByWorkerName(Worker worker);
+
+    List<Worker> findByPosition(Worker worker);
+
+    List<Worker> findByDailyWage(Worker worker);
 }

@@ -7,10 +7,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Created by liujiapeng on 2018/1/3.
- */
-@Api(value = "家具常识接口", description = "家具常识管理")
+
+@Api(value = "04家具常识接口", description = "家具常识管理")
 @RestController
 @RequestMapping("/api/furniturecommonsense")
 public class FurniturecommonsenseController {
@@ -25,7 +23,7 @@ public class FurniturecommonsenseController {
 
     @ApiOperation(value = "根据标题查询家具常识")
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public Object getOneByTitle(@RequestParam String title) {
+    public Object getByTitle(@RequestParam String title) {
         return furniturecommonsenseService.findByTitle(title);
     }
 

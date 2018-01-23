@@ -1,8 +1,5 @@
 package com.edu.zucc.model;
 
-/**
- * Created by liujiapeng on 2018/1/2.
- */
 public class Productbudget {
     private int id;
     private String furnitures;

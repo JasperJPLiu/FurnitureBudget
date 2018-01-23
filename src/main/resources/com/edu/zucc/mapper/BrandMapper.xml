@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.edu.zucc.mapper.BrandMapper">
-    <insert id="add" useGeneratedKeys="true" keyProperty="idrsv">
-        INSERT INTO brand(id,brand_name,introduce) VALUE (#{id},#{brand_name},#{introduce})
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO brand(id,brandName,introduce) VALUE (#{id},#{brandName},#{introduce})
     </insert>
 
     <delete id="delete">
@@ -11,8 +11,8 @@
 
     <update id="update">
         UPDATE brand SET id=#{id}
-        <if test="brand_name!=null">
-            ,brand_name=#{brand_name}
+        <if test="brandName!=null">
+            ,brandName=#{brandName}
         </if>
         <if test="introduce!=null">
             ,introduce=#{introduce}
@@ -20,11 +20,15 @@
          WHERE id=#{id}
     </update>
 
-    <select id="findAll" resultType="Brand">
+    <select id="findAll" resultType="Map">
         SELECT * FROM brand
     </select>
 
     <select id="findByKey" resultType="Brand">
         SELECT * FROM brand WHERE id=#{id}
+    </select>
+
+    <select id="findByBrandName" resultType="Brand">
+        SELECT * FROM brand WHERE brandName like '%${brandName}%'
     </select>
 </mapper>

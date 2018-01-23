@@ -4,9 +4,7 @@ import com.edu.zucc.model.Furnituretype;
 
 import java.util.List;
 
-/**
- * Created by liujiapeng on 2018/1/2.
- */
+
 public interface FurnituretypeMapper {
     int add(Furnituretype furnituretype);
 
@@ -16,5 +14,5 @@ public interface FurnituretypeMapper {
 
     List<Furnituretype> findAll();
 
-    List<Furnituretype> findByKey(Furnituretype furnituretype);
+    Furnituretype findByKey(Furnituretype furnituretype);
 }

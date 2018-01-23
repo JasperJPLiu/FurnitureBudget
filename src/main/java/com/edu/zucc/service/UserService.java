@@ -8,9 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Created by liujiapeng on 2018/1/3.
- */
 @Service
 public class UserService {
     private UserMapper userMapper;
@@ -82,5 +79,8 @@ public class UserService {
         result.Success();
         return result;
     }
+
+    /*注册*/
+
 
 }

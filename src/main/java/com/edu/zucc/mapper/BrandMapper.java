@@ -4,9 +4,7 @@ import com.edu.zucc.model.Brand;
 
 import java.util.List;
 
-/**
- * Created by liujiapeng on 2018/1/2.
- */
+
 public interface BrandMapper {
     int add(Brand brand);
 
@@ -16,5 +14,7 @@ public interface BrandMapper {
 
     List<Brand> findAll();
 
-    List<Brand> findByKey(Brand brand);
+    Brand findByKey(Brand brand);
+
+    List<Brand> findByBrandName(Brand brand);
 }

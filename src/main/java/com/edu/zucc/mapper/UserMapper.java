@@ -4,9 +4,6 @@ import com.edu.zucc.model.User;
 
 import java.util.List;
 
-/**
- * Created by liujiapeng on 2018/1/2.
- */
 public interface UserMapper {
     int add(User user);
 

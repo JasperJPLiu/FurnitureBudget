@@ -1,12 +1,11 @@
 package com.edu.zucc.mapper;
 
+import com.edu.zucc.model.Brand;
 import com.edu.zucc.model.Material;
+import com.edu.zucc.model.Materialtype;
 
 import java.util.List;
 
-/**
- * Created by liujiapeng on 2018/1/2.
- */
 public interface MaterialMapper {
     int add(Material material);
 
@@ -16,5 +15,17 @@ public interface MaterialMapper {
 
     List<Material> findAll();
 
-    List<Material> findByKey(Material material);
+    Material findByKey(Material material);
+
+    /*根据材质类型名查*/
+    List<Material> findByType(Materialtype materialtype);
+
+    /*根据材质名称查*/
+    List<Material> findByName(Material material);
+
+    /*根据品牌名查*/
+    List<Material> findByBand(Brand brand);
+
+    /*根据价格区间查*/
+    List<Material> findByPrice(Material material);
 }

@@ -20,7 +20,7 @@ public class FurniturecommonsenseService {
         this.furniturecommonsenseMapper = furniturecommonsenseMapper;
     }
 
-    public Furniturecommonsense findByTitle(String title) {
+    public List<Furniturecommonsense> findByTitle(String title) {
         Furniturecommonsense furniturecommonsense = new Furniturecommonsense();
         furniturecommonsense.setTitle(title);
         return furniturecommonsenseMapper.findByTitle(furniturecommonsense);

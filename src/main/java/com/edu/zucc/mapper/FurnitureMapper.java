@@ -1,12 +1,11 @@
 package com.edu.zucc.mapper;
 
+import com.edu.zucc.model.Brand;
 import com.edu.zucc.model.Furniture;
+import com.edu.zucc.model.Furnituretype;
 
 import java.util.List;
 
-/**
- * Created by liujiapeng on 2018/1/2.
- */
 public interface FurnitureMapper {
     int add(Furniture furniture);
 
@@ -16,5 +15,18 @@ public interface FurnitureMapper {
 
     List<Furniture> findAll();
 
-    List<Furniture> findByKey(Furniture furniture);
+    Furniture findByKey(Furniture furniture);
+
+    /*根据家具类型名查*/
+    List<Furniture> findByType(Furnituretype furnituretype);
+
+    /*根据家具名称查*/
+    List<Furniture> findByName(Furniture furniture);
+
+    /*根据品牌名查*/
+    List<Furniture> findByBand(Brand brand);
+
+    /*根据价格区间查*/
+    List<Furniture> findByPrice(Furniture furniture);
+
 }

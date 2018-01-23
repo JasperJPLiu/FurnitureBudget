@@ -1,16 +1,34 @@
 package com.edu.zucc.model;
 
-/**
- * Created by liujiapeng on 2018/1/2.
- */
 public class Material {
     private int id;
-    private int material_type;
-    private String material_name;
-    private float unit_price;
+    private int materialType;
+    private String materialName;
+    private float unitPrice;
     private int brand;
     private String colour;
-    private String other_information;
+    private String otherInformation;
+
+    /*区间查找*/
+    private float first;
+    private float last;
+
+    public float getFirst() {
+        return first;
+    }
+
+    public void setFirst(float first) {
+        this.first = first;
+    }
+
+    public float getLast() {
+        return last;
+    }
+
+    public void setLast(float last) {
+        this.last = last;
+    }
+
 
     public int getId() {
         return id;
@@ -20,28 +38,28 @@ public class Material {
         this.id = id;
     }
 
-    public int getMaterial_type() {
-        return material_type;
+    public int getMaterialType() {
+        return materialType;
     }
 
-    public void setMaterial_type(int material_type) {
-        this.material_type = material_type;
+    public void setMaterialType(int materialType) {
+        this.materialType = materialType;
     }
 
-    public String getMaterial_name() {
-        return material_name;
+    public String getMaterialName() {
+        return materialName;
     }
 
-    public void setMaterial_name(String material_name) {
-        this.material_name = material_name;
+    public void setMaterialName(String materialName) {
+        this.materialName = materialName;
     }
 
-    public float getUnit_price() {
-        return unit_price;
+    public float getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setUnit_price(float unit_price) {
-        this.unit_price = unit_price;
+    public void setUnitPrice(float unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
     public int getBrand() {
@@ -60,11 +78,11 @@ public class Material {
         this.colour = colour;
     }
 
-    public String getOther_information() {
-        return other_information;
+    public String getOtherInformation() {
+        return otherInformation;
     }
 
-    public void setOther_information(String other_information) {
-        this.other_information = other_information;
+    public void setOtherInformation(String otherInformation) {
+        this.otherInformation = otherInformation;
     }
 }

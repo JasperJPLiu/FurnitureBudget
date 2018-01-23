@@ -1,16 +1,34 @@
 package com.edu.zucc.model;
 
-/**
- * Created by liujiapeng on 2018/1/2.
- */
 public class Furniture {
     private int id;
-    private String furniture_type;
-    private String furniture_name;
-    private String brand;
-    private float unit_price;
+    private int furnitureType;
+    private String furnitureName;
+    private int brand;
+    private float unitPrice;
     private String colour;
-    private String other_information;
+    private String otherInformation;
+
+    /*区间查找*/
+    private float first;
+    private float last;
+
+    public float getFirst() {
+        return first;
+    }
+
+    public void setFirst(float first) {
+        this.first = first;
+    }
+
+    public float getLast() {
+        return last;
+    }
+
+    public void setLast(float last) {
+        this.last = last;
+    }
+
 
     public int getId() {
         return id;
@@ -20,36 +38,36 @@ public class Furniture {
         this.id = id;
     }
 
-    public String getFurniture_type() {
-        return furniture_type;
+    public int getFurnitureType() {
+        return furnitureType;
     }
 
-    public void setFurniture_type(String furniture_type) {
-        this.furniture_type = furniture_type;
+    public void setFurnitureType(int furnitureType) {
+        this.furnitureType = furnitureType;
     }
 
-    public String getFurniture_name() {
-        return furniture_name;
+    public String getFurnitureName() {
+        return furnitureName;
     }
 
-    public void setFurniture_name(String furniture_name) {
-        this.furniture_name = furniture_name;
+    public void setFurnitureName(String furnitureName) {
+        this.furnitureName = furnitureName;
     }
 
-    public String getBrand() {
+    public int getBrand() {
         return brand;
     }
 
-    public void setBrand(String brand) {
+    public void setBrand(int brand) {
         this.brand = brand;
     }
 
-    public float getUnit_price() {
-        return unit_price;
+    public float getUnitPrice() {
+        return unitPrice;
     }
 
-    public void setUnit_price(float unit_price) {
-        this.unit_price = unit_price;
+    public void setUnitPrice(float unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
     public String getColour() {
@@ -60,11 +78,11 @@ public class Furniture {
         this.colour = colour;
     }
 
-    public String getOther_information() {
-        return other_information;
+    public String getOtherInformation() {
+        return otherInformation;
     }
 
-    public void setOther_information(String other_information) {
-        this.other_information = other_information;
+    public void setOtherInformation(String otherInformation) {
+        this.otherInformation = otherInformation;
     }
 }

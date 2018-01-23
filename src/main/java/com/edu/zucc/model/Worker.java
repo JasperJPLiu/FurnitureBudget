@@ -1,13 +1,32 @@
 package com.edu.zucc.model;
 
-/**
- * Created by liujiapeng on 2018/1/2.
- */
+
 public class Worker {
     private int id;
-    private String worker_name;
+    private String workerName;
     private String position;
-    private float daily_wage;
+    private float dailyWage;
+
+    /*区间查找*/
+    private float first;
+    private float last;
+
+    public float getFirst() {
+        return first;
+    }
+
+    public void setFirst(float first) {
+        this.first = first;
+    }
+
+    public float getLast() {
+        return last;
+    }
+
+    public void setLast(float last) {
+        this.last = last;
+    }
+
 
     public int getId() {
         return id;
@@ -17,12 +36,12 @@ public class Worker {
         this.id = id;
     }
 
-    public String getWorker_name() {
-        return worker_name;
+    public String getWorkerName() {
+        return workerName;
     }
 
-    public void setWorker_name(String worker_name) {
-        this.worker_name = worker_name;
+    public void setWorkerName(String workerName) {
+        this.workerName = workerName;
     }
 
     public String getPosition() {
@@ -33,11 +52,11 @@ public class Worker {
         this.position = position;
     }
 
-    public float getDaily_wage() {
-        return daily_wage;
+    public float getDailyWage() {
+        return dailyWage;
     }
 
-    public void setDaily_wage(float daily_wage) {
-        this.daily_wage = daily_wage;
+    public void setDailyWage(float dailyWage) {
+        this.dailyWage = dailyWage;
     }
 }

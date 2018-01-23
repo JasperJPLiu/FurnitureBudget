@@ -7,10 +7,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Created by liujiapeng on 2018/1/3.
- */
-@Api(value = "用户接口", description = "用户管理和登陆注册")
+
+@Api(value = "11用户接口", description = "用户管理和登陆注册")
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -48,11 +46,11 @@ public class UserController {
 
     @ApiOperation(value = "修改用户")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Object modifyUser(@PathVariable int id, @RequestParam String username, @RequestParam String user_type) {
+    public Object modifyUser(@PathVariable int id, @RequestParam String username, @RequestParam String userType) {
         User user = new User();
         user.setId(id);
         user.setUsername(username);
-        user.setUser_type(user_type);
+        user.setUserType(userType);
         return userService.update(user);
     }
 

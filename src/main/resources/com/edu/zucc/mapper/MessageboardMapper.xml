@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.edu.zucc.mapper.MessageboardMapper">
-    <insert id="add" useGeneratedKeys="true" keyProperty="idrsv">
-        INSERT INTO message_board(id,title,release_time,content,user) VALUE (#{id},#{title},#{release_time},#{content},#{user})
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO message_board(id,title,releaseTime,content,user) VALUE (#{id},#{title},#{releaseTime},#{content},#{user})
     </insert>
 
     <delete id="delete">
@@ -14,8 +14,8 @@
         <if test="title!=null">
             ,title=#{title}
         </if>
-        <if test="release_time!=null">
-            ,release_time=#{release_time}
+        <if test="releaseTime!=null">
+            ,releaseTime=#{releaseTime}
         </if>
         <if test="content!=null">
             ,content=#{content}
@@ -33,4 +33,16 @@
     <select id="findByKey" resultType="Messageboard">
         SELECT * FROM message_board WHERE id=#{id}
     </select>
+
+    <!--根据标题查-->
+    <select id="findByTitle" resultType="Messageboard">
+        SELECT * FROM message_board WHERE title like '%${title}%'
+    </select>
+
+    <!--根据发布用户查-->
+    <select id="findByUser" resultType="Messageboard">
+        SELECT * FROM message_board WHERE user=#{user}
+    </select>
+
+
 </mapper>

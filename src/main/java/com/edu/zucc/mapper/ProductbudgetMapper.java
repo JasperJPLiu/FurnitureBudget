@@ -4,9 +4,6 @@ import com.edu.zucc.model.Productbudget;
 
 import java.util.List;
 
-/**
- * Created by liujiapeng on 2018/1/2.
- */
 public interface ProductbudgetMapper {
     int add(Productbudget productbudget);
 
@@ -16,5 +13,8 @@ public interface ProductbudgetMapper {
 
     List<Productbudget> findAll();
 
-    List<Productbudget> findByKey(Productbudget productbudget);
+    Productbudget findByKey(Productbudget productbudget);
+
+    /*根据用户查*/
+    List<Productbudget> findByUser(Productbudget productbudget);
 }

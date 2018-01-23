@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.edu.zucc.mapper.ProductbudgetMapper">
-    <insert id="add" useGeneratedKeys="true" keyProperty="idrsv">
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO product_budget(id,furnitures,user) VALUE (#{id},#{furnitures},#{user})
     </insert>
 
@@ -27,4 +27,10 @@
     <select id="findByKey" resultType="Productbudget">
         SELECT * FROM product_budget WHERE id=#{id}
     </select>
+
+    <!--根据用户查-->
+    <select id="findByUser" resultType="Productbudget">
+        SELECT * FROM product_budget WHERE user=#{user}
+    </select>
+
 </mapper>

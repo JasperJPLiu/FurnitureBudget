@@ -4,9 +4,6 @@ import com.edu.zucc.model.Materialtype;
 
 import java.util.List;
 
-/**
- * Created by liujiapeng on 2018/1/2.
- */
 public interface MaterialtypeMapper {
     int add(Materialtype materialtype);
 
@@ -16,5 +13,5 @@ public interface MaterialtypeMapper {
 
     List<Materialtype> findAll();
 
-    List<Materialtype> findByKey(Materialtype materialtype);
+    Materialtype findByKey(Materialtype materialtype);
 }

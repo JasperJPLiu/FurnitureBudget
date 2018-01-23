@@ -1,13 +1,10 @@
 package com.edu.zucc.model;
 
-/**
- * Created by liujiapeng on 2018/1/2.
- */
 public class User extends EButil {
     private int id;
     private String username;
     private String password;
-    private String user_type;
+    private String userType;
 
     public int getId() {
         return id;
@@ -33,11 +30,11 @@ public class User extends EButil {
         this.password = password;
     }
 
-    public String getUser_type() {
-        return user_type;
+    public String getUserType() {
+        return userType;
     }
 
-    public void setUser_type(String user_type) {
-        this.user_type = user_type;
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }

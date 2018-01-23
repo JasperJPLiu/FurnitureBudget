@@ -1,11 +1,8 @@
 package com.edu.zucc.model;
 
-/**
- * Created by liujiapeng on 2018/1/2.
- */
 public class Furnituretype {
     private int id;
-    private String type_name;
+    private String typeName;
 
     public int getId() {
         return id;
@@ -15,11 +12,11 @@ public class Furnituretype {
         this.id = id;
     }
 
-    public String getType_name() {
-        return type_name;
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setType_name(String type_name) {
-        this.type_name = type_name;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 }

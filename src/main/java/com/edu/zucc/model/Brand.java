@@ -1,12 +1,18 @@
 package com.edu.zucc.model;
 
-/**
- * Created by liujiapeng on 2018/1/2.
- */
 public class Brand {
     private int id;
-    private String brand_name;
+    private String brandName;
     private String introduce;
+
+    public Brand() {
+    }
+
+    public Brand(int id, String brandName, String introduce) {
+        this.id = id;
+        this.brandName = brandName;
+        this.introduce = introduce;
+    }
 
     public int getId() {
         return id;
@@ -16,12 +22,12 @@ public class Brand {
         this.id = id;
     }
 
-    public String getBrand_name() {
-        return brand_name;
+    public String getBrandName() {
+        return brandName;
     }
 
-    public void setBrand_name(String brand_name) {
-        this.brand_name = brand_name;
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
     public String getIntroduce() {
