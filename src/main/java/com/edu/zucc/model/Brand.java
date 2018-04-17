@@ -5,15 +5,6 @@ public class Brand {
     private String brandName;
     private String introduce;
 
-    public Brand() {
-    }
-
-    public Brand(int id, String brandName, String introduce) {
-        this.id = id;
-        this.brandName = brandName;
-        this.introduce = introduce;
-    }
-
     public int getId() {
         return id;
     }

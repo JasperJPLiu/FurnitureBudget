@@ -20,7 +20,7 @@
          WHERE id=#{id}
     </update>
 
-    <select id="findAll" resultType="Map">
+    <select id="findAll" resultType="Brand">
         SELECT * FROM brand
     </select>
 

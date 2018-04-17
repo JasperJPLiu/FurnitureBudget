@@ -15,7 +15,67 @@ public class Webcontroller {
     }
 
     @RequestMapping("/")
-    public String index(){
-        return "index";
+    public String index() {
+        return "usermanager";
+    }
+
+    @RequestMapping("/BrandManager")
+    public String toMBrand() {
+        return "brandmanager";
+    }
+
+    @RequestMapping("/BudgetManager")
+    public String toMBudget() {
+        return "budgetmanager";
+    }
+
+    @RequestMapping("/FurnitureManager")
+    public String toMFurniture() {
+        return "furnmanager";
+    }
+
+    @RequestMapping("/KnowManager")
+    public String toMKnow() {
+        return "knowmanager";
+    }
+
+    @RequestMapping("/MaterialManager")
+    public String toMMaterial() {
+        return "matmanager";
+    }
+
+    @RequestMapping("/MessageManager")
+    public String toMMessage() {
+        return "messmanger";
+    }
+
+    @RequestMapping("/MaterialTypeManager")
+    public String toMMType() {
+        return "mtypemanager";
+    }
+
+    @RequestMapping("/ProductManager")
+    public String toMProduct() {
+        return "productmanager";
+    }
+
+    @RequestMapping("/SkillManager")
+    public String toMSkill() {
+        return "skillmanager";
+    }
+
+    @RequestMapping("/TypeManager")
+    public String toMType() {
+        return "typemanager";
+    }
+
+    @RequestMapping("/UserManager")
+    public String toMUser() {
+        return "usermanager";
+    }
+
+    @RequestMapping("/WorkerManager")
+    public String toMWorker() {
+        return "workermanager";
     }
 }
