@@ -16,7 +16,7 @@ public class Webcontroller {
 
     @RequestMapping("/")
     public String index() {
-        return "usermanager";
+        return "starter";
     }
 
     @RequestMapping("/BrandManager")
