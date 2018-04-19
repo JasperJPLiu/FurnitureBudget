@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.edu.zucc.mapper.MaterialtypeMapper">
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO material_Type(id,typeName) VALUE (#{id},#{typeName})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM material_Type WHERE id=#{id}
+    </delete>
+
+    <update id="update">
+        UPDATE material_Type SET id=#{id}
+        <if test="typeName!=null">
+            ,typeName=#{typeName}
+        </if>
+        WHERE id=#{id}
+    </update>
+
+    <select id="findAll" resultType="Materialtype">
+        SELECT * FROM material_Type
+    </select>
+
+    <select id="findByKey" resultType="Materialtype">
+        SELECT * FROM material_Type WHERE id=#{id}
+    </select>
+</mapper>

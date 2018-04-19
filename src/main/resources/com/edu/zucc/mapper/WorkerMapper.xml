@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.edu.zucc.mapper.WorkerMapper">
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO worker(id,workerName,position,dailyWage) VALUE (#{id},#{workerName},#{position},#{dailyWage})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM worker WHERE id=#{id}
+    </delete>
+
+    <update id="update">
+        UPDATE worker SET id=#{id}
+        <if test="workerName!=null">
+            ,workerName=#{workerName}
+        </if>
+        <if test="position!=null">
+            ,position=#{position}
+        </if>
+        <if test="dailyWage!=null">
+            ,dailyWage=#{dailyWage}
+        </if>
+        WHERE id=#{id}
+    </update>
+
+    <select id="findAll" resultType="Worker">
+        SELECT * FROM worker
+    </select>
+
+    <select id="findByKey" resultType="Worker">
+        SELECT * FROM worker WHERE id=#{id}
+    </select>
+
+    <!--根据员工名查-->
+    <select id="findByWorkerName" resultType="Worker">
+        SELECT * FROM worker WHERE workerName like '%${workerName}%'
+    </select>
+
+    <!--根据员工职位查-->
+    <select id="findByPosition" resultType="Worker">
+        SELECT * FROM worker WHERE position=#{position}
+    </select>
+
+    <!--根据员工日工资区间查-->
+    <select id="findByDailyWage" resultType="Worker">
+        SELECT * FROM worker WHERE dailyWage BETWEEN #{first} AND #{last}
+    </select>
+
+</mapper>
