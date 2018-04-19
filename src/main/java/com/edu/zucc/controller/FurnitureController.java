@@ -103,7 +103,7 @@ public class FurnitureController {
             for (Furniture furniture:furnitures){
                 int b=furniture.getBrand();
                 int t=furniture.getFurnitureType();
-                furnitureInfos.add(new FurnitureInfo(furniture,mapBrands.get(b),mapTypes.get(t)));
+                furnitureInfos.add(new FurnitureInfo(furniture,mapTypes.get(t),mapBrands.get(b)));
             }
         }
         return furnitureInfos;

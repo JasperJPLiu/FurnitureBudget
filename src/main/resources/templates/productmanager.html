@@ -11,7 +11,7 @@
 <div layout:fragment="content" class="content-wrapper">
     <!-- Content Header (Page header) -->
     <style>
-        #addUser {
+        #addBtn {
             margin-top: 10px;
             margin-bottom: 10px;
         }
@@ -36,12 +36,12 @@
                data-click-to-select="true"
                data-pagination="true"
                data-page-size="1000"
-               data-page-list="[]" data-url="/api/productbudget">
+               data-page-list="[]" data-url="/api/productbudget/getall">
             <thead>
             <tr>
                 <th data-field="id">ID</th>
-                <th data-field="user">User</th>
-                <th data-field="furnitures">Furnitures</th>
+                <th data-field="userName">User</th>
+                <th data-field="furnitureName">Furniture</th>
                 <th data-field="console" data-formatter="optFormatter">Option</th>
             </tr>
             </thead>
@@ -49,16 +49,42 @@
         <script>
             $(function () {
                 var str = $(".fixed-table-toolbar")[0].innerHTML;
-                $(".fixed-table-toolbar")[0].innerHTML = "<button type=\"button\" class=\"btn btn-success\"  data-toggle=\"modal\" data-target=\"#modalAddUser\" id='addUser'>新增</button>" + str;
+                $(".fixed-table-toolbar")[0].innerHTML = "<button type='button' class='btn btn-success'  id='addBtn' onclick='createModal()'>新增</button>" + str;
                 $("#table").bootstrapTable('resetView', {
                     height: document.documentElement.clientHeight - 200
                 });
             })
 
             function optFormatter(value, row, index) {
-                var e = '<button type="button" class="btn btn-info  btn-xs" style="margin-right: 5px">编辑</button>';
-                e += '<button type="button" class="btn btn-danger  btn-xs">删除</button>';
+                var e = '<button type="button" class="btn btn-info  btn-xs" style="margin-right: 5px"  onclick="modifyModal(this,' + row.user + ',' + row.furnitures + ')">编辑</button>';
+                e += '<button type="button" class="btn btn-danger  btn-xs" onclick="deleteProduct(this)">删除</button>';
                 return e;
+            }
+
+            function deleteProduct(obj) {
+                var tr = obj.parentNode.parentNode;
+                var id = tr.cells[0].innerHTML;
+                var name = tr.cells[1].innerHTML;
+                var furn = tr.cells[2].innerHTML;
+                myConfirm("删除成品预算", "是否删除成品预算" + name + "的" + furn + "？", function (con) {
+                    if (con == true) {
+                        $.ajax({
+                            type: "DELETE",
+                            url: "/api/productbudget/" + id,
+                            success: function (data) {
+                                if (data.resultCode == 0) {
+                                    myAlert("系统提示", "删除成品预算成功");
+                                    $("#myModal").modal("hide");
+                                    $('#table').bootstrapTable('refresh');
+                                    initModal();
+                                }
+                                else {
+                                    alertError(data.message);
+                                }
+                            }
+                        })
+                    }
+                })
             }
         </script>
         <!--<script type="application/javascript">-->
@@ -73,38 +99,41 @@
         <!--})-->
         <!--</script>-->
         <!-- Modal -->
-        <div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Create a new user</h4>
+                        <h4 class="modal-title" id="myModalLabel"></h4>
                     </div>
                     <div class="modal-body">
+                        <div class="alert" role="alert" id="modalAlert" hidden></div>
                         <form class="form-horizontal">
-                            <div class="form-group">
-                                <label for="inputName" class="col-sm-2 control-label">User Name</label>
+                            <div class="form-group" id="groupID">
+                                <label for="inputID" class="col-sm-2 control-label">Product ID</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputName" placeholder="User's Name">
+                                    <input type="text" class="form-control" id="inputID" placeholder="User's ID"
+                                           disabled>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+                                <label for="inputUser" class="col-sm-2 control-label">User Name</label>
                                 <div class="col-sm-10">
-                                    <input type="password" class="form-control" id="inputPassword"
-                                           placeholder="Password">
+                                    <select class="form-control selectpicker" id="inputUser" data-live-search="true"
+                                            title="Choose one of the following...">
+                                        <option th:each="users:${users}" th:value="${users.id} "
+                                                th:text="${users.username}"></option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">User Type</label>
+                                <label for="inputFurniture" class="col-sm-2 control-label">Furniture</label>
                                 <div class="col-sm-10">
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                    <select class="form-control selectpicker" id="inputFurniture" data-live-search="true"
+                                            title="Choose one of the following...">
+                                        <option th:each="furniture:${furnitures}" th:value="${furniture.id}"
+                                                th:text="${furniture.furnitureName}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -112,10 +141,115 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="saveChanges">Save changes</button>
                     </div>
                 </div>
             </div>
+            <script type="application/javascript">
+                function initModal() {
+                    $("#modalAlert").hide();
+                    $("#groupID").hide();
+                    $("#inputID").val("");
+                    $("#inputUser").selectpicker('val', '');
+                    $("#inputFurniture").selectpicker('val', '');
+                }
+
+                function alertError(text) {
+                    var al = $("#modalAlert");
+                    al.get(0).className = "alert alert-error";
+                    al.shake(2, 10, 200);
+                    al.slideDown("fast");
+                    al.text(text);
+                }
+
+                function createModal() {
+                    initModal();
+                    var btn = document.getElementById("saveChanges");
+                    btn.setAttribute("onclick", "createNewProduct()");
+                    $("#myModalLabel").text("新增成品预算");
+                    $("#myModal").modal("show");
+                }
+
+                function modifyModal(obj, user, furn) {
+                    var tr = obj.parentNode.parentNode;
+                    var id = tr.cells[0].innerHTML;
+                    initModal();
+                    $("#inputID").val(id);
+                    $("#groupID").show();
+                    $("#inputUser").selectpicker('val', user);
+                    $("#inputFurniture").selectpicker('val', furn);
+                    var btn = document.getElementById("saveChanges");
+                    btn.setAttribute("onclick", "modifyProduct()");
+                    $("#myModalLabel").text("修改成品预算");
+                    $("#myModal").modal("show");
+                }
+
+                function createNewProduct() {
+                    var user = $("#inputUser").val();
+                    var furn = $("#inputFurniture").val();
+                    if (user == "")
+                        alertError("收藏人不可以为空");
+                    else if (furn == "")
+                        alertError("成品预算家具不可以为空");
+                    else {
+                        $.ajax({
+                            type: "POST",
+                            url: "/api/productbudget/add",
+                            dataType: 'json',
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify({
+                                user: user,
+                                furnitures: furn
+                            }),
+                            success: function (data) {
+                                if (data.resultCode == 0) {
+                                    myAlert("系统提示", "新建成功");
+                                    $("#myModal").modal("hide");
+                                    $('#table').bootstrapTable('refresh');
+                                    initModal();
+                                }
+                                else {
+                                    alertError(data.message);
+                                }
+                            }
+                        })
+                    }
+                }
+
+                function modifyProduct() {
+                    var id = $("#inputID").val();
+                    var user = $("#inputUser").val();
+                    var furn = $("#inputFurniture").val();
+                    if (user == "")
+                        alertError("收藏人不可以为空");
+                    else if (furn == "")
+                        alertError("成品预算家具不可以为空");
+                    else {
+                        $.ajax({
+                            type: "PUT",
+                            url: "/api/productbudget/update",
+                            dataType: 'json',
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify({
+                                id: id,
+                                user: user,
+                                furnitures: furn
+                            }),
+                            success: function (data) {
+                                if (data.resultCode == 0) {
+                                    myAlert("系统提示", "修改成功");
+                                    $("#myModal").modal("hide");
+                                    $('#table').bootstrapTable('refresh');
+                                    initModal();
+                                }
+                                else {
+                                    alertError(data.message);
+                                }
+                            }
+                        })
+                    }
+                }
+            </script>
         </div>
     </section>
     <!-- /.content -->

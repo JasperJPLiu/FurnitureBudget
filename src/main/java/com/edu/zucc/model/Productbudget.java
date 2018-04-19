@@ -2,7 +2,7 @@ package com.edu.zucc.model;
 
 public class Productbudget {
     private int id;
-    private String furnitures;
+    private int furnitures;
     private int user;
 
     public int getId() {
@@ -13,11 +13,11 @@ public class Productbudget {
         this.id = id;
     }
 
-    public String getFurnitures() {
+    public int getFurnitures() {
         return furnitures;
     }
 
-    public void setFurnitures(String furnitures) {
+    public void setFurnitures(int furnitures) {
         this.furnitures = furnitures;
     }
 

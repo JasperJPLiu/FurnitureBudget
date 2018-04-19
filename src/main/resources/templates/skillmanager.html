@@ -11,7 +11,7 @@
 <div layout:fragment="content" class="content-wrapper">
     <!-- Content Header (Page header) -->
     <style>
-        #addUser {
+        #addBtn {
             margin-top: 10px;
             margin-bottom: 10px;
         }
@@ -49,7 +49,7 @@
         <script>
             $(function () {
                 var str = $(".fixed-table-toolbar")[0].innerHTML;
-                $(".fixed-table-toolbar")[0].innerHTML = "<button type=\"button\" class=\"btn btn-success\"  data-toggle=\"modal\" data-target=\"#modalAddUser\" id='addUser'>新增</button>" + str;
+                $(".fixed-table-toolbar")[0].innerHTML = "<button type=\"button\" class=\"btn btn-success\"  data-toggle=\"modal\" data-target=\"#myModal\" id='addBtn'>新增</button>" + str;
                 $("#table").bootstrapTable('resetView', {
                     height: document.documentElement.clientHeight - 200
                 });
@@ -73,7 +73,7 @@
         <!--})-->
         <!--</script>-->
         <!-- Modal -->
-        <div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">

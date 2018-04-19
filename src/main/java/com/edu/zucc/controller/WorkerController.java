@@ -63,7 +63,7 @@ public class WorkerController {
     }
 
     @ApiOperation(value = "修改技工信息")
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public Object modify(@RequestBody Worker worker) {
         return workerService.update(worker);
     }

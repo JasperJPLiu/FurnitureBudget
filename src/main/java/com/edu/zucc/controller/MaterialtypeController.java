@@ -41,7 +41,7 @@ public class MaterialtypeController {
     }
 
     @ApiOperation(value = "修改材质类型信息")
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public Object modify(@RequestBody Materialtype materialtype) {
         return materialtypeService.update(materialtype);
     }

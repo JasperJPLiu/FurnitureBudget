@@ -29,10 +29,11 @@ public class UserController {
 
     @ApiOperation(value = "新增用户")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public Object createUser(@RequestParam String username, @RequestParam String password) {
-        User user=new User();
+    public Object createUser(@RequestParam String username, @RequestParam String password, @RequestParam String type) {
+        User user = new User();
         user.setUsername(username);
         user.setPassword(password);
+        user.setUserType(type);
         return userService.add(user);
     }
 
@@ -46,9 +47,10 @@ public class UserController {
 
     @ApiOperation(value = "修改用户")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Object modifyUser(@PathVariable int id, @RequestParam String username, @RequestParam String userType) {
+    public Object modifyUser(@PathVariable int id, @RequestParam String username, @RequestParam String password, @RequestParam String userType) {
         User user = new User();
         user.setId(id);
+        user.setPassword(password);
         user.setUsername(username);
         user.setUserType(userType);
         return userService.update(user);

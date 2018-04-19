@@ -44,7 +44,7 @@ public class BrandController {
     }
 
     @ApiOperation(value = "修改品牌信息")
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public Object modify(@RequestBody Brand brand) {
         return brandService.update(brand);
     }

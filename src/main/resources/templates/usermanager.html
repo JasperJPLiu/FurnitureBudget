@@ -11,7 +11,7 @@
 <div layout:fragment="content" class="content-wrapper">
     <!-- Content Header (Page header) -->
     <style>
-        #addUser {
+        #addBtn {
             margin-top: 10px;
             margin-bottom: 10px;
         }
@@ -36,6 +36,7 @@
                data-click-to-select="true"
                data-pagination="true"
                data-page-size="1000"
+               data-show-refresh="true"
                data-page-list="[]" data-url="/api/user">
             <thead>
             <tr>
@@ -50,16 +51,46 @@
         <script>
             $(function () {
                 var str = $(".fixed-table-toolbar")[0].innerHTML;
-                $(".fixed-table-toolbar")[0].innerHTML = "<button type=\"button\" class=\"btn btn-success\"  data-toggle=\"modal\" data-target=\"#modalAddUser\" id='addUser'>新增</button>" + str;
+                $(".fixed-table-toolbar")[0].innerHTML = "<button type=\"button\" class=\"btn btn-success\"  id='addBtn' onclick='createModal()'>新增</button>" + str;
                 $("#table").bootstrapTable('resetView', {
                     height: document.documentElement.clientHeight - 200
                 });
             })
 
             function optFormatter(value, row, index) {
-                var e = '<button type="button" class="btn btn-info  btn-xs" style="margin-right: 5px">编辑</button>';
-                e += '<button type="button" class="btn btn-danger  btn-xs">删除</button>';
+                var e = '<button type="button" class="btn btn-info  btn-xs" style="margin-right: 5px" onclick="modifyModal(this)">编辑</button>';
+                e += '<button type="button" class="btn btn-danger  btn-xs" onclick="deleteUser(this)">删除</button>';
                 return e;
+            }
+
+            function deleteUser(obj) {
+                var tr = obj.parentNode.parentNode;
+                var id = tr.cells[0].innerHTML;
+                var name = tr.cells[1].innerHTML;
+                var type = tr.cells[3].innerHTML;
+                if (type == 'normal')
+                    var t = "用户";
+                else
+                    var t = "管理员";
+                myConfirm("删除用户", "是否删除" + t + " ID：" + id + " 用户名：" + name+"？", function (con) {
+                    if (con == true) {
+                        $.ajax({
+                            type: "DELETE",
+                            url: "/api/user/" + id,
+                            success: function (data) {
+                                if (data.resultCode == 0) {
+                                    myAlert("系统提示", "删除用户成功");
+                                    $("#myModal").modal("hide");
+                                    $('#table').bootstrapTable('refresh');
+                                    initModal();
+                                }
+                                else {
+                                    alertError(data.message);
+                                }
+                            }
+                        })
+                    }
+                })
             }
         </script>
         <!--<script type="application/javascript">-->
@@ -74,16 +105,24 @@
         <!--})-->
         <!--</script>-->
         <!-- Modal -->
-        <div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Create a new user</h4>
+                        <h4 class="modal-title" id="myModalLabel"></h4>
                     </div>
                     <div class="modal-body">
+                        <div class="alert" role="alert" id="modalAlert" hidden></div>
                         <form class="form-horizontal">
+                            <div class="form-group" id="groupID">
+                                <label for="inputID" class="col-sm-2 control-label">User ID</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputID" placeholder="User's ID"
+                                           disabled>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="inputName" class="col-sm-2 control-label">User Name</label>
                                 <div class="col-sm-10">
@@ -97,26 +136,146 @@
                                            placeholder="Password">
                                 </div>
                             </div>
+                            <div class="form-group" id="groupRepeat">
+                                <label for="inputRepeat" class="col-sm-2 control-label">Repeat</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="inputRepeat"
+                                           placeholder="Repeat Password">
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">User Type</label>
                                 <div class="col-sm-10">
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                    <select class="form-control" id="inputType">
+                                        <option value="normal">User</option>
+                                        <option value="admin">Admin</option>
                                     </select>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                        </button>
+                        <button type="button" class="btn btn-primary" id="saveChanges">Save changes</button>
                     </div>
                 </div>
             </div>
+            <script type="application/javascript">
+                function initModal() {
+                    $("#modalAlert").hide();
+                    $("#groupID").hide();
+                    $("#inputID").val();
+                    $("#inputName").val("");
+                    $("#inputPassword").val("");
+                    $("#groupRepeat").show();
+                    $("#inputRepeat").val("");
+                    $("#inputType").val("normal");
+                }
+
+                function alertError(text) {
+                    var al = $("#modalAlert");
+                    al.get(0).className = "alert alert-error";
+                    al.shake(2, 10, 200);
+                    al.slideDown("fast");
+                    al.text(text);
+                }
+
+                function createModal() {
+                    initModal();
+                    var btn = document.getElementById("saveChanges");
+                    btn.setAttribute("onclick", "createNewUser()");
+                    $("#myModalLabel").text("新增用户");
+                    $("#myModal").modal("show");
+                }
+
+                function modifyModal(obj) {
+                    var tr = obj.parentNode.parentNode;
+                    var id = tr.cells[0].innerHTML;
+                    var name = tr.cells[1].innerHTML;
+                    var password = tr.cells[2].innerHTML;
+                    var type = tr.cells[3].innerHTML;
+                    initModal();
+                    $("#inputID").val(id);
+                    $("#groupID").show();
+                    $("#inputName").val(name);
+                    $("#inputPassword").val(password);
+                    $("#groupRepeat").hide();
+                    $("#inputType").val(type);
+                    var btn = document.getElementById("saveChanges");
+                    btn.setAttribute("onclick", "modifyUser()");
+                    $("#myModalLabel").text("修改用户");
+                    $("#myModal").modal("show");
+                }
+
+                function createNewUser() {
+                    var name = $("#inputName").val();
+                    var password = $("#inputPassword").val();
+                    var repeat = $("#inputRepeat").val();
+                    var type = $("#inputType").val();
+                    if (name == "")
+                        alertError("用户名不可以为空");
+                    else if (password != repeat)
+                        alertError("两次密码输入不一样");
+                    else if (password == "")
+                        alertError("密码不可以为空");
+                    else {
+                        $.ajax({
+                            type: "POST",
+                            url: "/api/user/add",
+                            data: {
+                                username: name,
+                                password: password,
+                                type: type
+                            },
+                            success: function (data) {
+                                if (data.resultCode == 0) {
+                                    myAlert("系统提示", "新建成功");
+                                    $("#myModal").modal("hide");
+                                    $('#table').bootstrapTable('refresh');
+                                    initModal();
+                                }
+                                else {
+                                    alertError(data.message);
+                                }
+                            }
+                        })
+                    }
+                }
+
+                function modifyUser() {
+                    var id = $("#inputID").val();
+                    var name = $("#inputName").val();
+                    var password = $("#inputPassword").val();
+                    var type = $("#inputType").val();
+                    if (name == "")
+                        alertError("用户名不可以为空");
+                    else if (password == "")
+                        alertError("密码不可以为空");
+                    else {
+                        $.ajax({
+                            type: "PUT",
+                            url: "/api/user/" + id,
+                            data: {
+                                username: name,
+                                password: password,
+                                userType: type
+                            },
+                            success: function (data) {
+                                if (data.resultCode == 0) {
+                                    myAlert("系统提示", "修改成功");
+                                    $("#myModal").modal("hide");
+                                    $('#table').bootstrapTable('refresh');
+                                    initModal();
+                                }
+                                else {
+                                    alertError(data.message);
+                                }
+                            }
+                        })
+                    }
+                }
+            </script>
         </div>
     </section>
     <!-- /.content -->

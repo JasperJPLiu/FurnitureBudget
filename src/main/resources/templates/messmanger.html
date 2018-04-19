@@ -11,7 +11,7 @@
 <div layout:fragment="content" class="content-wrapper">
     <!-- Content Header (Page header) -->
     <style>
-        #addUser {
+        #addBtn {
             margin-top: 10px;
             margin-bottom: 10px;
         }
@@ -36,14 +36,14 @@
                data-click-to-select="true"
                data-pagination="true"
                data-page-size="1000"
-               data-page-list="[]" data-url="/api/messageboard">
+               data-page-list="[]" data-url="/api/messageboard/getall">
             <thead>
             <tr>
                 <th data-field="id">ID</th>
+                <th data-field="userName">User</th>
                 <th data-field="title">Title</th>
-                <th data-field="releaseTime">releaseTime</th>
+                <th data-field="releaseTime" data-formatter="timeFormatter">releaseTime</th>
                 <th data-field="content">Content</th>
-                <th data-field="user">User</th>
                 <th data-field="console" data-formatter="optFormatter">Option</th>
             </tr>
             </thead>
@@ -51,7 +51,7 @@
         <script>
             $(function () {
                 var str = $(".fixed-table-toolbar")[0].innerHTML;
-                $(".fixed-table-toolbar")[0].innerHTML = "<button type=\"button\" class=\"btn btn-success\"  data-toggle=\"modal\" data-target=\"#modalAddUser\" id='addUser'>新增</button>" + str;
+                $(".fixed-table-toolbar")[0].innerHTML = "<button type=\"button\" class=\"btn btn-success\"  data-toggle=\"modal\" data-target=\"#myModal\" id='addBtn'>新增</button>" + str;
                 $("#table").bootstrapTable('resetView', {
                     height: document.documentElement.clientHeight - 200
                 });
@@ -61,6 +61,12 @@
                 var e = '<button type="button" class="btn btn-info  btn-xs" style="margin-right: 5px">编辑</button>';
                 e += '<button type="button" class="btn btn-danger  btn-xs">删除</button>';
                 return e;
+            }
+
+            function timeFormatter(value, row, index) {
+                var newDate=new Date();
+                newDate.setTime(value);
+                return newDate.toLocaleDateString();
             }
         </script>
         <!--<script type="application/javascript">-->
@@ -75,7 +81,7 @@
         <!--})-->
         <!--</script>-->
         <!-- Modal -->
-        <div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">

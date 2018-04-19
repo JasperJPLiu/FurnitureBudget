@@ -11,7 +11,7 @@
 <div layout:fragment="content" class="content-wrapper">
     <!-- Content Header (Page header) -->
     <style>
-        #addUser {
+        #addBtn {
             margin-top: 10px;
             margin-bottom: 10px;
         }
@@ -43,9 +43,9 @@
                 <th data-field="furnitureName">Name</th>
                 <th data-field="typeName">Type</th>
                 <th data-field="brandName">Brand</th>
-                <th data-field="unitPrice">Price</th>
                 <th data-field="colour">Colour</th>
                 <th data-field="otherInformation">Remark</th>
+                <th data-field="unitPrice">Price</th>
                 <th data-field="console" data-formatter="optFormatter">Option</th>
             </tr>
             </thead>
@@ -53,16 +53,41 @@
         <script>
             $(function () {
                 var str = $(".fixed-table-toolbar")[0].innerHTML;
-                $(".fixed-table-toolbar")[0].innerHTML = "<button type=\"button\" class=\"btn btn-success\"  data-toggle=\"modal\" data-target=\"#modalAddUser\" id='addUser'>新增</button>" + str;
+                $(".fixed-table-toolbar")[0].innerHTML = "<button type='button' class='btn btn-success'  id='addBtn' onclick='createModal()'>新增</button>" + str;
                 $("#table").bootstrapTable('resetView', {
                     height: document.documentElement.clientHeight - 200
                 });
             })
 
             function optFormatter(value, row, index) {
-                var e = '<button type="button" class="btn btn-info  btn-xs" style="margin-right: 5px">编辑</button>';
-                e += '<button type="button" class="btn btn-danger  btn-xs">删除</button>';
+                var e = '<button type="button" class="btn btn-info  btn-xs" style="margin-right: 5px"  onclick="modifyModal(this,' + row.furnitureType + ',' + row.brand + ')">编辑</button>';
+                e += '<button type="button" class="btn btn-danger  btn-xs" onclick="deleteFurniture(this)">删除</button>';
                 return e;
+            }
+
+            function deleteFurniture(obj) {
+                var tr = obj.parentNode.parentNode;
+                var id = tr.cells[0].innerHTML;
+                var name = tr.cells[1].innerHTML;
+                myConfirm("删除家具", "是否删除家具" + name + "？", function (con) {
+                    if (con == true) {
+                        $.ajax({
+                            type: "DELETE",
+                            url: "/api/furniture/" + id,
+                            success: function (data) {
+                                if (data.resultCode == 0) {
+                                    myAlert("系统提示", "删除家具成功");
+                                    $("#myModal").modal("hide");
+                                    $('#table').bootstrapTable('refresh');
+                                    initModal();
+                                }
+                                else {
+                                    alertError(data.message);
+                                }
+                            }
+                        })
+                    }
+                })
             }
         </script>
         <!--<script type="application/javascript">-->
@@ -77,49 +102,224 @@
         <!--})-->
         <!--</script>-->
         <!-- Modal -->
-        <div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Create a new user</h4>
+                        <h4 class="modal-title" id="myModalLabel"></h4>
                     </div>
                     <div class="modal-body">
+                        <div class="alert" role="alert" id="modalAlert" hidden></div>
                         <form class="form-horizontal">
+                            <div class="form-group" id="groupID">
+                                <label for="inputID" class="col-sm-2 control-label">Furniture ID</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputID" placeholder="User's ID"
+                                           disabled>
+                                </div>
+                            </div>
                             <div class="form-group">
-                                <label for="inputName" class="col-sm-2 control-label">User Name</label>
+                                <label for="inputName" class="col-sm-2 control-label">Furniture Name</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="inputName" placeholder="User's Name">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+                                <label for="inputType" class="col-sm-2 control-label">Furniture Type</label>
                                 <div class="col-sm-10">
-                                    <input type="password" class="form-control" id="inputPassword"
-                                           placeholder="Password">
+                                    <select class="form-control selectpicker" id="inputType" data-live-search="true"
+                                            title="Choose one of the following...">
+                                        <option th:each="types:${types}" th:value="${types.id} "
+                                                th:text="${types.typeName}"></option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">User Type</label>
+                                <label for="inputBrand" class="col-sm-2 control-label">Brand</label>
                                 <div class="col-sm-10">
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                    <select class="form-control selectpicker" id="inputBrand" data-live-search="true"
+                                            title="Choose one of the following...">
+                                        <option th:each="brand:${brands}" th:value="${brand.id}"
+                                                th:text="${brand.brandName}"></option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPrice" class="col-sm-2 control-label">Price</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="inputPrice"
+                                           placeholder="Introduce">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputColour" class="col-sm-2 control-label">Colour</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputColour"
+                                           placeholder="Introduce">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputRemark" class="col-sm-2 control-label">Remark</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputRemark"
+                                           placeholder="Introduce">
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="saveChanges">Save changes</button>
                     </div>
                 </div>
             </div>
+            <script type="application/javascript">
+                function initModal() {
+                    $("#modalAlert").hide();
+                    $("#groupID").hide();
+                    $("#inputID").val("");
+                    $("#inputType").selectpicker('val','');
+                    $("#inputName").val("");
+                    $("#inputBrand").selectpicker('val','');
+                    $("#inputPrice").val("");
+                    $("#inputColour").val("");
+                    $("#inputRemark").val("");
+                }
+
+                function alertError(text) {
+                    var al = $("#modalAlert");
+                    al.get(0).className = "alert alert-error";
+                    al.shake(2, 10, 200);
+                    al.slideDown("fast");
+                    al.text(text);
+                }
+
+                function createModal() {
+                    initModal();
+                    var btn = document.getElementById("saveChanges");
+                    btn.setAttribute("onclick", "createNewFurniture()");
+                    $("#myModalLabel").text("新增家具");
+                    $("#myModal").modal("show");
+                }
+
+                function modifyModal(obj, type, brand) {
+                    var tr = obj.parentNode.parentNode;
+                    var id = tr.cells[0].innerHTML;
+                    var name = tr.cells[1].innerHTML;
+                    var colour = tr.cells[4].innerHTML;
+                    var remark = tr.cells[5].innerHTML;
+                    var price = tr.cells[6].innerHTML;
+                    initModal();
+                    $("#inputID").val(id);
+                    $("#groupID").show();
+                    $("#inputName").val(name);
+                    $("#inputType").selectpicker('val', type);
+                    $("#inputBrand").selectpicker('val', brand);
+                    $("#inputColour").val(colour);
+                    $("#inputRemark").val(remark);
+                    $("#inputPrice").val(price);
+                    var btn = document.getElementById("saveChanges");
+                    btn.setAttribute("onclick", "modifyFurniture()");
+                    $("#myModalLabel").text("修改家具");
+                    $("#myModal").modal("show");
+                }
+
+                function createNewFurniture() {
+                    var name = $("#inputName").val();
+                    var type = $("#inputType").val();
+                    var brand = $("#inputBrand").val();
+                    var colour = $("#inputColour").val();
+                    var remark = $("#inputRemark").val();
+                    var price = $("#inputPrice").val();
+                    if (name == "")
+                        alertError("家具名不可以为空");
+                    else if (type == "")
+                        alertError("家具类型不可以为空");
+                    else if (brand == "")
+                        alertError("品牌不可以为空");
+                    else if (colour == "")
+                        alertError("色彩不可以为空");
+                    else if (price == "")
+                        alertError("价格不可以为空");
+                    else {
+                        $.ajax({
+                            type: "POST",
+                            url: "/api/furniture/add",
+                            dataType: 'json',
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify({
+                                furnitureName: name,
+                                furnitureType: type,
+                                brand: brand,
+                                colour: colour,
+                                otherInformation: remark,
+                                unitPrice: price
+                            }),
+                            success: function (data) {
+                                if (data.resultCode == 0) {
+                                    myAlert("系统提示", "新建成功");
+                                    $("#myModal").modal("hide");
+                                    $('#table').bootstrapTable('refresh');
+                                    initModal();
+                                }
+                                else {
+                                    alertError(data.message);
+                                }
+                            }
+                        })
+                    }
+                }
+
+                function modifyFurniture() {
+                    var id = $("#inputID").val();
+                    var name = $("#inputName").val();
+                    var type = $("#inputType").val();
+                    var brand = $("#inputBrand").val();
+                    var colour = $("#inputColour").val();
+                    var remark = $("#inputRemark").val();
+                    var price = $("#inputPrice").val();
+                    if (name == "")
+                        alertError("家具名不可以为空");
+                    else if (type == "")
+                        alertError("家具类型不可以为空");
+                    else if (brand == "")
+                        alertError("品牌不可以为空");
+                    else if (colour == "")
+                        alertError("色彩不可以为空");
+                    else if (price == "")
+                        alertError("价格不可以为空");
+                    else {
+                        $.ajax({
+                            type: "PUT",
+                            url: "/api/furniture/update",
+                            dataType: 'json',
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify({
+                                id: id,
+                                furnitureName: name,
+                                furnitureType: type,
+                                brand: brand,
+                                colour: colour,
+                                otherInformation: remark,
+                                unitPrice: price
+                            }),
+                            success: function (data) {
+                                if (data.resultCode == 0) {
+                                    myAlert("系统提示", "修改成功");
+                                    $("#myModal").modal("hide");
+                                    $('#table').bootstrapTable('refresh');
+                                    initModal();
+                                }
+                                else {
+                                    alertError(data.message);
+                                }
+                            }
+                        })
+                    }
+                }
+            </script>
         </div>
     </section>
     <!-- /.content -->

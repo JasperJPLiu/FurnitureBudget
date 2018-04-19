@@ -11,7 +11,7 @@
 <div layout:fragment="content" class="content-wrapper">
     <!-- Content Header (Page header) -->
     <style>
-        #addUser {
+        #addBtn {
             margin-top: 10px;
             margin-bottom: 10px;
         }
@@ -36,13 +36,14 @@
                data-click-to-select="true"
                data-pagination="true"
                data-page-size="1000"
-               data-page-list="[]" data-url="/api/dIYBudget">
+               data-page-list="[]" data-url="/api/dIYBudget/getall">
             <thead>
             <tr>
                 <th data-field="id">ID</th>
-                <th data-field="user">User</th>
-                <th data-field="meterials">Meterials</th>
-                <th data-field="workers">Workers</th>
+                <th data-field="userName">User</th>
+                <th data-field="meterialsName">Meterials</th>
+                <th data-field="workersName">Workers</th>
+                <th data-field="price">Price</th>
                 <th data-field="console" data-formatter="optFormatter">Option</th>
             </tr>
             </thead>
@@ -50,16 +51,41 @@
         <script>
             $(function () {
                 var str = $(".fixed-table-toolbar")[0].innerHTML;
-                $(".fixed-table-toolbar")[0].innerHTML = "<button type=\"button\" class=\"btn btn-success\"  data-toggle=\"modal\" data-target=\"#modalAddUser\" id='addUser'>新增</button>" + str;
+                $(".fixed-table-toolbar")[0].innerHTML = "<button type='button' class='btn btn-success'  id='addBtn' onclick='createModal()'>新增</button>" + str;
                 $("#table").bootstrapTable('resetView', {
                     height: document.documentElement.clientHeight - 200
                 });
             })
 
             function optFormatter(value, row, index) {
-                var e = '<button type="button" class="btn btn-info  btn-xs" style="margin-right: 5px">编辑</button>';
-                e += '<button type="button" class="btn btn-danger  btn-xs">删除</button>';
+                var e = '<button type="button" class="btn btn-info  btn-xs" style="margin-right: 5px"  onclick="modifyModal(this,' + row.user + ',' + row.meterials + ',' + row.workers + ')">编辑</button>';
+                e += '<button type="button" class="btn btn-danger  btn-xs" onclick="deleteBudget(this)">删除</button>';
                 return e;
+            }
+
+            function deleteBudget(obj) {
+                var tr = obj.parentNode.parentNode;
+                var id = tr.cells[0].innerHTML;
+                var name = tr.cells[1].innerHTML;
+                myConfirm("删除预算", "是否删除" + name + "的预算记录一条？", function (con) {
+                    if (con == true) {
+                        $.ajax({
+                            type: "DELETE",
+                            url: "/api/dIYBudget/" + id,
+                            success: function (data) {
+                                if (data.resultCode == 0) {
+                                    myAlert("系统提示", "删除预算成功");
+                                    $("#myModal").modal("hide");
+                                    $('#table').bootstrapTable('refresh');
+                                    initModal();
+                                }
+                                else {
+                                    alertError(data.message);
+                                }
+                            }
+                        })
+                    }
+                })
             }
         </script>
         <!--<script type="application/javascript">-->
@@ -74,49 +100,216 @@
         <!--})-->
         <!--</script>-->
         <!-- Modal -->
-        <div class="modal fade" id="modalAddUser" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Create a new user</h4>
+                        <h4 class="modal-title" id="myModalLabel"></h4>
                     </div>
                     <div class="modal-body">
+                        <div class="alert" role="alert" id="modalAlert" hidden></div>
                         <form class="form-horizontal">
-                            <div class="form-group">
-                                <label for="inputName" class="col-sm-2 control-label">User Name</label>
+                            <div class="form-group" id="groupID">
+                                <label for="inputID" class="col-sm-2 control-label">Budget ID</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputName" placeholder="User's Name">
+                                    <input type="text" class="form-control" id="inputID" placeholder="User's ID"
+                                           disabled>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+                                <label for="inputType" class="col-sm-2 control-label">Budget User</label>
                                 <div class="col-sm-10">
-                                    <input type="password" class="form-control" id="inputPassword"
-                                           placeholder="Password">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">User Type</label>
-                                <div class="col-sm-10">
-                                    <select class="form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
+                                    <select class="form-control selectpicker" id="inputType" data-live-search="true"
+                                            title="Choose one of the following...">
+                                        <option th:each="user:${users}" th:value="${user.id} "
+                                                th:text="${user.username}"></option>
                                     </select>
                                 </div>
                             </div>
+                            <hr>
+                            <div class="form-group">
+                                <label for="inputMaterials" class="col-sm-2 control-label">Materials</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control selectpicker" id="inputMaterials"
+                                            data-live-search="true"
+                                            title="Choose one of the following...">
+                                        <option th:each="material:${materials}" th:value="${material.id}"
+                                                th:text="${material.materialName}"></option>
+                                    </select>
+                                    <button class="btn btn-info" style="width:20%;float: right">添加</button>
+                                </div>
+                            </div>
+                            <hr>
+                            <div id="materialBox"></div>
+                            <div class="form-group">
+                                <label for="inputWorkers" class="col-sm-2 control-label">Workers</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control selectpicker" id="inputWorkers" data-live-search="true" data-width="78%"
+                                            title="Choose one of the following...">
+                                        <option th:each="worker:${workers}" th:value="${worker.id}"
+                                                th:text="${worker.workerName}"></option>
+                                    </select>
+                                    <button class="btn btn-info" style="width:20%;float: right">添加</button>
+                                </div>
+                            </div>
+                            <div id="workerBox"></div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-primary" id="saveChanges">Save changes</button>
                     </div>
                 </div>
             </div>
+            <script type="application/javascript">
+
+
+                function initModal() {
+                    $("#modalAlert").hide();
+                    $("#groupID").hide();
+                    $("#inputID").val("");
+                    $("#inputType").selectpicker('val', '');
+                    $("#inputName").val("");
+                    $("#inputBrand").selectpicker('val', '');
+                    $("#inputPrice").val("");
+                    $("#inputColour").val("");
+                    $("#inputRemark").val("");
+                }
+
+                function alertError(text) {
+                    var al = $("#modalAlert");
+                    al.get(0).className = "alert alert-error";
+                    al.shake(2, 10, 200);
+                    al.slideDown("fast");
+                    al.text(text);
+                }
+
+                function createModal() {
+                    initModal();
+                    var btn = document.getElementById("saveChanges");
+                    btn.setAttribute("onclick", "createNewBudget()");
+                    $("#myModalLabel").text("新增预算");
+                    $("#myModal").modal("show");
+                }
+
+                function modifyModal(obj, type, brand) {
+                    var tr = obj.parentNode.parentNode;
+                    var id = tr.cells[0].innerHTML;
+                    var name = tr.cells[1].innerHTML;
+                    var colour = tr.cells[4].innerHTML;
+                    var remark = tr.cells[5].innerHTML;
+                    var price = tr.cells[6].innerHTML;
+                    initModal();
+                    $("#inputID").val(id);
+                    $("#groupID").show();
+                    $("#inputName").val(name);
+                    $("#inputType").selectpicker('val', type);
+                    $("#inputBrand").selectpicker('val', brand);
+                    $("#inputColour").val(colour);
+                    $("#inputRemark").val(remark);
+                    $("#inputPrice").val(price);
+                    var btn = document.getElementById("saveChanges");
+                    btn.setAttribute("onclick", "modifyBudget()");
+                    $("#myModalLabel").text("修改预算");
+                    $("#myModal").modal("show");
+                }
+
+                function createNewBudget() {
+                    var name = $("#inputName").val();
+                    var type = $("#inputType").val();
+                    var brand = $("#inputBrand").val();
+                    var colour = $("#inputColour").val();
+                    var remark = $("#inputRemark").val();
+                    var price = $("#inputPrice").val();
+                    if (name == "")
+                        alertError("预算名不可以为空");
+                    else if (type == "")
+                        alertError("预算类型不可以为空");
+                    else if (brand == "")
+                        alertError("品牌不可以为空");
+                    else if (colour == "")
+                        alertError("色彩不可以为空");
+                    else if (price == "")
+                        alertError("价格不可以为空");
+                    else {
+                        $.ajax({
+                            type: "POST",
+                            url: "/api/dIYBudget/add",
+                            dataType: 'json',
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify({
+                                dIYBudgetName: name,
+                                dIYBudgetType: type,
+                                brand: brand,
+                                colour: colour,
+                                otherInformation: remark,
+                                unitPrice: price
+                            }),
+                            success: function (data) {
+                                if (data.resultCode == 0) {
+                                    myAlert("系统提示", "新建成功");
+                                    $("#myModal").modal("hide");
+                                    $('#table').bootstrapTable('refresh');
+                                    initModal();
+                                }
+                                else {
+                                    alertError(data.message);
+                                }
+                            }
+                        })
+                    }
+                }
+
+                function modifyBudget() {
+                    var id = $("#inputID").val();
+                    var name = $("#inputName").val();
+                    var type = $("#inputType").val();
+                    var brand = $("#inputBrand").val();
+                    var colour = $("#inputColour").val();
+                    var remark = $("#inputRemark").val();
+                    var price = $("#inputPrice").val();
+                    if (name == "")
+                        alertError("预算名不可以为空");
+                    else if (type == "")
+                        alertError("预算类型不可以为空");
+                    else if (brand == "")
+                        alertError("品牌不可以为空");
+                    else if (colour == "")
+                        alertError("色彩不可以为空");
+                    else if (price == "")
+                        alertError("价格不可以为空");
+                    else {
+                        $.ajax({
+                            type: "PUT",
+                            url: "/api/dIYBudget/update",
+                            dataType: 'json',
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify({
+                                id: id,
+                                dIYBudgetName: name,
+                                dIYBudgetType: type,
+                                brand: brand,
+                                colour: colour,
+                                otherInformation: remark,
+                                unitPrice: price
+                            }),
+                            success: function (data) {
+                                if (data.resultCode == 0) {
+                                    myAlert("系统提示", "修改成功");
+                                    $("#myModal").modal("hide");
+                                    $('#table').bootstrapTable('refresh');
+                                    initModal();
+                                }
+                                else {
+                                    alertError(data.message);
+                                }
+                            }
+                        })
+                    }
+                }
+            </script>
         </div>
     </section>
     <!-- /.content -->
