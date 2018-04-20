@@ -103,7 +103,7 @@ public class DIYBudgetController {
                     float wday=Float.parseFloat(wd[1]);
                     float p=wday*mapWage.get(wid);
                     w+=mapWorkers.get(wid);
-                    w+="("+wday+",￥"+p+")";
+                    w+="("+wday+"/￥"+p+")";
                     price+=p;
                     if (i!=Workers.length-1)
                         w+=",";
@@ -114,7 +114,7 @@ public class DIYBudgetController {
                     float mper=Float.parseFloat(md[1]);
                     float p=mper*mapPrices.get(mid);
                     m+=mapMaterials.get(mid);
-                    m+="("+mid+",￥"+p+")";
+                    m+="("+mper+"/￥"+p+")";
                     price+=p;
                     if (i!=Materials.length-1)
                         m+=",";

@@ -67,7 +67,7 @@ public class MessageboardController {
     }
 
     @ApiOperation(value = "修改留言板信息")
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public Object modify(@RequestBody Messageboard messageboard) {
         return messageboardService.update(messageboard);
     }

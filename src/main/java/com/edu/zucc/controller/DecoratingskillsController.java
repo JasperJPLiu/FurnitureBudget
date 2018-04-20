@@ -44,7 +44,7 @@ public class DecoratingskillsController {
     }
 
     @ApiOperation(value = "修改装潢技巧")
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public Object modify(@RequestBody Decoratingskills decoratingskills) {
         return decoratingskillsService.update(decoratingskills);
     }

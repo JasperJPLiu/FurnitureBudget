@@ -47,8 +47,8 @@
         </table>
         <script>
             $(function () {
-                var str = $(".fixed-table-toolbar")[0].innerHTML;
-                $(".fixed-table-toolbar")[0].innerHTML = "<button type='button' class='btn btn-success'  id='addBtn' onclick='createModal()'>新增</button>" + str;
+                $(".fixed-table-toolbar").prepend("<button type='button' class='btn btn-success' id='addBtn' onclick='createModal()'>新增</button>");
+
                 $("#table").bootstrapTable('resetView', {
                     height: document.documentElement.clientHeight - 200
                 });

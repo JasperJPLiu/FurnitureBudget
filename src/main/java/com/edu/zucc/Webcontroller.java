@@ -83,7 +83,9 @@ public class Webcontroller {
     }
 
     @RequestMapping("/MessageManager")
-    public String toMMessage() {
+    public String toMMessage(Model model) {
+        List<User> users = userService.findAll();
+        model.addAttribute("users", users);
         return "messmanger";
     }
 

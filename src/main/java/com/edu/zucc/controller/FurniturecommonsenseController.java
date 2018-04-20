@@ -45,7 +45,7 @@ public class FurniturecommonsenseController {
     }
 
     @ApiOperation(value = "修改家具常识")
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public Object modify(@RequestBody Furniturecommonsense furniturecommonsense) {
         return furniturecommonsenseService.update(furniturecommonsense);
     }

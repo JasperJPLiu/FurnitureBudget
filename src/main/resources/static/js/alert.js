@@ -14,6 +14,39 @@
             });
         },
 
+        input: function (title, label, type, placeholder, callback) {
+            if (title == null) title = 'Confirm';
+            var input = '<div class="form-group">' +
+                '<label for="inputConfirm" class="col-sm-6 control-label">' + label + '</label>' +
+                '<div class="col-sm-6">' +
+                '<input type="' + type + '" class="form-control" id="inputConfirm"' +
+                'placeholder="' + placeholder + '">' +
+                '</div>' +
+                '</div>';
+            var _html = "";
+            _html += '<div id="mb_box"></div><div id="mb_con"><span id="mb_tit">' + title + '</span>';
+            _html += '<div id="mb_msg">' + input + '</div><div id="mb_btnbox">';
+            _html += '<input id="mb_btn_no" type="button" value="取消" class="btn btn-default"/>';
+            _html += '<input id="mb_btn_ok" type="button" value="确定" class="btn btn-primary" style="margin-left: 5px"/>';
+            _html += '</div></div>';
+            $("body").append(_html);
+            GenerateCss();
+            $("#mb_btn_ok").click(function () {
+                var i=$("#inputConfirm").val();
+                $.alerts._hide();
+                if (callback) callback(i);
+            });
+            $("#mb_btn_no").click(function () {
+                $.alerts._hide();
+                if (callback) callback(false);
+            });
+            $("#mb_btn_no").focus();
+            $("#mb_btn_ok, #mb_btn_no").keypress(function (e) {
+                if (e.keyCode == 13) $("#mb_btn_ok").trigger('click');
+                if (e.keyCode == 27) $("#mb_btn_no").trigger('click');
+            });
+        },
+
 
         _show: function (title, msg, value, type, callback) {
 
@@ -66,14 +99,18 @@
         _hide: function () {
             $("#mb_box,#mb_con").remove();
         }
-    }
+    };
     // Shortuct functions
     myAlert = function (title, message, callback) {
         $.alerts.alert(title, message, callback);
-    }
+    };
 
     myConfirm = function (title, message, callback) {
         $.alerts.confirm(title, message, callback);
+    };
+
+    myInput = function (title, label, type, placeholder, callback) {
+        $.alerts.input(title,label,type,placeholder,callback);
     };
 
 

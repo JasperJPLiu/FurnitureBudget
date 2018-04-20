@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.edu.zucc.mapper.MessageboardMapper">
     <insert id="add" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO message_board(id,title,releaseTime,content,user) VALUE (#{id},#{title},#{releaseTime},#{content},#{user})
+        INSERT INTO message_board(id,title,content,user) VALUE (#{id},#{title},#{content},#{user})
     </insert>
 
     <delete id="delete">
