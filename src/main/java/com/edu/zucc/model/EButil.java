@@ -1,7 +1,7 @@
 package com.edu.zucc.model;
 
 /**
- * Created by liujiapeng on 2018/1/3.
+ * Created by moshenlin on 2018/1/3.
  */
 public class EButil {
     private String message = "success";

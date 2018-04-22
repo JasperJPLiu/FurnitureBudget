@@ -126,8 +126,8 @@
                             <div class="form-group">
                                 <label for="inputContent" class="col-sm-2 control-label">Content</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="inputContent"
-                                           placeholder="Introduce">
+                                    <textarea type="text" class="form-control" id="inputContent"
+                                              placeholder="Introduce" style="resize: vertical"></textarea>
                                 </div>
                             </div>
                         </form>
@@ -167,7 +167,8 @@
                     var tr = obj.parentNode.parentNode;
                     var id = tr.cells[0].innerHTML;
                     var title = tr.cells[1].innerHTML;
-                    var content = tr.cells[2].innerHTML;
+                    var c = tr.cells[2].innerHTML;
+                    var content=c.replace(/<br>/g,'\n');
                     initModal();
                     $("#inputID").val(id);
                     $("#groupID").show();
@@ -181,7 +182,8 @@
 
                 function createNewFurniturecommonsense() {
                     var title = $("#inputTitle").val();
-                    var content = $("#inputContent").val();
+                    var c = $("#inputContent").val();
+                    var content=c.replace(/[\n\r]/g,'<br>');
                     if (title == "")
                         alertError("文章名不可以为空");
                     else if (content == "")
@@ -212,7 +214,8 @@
                 function modifyFurniturecommonsense() {
                     var id = $("#inputID").val();
                     var title = $("#inputTitle").val();
-                    var content = $("#inputContent").val();
+                    var c = $("#inputContent").val();
+                    var content=c.replace(/[\n\r]/g,'<br>');
                     if (title == "")
                         alertError("文章名不可以为空");
                     else if (content == "")

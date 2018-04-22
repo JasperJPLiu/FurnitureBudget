@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 /**
- * Created by liujiapeng on 2018/1/4.
+ * Created by moshenlin on 2018/1/4.
  */
 @Controller
-@RequestMapping("/")
+@RequestMapping("")
 public class Webcontroller {
 
     @Autowired
@@ -40,7 +40,32 @@ public class Webcontroller {
 
     @RequestMapping("/")
     public String index() {
-        return "usermanager";
+        return "index";
+    }
+
+    @RequestMapping("/index")
+    public String user() {
+        return "user";
+    }
+
+    @RequestMapping("/skills")
+    public String skill() {
+        return "skill";
+    }
+
+    @RequestMapping("/knowledge")
+    public String know() {
+        return "know";
+    }
+
+    @RequestMapping("/product")
+    public String product() {
+        return "product";
+    }
+
+    @RequestMapping("/budget")
+    public String budget() {
+        return "budget";
     }
 
     @RequestMapping("/BrandManager")
@@ -52,7 +77,7 @@ public class Webcontroller {
     public String toMBudget(Model model) {
         List<User> users = userService.findAll();
         List<Material> materials = materialService.findAll();
-        List<Worker> workers=workerService.findAll();
+        List<Worker> workers = workerService.findAll();
         model.addAttribute("users", users);
         model.addAttribute("materials", materials);
         model.addAttribute("workers", workers);

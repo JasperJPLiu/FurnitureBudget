@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Created by liujiapeng on 2018/1/3.
+ * Created by moshenlin on 2018/1/3.
  */
 @Service
 public class FurniturecommonsenseService {
