@@ -59,7 +59,7 @@
 
                         <ul class="nav navbar-nav w3ls-nav1 text-center">
 
-                            <li >
+                            <li>
                                 <a href="/index" class="scroll">用户中心</a>
                             </li>
                             <li>
@@ -83,322 +83,300 @@
                 </div> <!-- end col -->
             </div> <!-- end row -->
         </div> <!-- end container -->
-
     </nav> <!-- end navbar -->
+</div>
+<div style="width: 100%;height: 240px;background-image: url('images/banner1.jpg')"></div>
+<style>
+    p {
+        font-family: 'Open Sans', sans-serif;
+    }
 
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
+    .page-box {
+        position: relative;
+        width: 100%;
+        height: 1300px;
+        overflow: hidden;
+        padding: 0 10%;
+    }
 
-            <div class="item active">
+    .type-box {
+        position: fixed;
+        float: left;
+        width: 20%;
+    }
 
-                <img src="images/banner1.jpg" alt="Los Angeles" style="width:100%;">
-                <div class="carousel-caption banner-dott">
-                    <div class="carousel-caption1">
-                        <h1>动手设计你自己的<span class="b-head">世界</span></h1>
-                        <p>让你的世界更加美丽</p>
-                    </div>
+    .type-box p {
+        display: block;
+        padding: 4px 20px;
+        margin: 5px 0;
+        border-bottom: 1px solid #009688;
+        font-size: 2rem;
+        font-weight: 200;
+        color: #ccc;
+    }
+
+    .info-box {
+        position: absolute;
+        left: 30%;
+        box-sizing: border-box;
+        padding: 0px 10px;
+        display: flex;
+        justify-content: space-around;
+        align-content: center;
+        float: left;
+        width: 64%;
+        flex-wrap: wrap;
+    }
+
+    .info-box .product {
+        width: 22%;
+        height: 400px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        float: left;
+        margin-top: 20px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    }
+
+    .product-info {
+        box-sizing: border-box;
+        position: relative;
+        padding: 5px 10px;
+        height: 100px;
+    }
+
+    .product-info p {
+        color: #ccc;
+    }
+
+    .product-photo {
+        height: 300px;
+        background-color: red;
+    }
+
+    .product-name {
+        font-size: 2rem;
+        word-wrap: break-word;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
+
+    .type-list a {
+        display: inline-block;
+        padding: 2px 5px;
+    }
+
+    .type-list a.active {
+        color: orange;
+    }
+
+    .product-name a, .type-list a {
+        color: #0b3e6f;
+        transition: color 1s;
+    }
+
+    .product-name a:hover, .type-list a:hover {
+        color: #0b97c4;
+    }
+
+    .product-brand {
+        position: absolute;
+        bottom: 5px;
+    }
+
+    .product-type {
+        position: absolute;
+        bottom: 5px;
+        right: 10px;
+    }
+
+</style>
+<div class="page-box">
+    <div class="type-box">
+        <p>品牌</p>
+        <div class="type-list">
+            <a class="active" href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a
+                href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a
+                href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a
+                href="">aaaaa</a><a href="">aaaaa</a>
+        </div>
+        <p>种类</p>
+        <div class="type-list">
+            <a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a
+                href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a
+                href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a
+                href="">aaaaa</a><a href="">aaaaa</a>
+        </div>
+        <p>色彩</p>
+        <div class="type-list">
+            <a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a
+                href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a
+                href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a
+                href="">aaaaa</a><a href="">aaaaa</a>
+        </div>
+    </div>
+    <div class="info-box">
+        <div class="product">
+            <div class="product-photo"></div>
+            <div class="product-info">
+                <p class="product-name"><a href="#" data-toggle="modal" data-target="#myModal">aaaaaaaaaaaaaaaaaaaaaaaaaaa</a>
+                </p>
+                <p class="product-brand">bbbb</p>
+                <p class="product-type">cccc</p>
+            </div>
+        </div>
+        <div class="product">
+        </div>
+        <div class="product">
+        </div>
+        <div class="product">
+        </div>
+        <div class="product">
+        </div>
+        <div class="product">
+        </div>
+        <div class="product">
+        </div>
+        <div class="product">
+        </div>
+        <div class="product">
+        </div>
+        <div class="product">
+        </div>
+        <div class="product">
+        </div>
+        <div class="product">
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<style>
+    .modal-body .photo {
+        position: relative;
+        margin: 0 auto;
+        width: 100%;
+        height: 400px;
+        border: 1px solid #ddd;
+        background-color: green;
+    }
+
+    .modal-body .name {
+        font-size: 3.5rem;
+    }
+
+    .modal-body .info {
+        position: relative
+    }
+
+    .modal-body .info .brand {
+        color: #ddd;
+    }
+
+    .modal-body .info .type {
+        color: #ddd;
+    }
+
+    .modal-body .info .price {
+        position: absolute;
+        top: -15px;
+        right: 15px;
+        font-size: 3.5rem;
+        color: orange;
+    }
+</style>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body" id="myModalBody">
+                <div class="photo"></div>
+                <p class="name">aaaaaaaaaaaaaaaaaaaaaaaa</p>
+                <div class="info">
+                    <p class="price">100</p>
+                    <p class="brand">bbbbbbbbbbbbbbbbb</p>
+                    <p class="type">tttttttttttt</p>
                 </div>
+                <hr>
+                <p class="remark">rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr</p>
             </div>
-
-            <div class="item">
-
-                <img src="images/banner2.jpg" alt="Chicago" style="width:100%;">
-                <div class="carousel-caption banner-dott">
-                    <div class="carousel-caption1">
-                        <h2>动手设计你自己的<span class="b-head">小窝</span></h2>
-                        <p>让简单的小窝也能登上流行的舞台</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-
-                <img src="images/banner3.jpg" alt="New York" style="width:100%;">
-                <div class="carousel-caption banner-dott">
-                    <div class="carousel-caption1">
-                        <h2>动手设计你自己的<span class="b-head">工作室</span></h2>
-                        <p>让他简约但更加华丽</p>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="fa fa-angle-left"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="fa fa-angle-right"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-
-
-</div>
-<!-- About us -->
-<div class="about" id="about">
-    <h3 class="center">关于我们</h3>
-    <div class="container">
-        <div class="d-flex">
-            <div class="about1">
-                <h4>最棒的家具预算团队</h4>
-                <p class="details">我们竭诚为各种家具装修需求提供家具预算，让您的家不但温馨，跟能紧跟潮流，追求简约奢华来符合您的各种各样的需求</p>
-                <ul class="about-list">
-                    <li>
-                        <span class="fa fa-graduation-cap" aria-hidden="true"></span>
-                        <div class="in-block">
-                            <h5>独特设计</h5>
-                            <p>我们的家具成品由法国大师亲历设计，每种设计独一无二，能符合您无论是办公，甜蜜，温馨等各种各样的想法。</p>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="fa fa-home" aria-hidden="true"></span>
-                        <div class="in-block">
-                            <h5>最好的设计装修团队</h5>
-                            <p>我们的预算从设计到家具到装修技工一站搞定，让您无后顾之忧。更能让您体验到优秀团队带来的舒适的装修体验</p>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="fa fa-gift" aria-hidden="true"></span>
-                        <div class="in-block">
-                            <h5>由您设计</h5>
-                            <p>如果您对我们的家具成品不满意或者有更好的想法，您可以在本站自由选择材料并联系本站设计师，我们的DIY预算功能将竭诚为您服务</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="about2">
-
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
-<!-- //About us -->
-<!-- Services -->
-<div class="service" id="service">
-    <h3 class="center">我们的服务</h3>
-    <div class="container">
-        <h4>室内和室外装饰的最佳服务提供商</h4>
-        <p class="details">我们提供内部和外部装饰，家具，办公设备，家用设备的服务，并提供住宅和商业场所室内装修所需的材料。</p>
-        <div class="service-list">
-            <div class="service1">
-                <span class="fa fa-diamond" aria-hidden="true"></span>
-                <h5>成品家具</h5>
-                <p>提供各类独特的家具成品，让您按照您想要的风格装修您的家</p>
-            </div>
-            <div class="service2">
-                <span class="fa fa-university" aria-hidden="true"></span>
-                <h5>设计装修</h5>
-                <p>当您选好家具后，我们提供设计装修服务，让您无后顾之忧</p>
-            </div>
-            <div class="service3">
-                <span class="fa fa-weibo" aria-hidden="true"></span>
-                <h5>DIY设计家具</h5>
-                <p>自己设计家具，让您的家具独一无二，当然我们有DIY团队供您选择，让您满意</p>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- //Services -->
-<!-- gallery -->
-<div id="gallery" class="gallery">
-    <h3 class="center">我们的成品</h3>
-    <div class="gallery-w3lsrow">
-        <div class="col-sm-3 col-xs-6 gallery-grids">
-            <div class="w3ls-hover">
-                <a href="images/g1.jpg" data-lightbox="example-set"
-                   data-title="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
-                    <img src="images/g1.jpg" class="img-responsive zoom-img" alt=""/>
-                    <div class="view-caption">
-                        <h5>沙滩气息</h5>
-                        <span class="fa fa-snowflake-o" aria-hidden="true"></span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 gallery-grids">
-            <div class="w3ls-hover">
-                <a href="images/g2.jpg" data-lightbox="example-set"
-                   data-title="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
-                    <img src="images/g2.jpg" class="img-responsive zoom-img" alt=""/>
-                    <div class="view-caption">
-                        <h5>简约办公</h5>
-                        <span class="fa fa-snowflake-o" aria-hidden="true"></span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 gallery-grids">
-            <div class="w3ls-hover">
-                <a href="images/g3.jpg" data-lightbox="example-set"
-                   data-title="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
-                    <img src="images/g3.jpg" class="img-responsive zoom-img" alt=""/>
-                    <div class="view-caption">
-                        <h5>冬林印象</h5>
-                        <span class="fa fa-snowflake-o" aria-hidden="true"></span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 gallery-grids">
-            <div class="w3ls-hover">
-                <a href="images/g4.jpg" data-lightbox="example-set"
-                   data-title="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
-                    <img src="images/g4.jpg" class="img-responsive zoom-img" alt=""/>
-                    <div class="view-caption">
-                        <h5>舒适客厅</h5>
-                        <span class="fa fa-snowflake-o" aria-hidden="true"></span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 gallery-grids">
-            <div class="w3ls-hover">
-                <a href="images/g5.jpg" data-lightbox="example-set"
-                   data-title="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
-                    <img src="images/g5.jpg" class="img-responsive zoom-img" alt=""/>
-                    <div class="view-caption">
-                        <h5>温暖围炉</h5>
-                        <span class="fa fa-snowflake-o" aria-hidden="true"></span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 gallery-grids">
-            <div class="w3ls-hover">
-                <a href="images/g6.jpg" data-lightbox="example-set"
-                   data-title="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
-                    <img src="images/g6.jpg" class="img-responsive zoom-img" alt=""/>
-                    <div class="view-caption">
-                        <h5>巴洛特沙发</h5>
-                        <span class="fa fa-snowflake-o" aria-hidden="true"></span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 gallery-grids">
-            <div class="w3ls-hover">
-                <a href="images/g7.jpg" data-lightbox="example-set"
-                   data-title="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
-                    <img src="images/g7.jpg" class="img-responsive zoom-img" alt=""/>
-                    <div class="view-caption">
-                        <h5>艺术感感</h5>
-                        <span class="fa fa-snowflake-o" aria-hidden="true"></span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 gallery-grids">
-            <div class="w3ls-hover">
-                <a href="images/g8.jpg" data-lightbox="example-set"
-                   data-title="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
-                    <img src="images/g8.jpg" class="img-responsive zoom-img" alt=""/>
-                    <div class="view-caption">
-                        <h5>欧式奢华</h5>
-                        <span class="fa fa-snowflake-o" aria-hidden="true"></span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-    <!--  light box js -->
-    <script src="js/lightbox-plus-jquery.min.js"></script>
-    <!-- //light box js-->
-</div>
-<!-- //gallery -->
-<!-- testimonials -->
-<div class="w3ls-testimons" id="testimon">
-    <h3 class="center">我们的设计师</h3>
-    <div class="container">
-        <div class="flexslider-info">
-            <section class="slider">
-                <div class="flexslider">
-                    <ul class="slides">
-                        <li>
-                            <div class="user-review">
-                                <div class="usr-txt">
-                                    <h6 class="review">艺术源于生活，而生活是艺术的来源，在生活中追求艺术之美的存在。</h6>
-                                    <p class="indent">代表作品：大华西溪，青山湖玫瑰园，九溪玫瑰园，万科公望，香格里拉，上林湖，七里香溪等</p>
-                                    <p class="usr-name">Michel Blobs, <span class="designation">时尚设计师</span>
-                                    </p>
-                                </div>
-                                <div class="usr-img">
-                                    <img src="images/u1.jpg" alt="Customer1" class="img-responsive">
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="user-review">
-                                <div class="usr-txt">
-                                    <h6 class="review">设计就是规划生活，好的设计取决于对生活的态度，能反应出个人文化修为的高度，热爱生活，才能做好设计。
-                                        .</h6>
-                                    <p class="indent">代表作品：富春山居，桃花源，大华西溪风情，天乐云都，九龙山庄，金地自在城</p>
-                                    <p class="usr-name">Nicolas Cage, <span class="designation">首席设计师</span>
-                                    </p>
-                                </div>
-                                <div class="usr-img">
-                                    <img src="images/u2.jpg" alt="Customer1" class="img-responsive">
-                                </div>
-                            </div>
 
-                        </li>
-                        <li>
-                            <div class="user-review">
-                                <div class="usr-txt">
-                                    <h6 class="review">颠覆有限的空间——创造无限的可能</h6>
-                                    <p class="indent">代表作品：九月森林别墅、九溪玫瑰园别墅、七里香溪别墅、大华西溪风情别墅、九龙山庄别墅、台州橘子洲别墅、</p>
-                                    <p class="usr-name">Simon Josef, <span class="designation">主任设计师</span></p>
-                                </div>
-                                <div class="usr-img">
-                                    <img src="images/u3.jpg" alt="Customer1" class="img-responsive">
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="clearfix"></div>
-            </section>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-</div>
-<!-- //testimonials -->
-<!-- Contact -->
-<div class="contact" id="contact">
-    <h3 class="center">加入我们</h3>
-    <div class="container">
-        <div class="contact-me">
-            <p>注册或登陆您的账号，开始您的家装之旅</p>
-            <form action="/" method="post">
-                <ul class="input">
-                    <li><span class="fa fa-user-o" aria-hidden="true"></span>
-                        <input type="text" name="name" placeholder="用户名" required>
-                    </li>
-                    <li><span class="fa fa-key" aria-hidden="true"></span>
-                        <input type="password" name="password" placeholder="密码" required>
-                    </li>
+<script type="application/javascript">
+    $(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/api/brand',
+            success: function (data) {
+                var str = '<a class="active" href="">全部</a>';
+                for (var i = 0; i < data.length; i++) {
+                    str += '<a onclick="searchByBrand(' + data[i].id + ')">' + data[i].brandName + '</a>';
+                }
+                var list = document.getElementsByClassName("type-list")[0].innerHTML = str;
+            }
+        });
+        $.ajax({
+            type: 'GET',
+            url: '/api/furnituretype',
+            success: function (data) {
+                var str = '<a class="active" href="">全部</a>';
+                for (var i = 0; i < data.length; i++) {
+                    str += '<a onclick="searchByBrand(' + data[i].id + ')">' + data[i].typeName + '</a>';
+                }
+                var list = document.getElementsByClassName("type-list")[1].innerHTML = str;
+            }
+        });
+        $.ajax({
+            type: 'GET',
+            url: '/api/furniture/getall',
+            success: function (data) {
+                var str = '';
+                var i = 0;
+                for (; i < data.length; i++) {
+                    str += '<div class="product">';
+                    str += '<div class="product-photo"></div>';
+                    str += '<div class="product-info">';
+                    str += '<p class="product-name"><a href="#" data-toggle="modal" data-target="#myModal" onclick="showFurniture('+data[i].id+')">'+data[i].furnitureName+'</a> </p>';
+                    str += '<p class="product-brand">'+data[i].brandName+'</p>';
+                    str += '<p class="product-type">'+data[i].typeName+'</p>';
+                    str += '</div></div>';
+                }
+                for(;i<12;i++)
+                    str+='<div class="product" style="border: none;box-shadow: none"></div>';
+                var list = document.getElementsByClassName("info-box")[0].innerHTML = str;
+            }
+        });
+        // $.ajax({
+        //     type: 'GET',
+        //     url: '/api/brand',
+        //     success: function (data) {
+        //         var str = '<a class="active" href="">全部</a>';
+        //         for (var i = 0; i < data.length; i++) {
+        //             str += '<a onclick="searchByBrand(' + data[i].id + ')">' + data[i].brandName + '</a>';
+        //         }
+        //         var list = document.getElementsByClassName("type-list")[0].innerHTML = str;
+        //     }
+        // })
+    });
 
-                </ul>
-                <input type="submit" value="登陆">
-            </form>
-        </div>
-    </div>
+    function searchByBrand(id) {
 
-</div>
-<!-- //Contact -->
-<!-- map -->
-<!-- //map -->
+    }
+
+    function showFurniture(id) {
+
+    }
+</script>
 <!-- footer -->
 <div class="footer">
     <div class="container">
@@ -442,17 +420,6 @@
 <script src="js/jquery.flexslider.js"></script>
 
 <!--Start-slider-script-->
-<script type="text/javascript">
-
-    $(window).load(function () {
-        $('.flexslider').flexslider({
-            animation: "slide",
-            start: function (slider) {
-                $('body').removeClass('loading');
-            }
-        });
-    });
-</script>
 
 <!--End-slider-script-->
 
@@ -461,21 +428,6 @@
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
 <!-- here stars scrolling icon -->
-<script type="text/javascript">
-    $(document).ready(function () {
-        /*
-            var defaults = {
-            containerID: 'toTop', // fading element id
-            containerHoverID: 'toTopHover', // fading element hover id
-            scrollSpeed: 1200,
-            easingType: 'linear'
-            };
-        */
-
-        $().UItoTop({easingType: 'easeOutQuart'});
-
-    });
-</script>
 <!-- //here ends scrolling icon -->
 <!-- smooth scrolling -->
 
