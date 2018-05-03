@@ -1,5 +1,6 @@
 package com.edu.zucc.controller;
 
+import com.edu.zucc.SecutityConfig;
 import com.edu.zucc.model.Furniture;
 import com.edu.zucc.model.ProductInfo;
 import com.edu.zucc.model.Productbudget;
@@ -12,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -73,7 +75,7 @@ public class ProductbudgetController {
     @RequestMapping(value = "/getall", method = RequestMethod.GET)
     public Object getAllProductBudget() {
         List<Productbudget> product_budgets = productbudgetService.findAll();
-        List<ProductInfo> productInfos=new ArrayList<>();
+        List<ProductInfo> productInfos = new ArrayList<>();
         if (product_budgets != null) {
             List<User> users = userService.findAll();
             List<Furniture> furnitures = furnitureService.findAll();
@@ -81,10 +83,37 @@ public class ProductbudgetController {
                     Collectors.toMap(User::getId, User::getUsername));
             Map<Integer, String> mapFurnitures = furnitures.stream().collect(
                     Collectors.toMap(Furniture::getId, Furniture::getFurnitureName));
-            for (Productbudget productbudget:product_budgets){
-                int b=productbudget.getUser();
-                int t=productbudget.getFurnitures();
-                productInfos.add(new ProductInfo(productbudget,mapUsers.get(b),mapFurnitures.get(t)));
+            for (Productbudget productbudget : product_budgets) {
+                int b = productbudget.getUser();
+                int t = productbudget.getFurnitures();
+                productInfos.add(new ProductInfo(productbudget, mapUsers.get(b), mapFurnitures.get(t),null));
+            }
+        }
+        return productInfos;
+    }
+
+    @ApiOperation(value = "根据用户查询成品预算的标准信息")
+    @RequestMapping(value = "/getallbyuser", method = RequestMethod.GET)
+    public Object getAllProductBudgetByUser(HttpSession session) {
+        String username=session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();
+        User user=userService.findByUsername(username);
+        if (user==null)
+            return "no such user";
+        List<Productbudget> product_budgets = productbudgetService.findByUser(user.getId());
+        List<ProductInfo> productInfos = new ArrayList<>();
+        if (product_budgets != null) {
+            List<User> users = userService.findAll();
+            List<Furniture> furnitures = furnitureService.findAll();
+            Map<Integer, String> mapUsers = users.stream().collect(
+                    Collectors.toMap(User::getId, User::getUsername));
+            Map<Integer, String> mapFurnitures = furnitures.stream().collect(
+                    Collectors.toMap(Furniture::getId, Furniture::getFurnitureName));
+            Map<Integer, Float> mapPrice = furnitures.stream().collect(
+                    Collectors.toMap(Furniture::getId, Furniture::getUnitPrice));
+            for (Productbudget productbudget : product_budgets) {
+                int b = productbudget.getUser();
+                int t = productbudget.getFurnitures();
+                productInfos.add(new ProductInfo(productbudget, mapUsers.get(b), mapFurnitures.get(t),mapPrice.get(t)));
             }
         }
         return productInfos;

@@ -21,11 +21,13 @@
     <link rel="stylesheet" href="css/lightbox.css">
     <link rel="stylesheet" href="css/style.css">
 
+
     <!-- google fonts -->
     <link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,700i,800,900" rel="stylesheet">
     <!-- scripts -->
     <script src="js/jquery.min.js"></script>
+    <script type="application/javascript" src="js/alert.js"></script>
 </head>
 <body>
 <div class="agile-banner">
@@ -150,6 +152,10 @@
         margin-right: 5%;
     }
 
+    #product-cart > tr > td > a, #diy-cart > tr > td > a {
+        color: red;
+    }
+
     .info-name {
         display: -webkit-box;
         -webkit-box-orient: vertical;
@@ -181,19 +187,20 @@
         border: none;
         border-bottom-color: transparent;
     }
+
 </style>
 <div class="user-box">
     <div class="cart">
         <div class="search-box">
             <h2>收藏夹</h2>
-            <div class="col-lg-4">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" style="font-size: 14.5px">Go!</button>
-                    </span>
-                </div><!-- /input-group -->
-            </div><!-- /.col-lg-6 -->
+            <!--<div class="col-lg-4">-->
+            <!--<div class="input-group">-->
+            <!--<input type="text" class="form-control" placeholder="Search for...">-->
+            <!--<span class="input-group-btn">-->
+            <!--<button class="btn btn-default" type="button" style="font-size: 14.5px">Go!</button>-->
+            <!--</span>-->
+            <!--</div>&lt;!&ndash; /input-group &ndash;&gt;-->
+            <!--</div>&lt;!&ndash; /.col-lg-6 &ndash;&gt;-->
         </div>
         <div>
 
@@ -211,7 +218,7 @@
                     <table class="cart-table">
                         <thead>
                         <tr>
-                            <th>全选</th>
+                            <th><input type="checkbox" id="diyallcheck" value="' + data[i].id + '"> 全选</th>
                             <th>商品信息</th>
                             <th>类型</th>
                             <th>价格</th>
@@ -219,25 +226,6 @@
                         </tr>
                         </thead>
                         <tbody id="product-cart">
-                        <tr>
-                            <td>[]</td>
-                            <td style="width: 50%">
-                                <div class="info-box">
-                                    <div class="info-img"></div>
-                                    <a class="info-name">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</a>
-                                </div>
-                            </td>
-                            <td>成品预算</td>
-                            <td>$!231231</td>
-                            <td>删除</td>
-                        </tr>
-                        <tr>
-                            <td>[]</td>
-                            <td>a</td>
-                            <td>承平预算</td>
-                            <td>$!231231</td>
-                            <td>删除</td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -245,32 +233,14 @@
                     <table class="cart-table">
                         <thead>
                         <tr>
-                            <th>全选</th>
+                            <th><input type="checkbox" id="productallcheck" value="' + data[i].id + '"> 全选</th>
                             <th>商品信息</th>
                             <th>类型</th>
                             <th>价格</th>
                             <th>操作</th>
                         </tr>
                         </thead>
-                        <tbody  id="diy-cart">
-                        <tr>
-                            <td>[]</td>
-                            <td style="width: 50%">
-                                <div class="info-box">
-                                    <a class="info-name">aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</a>
-                                </div>
-                            </td>
-                            <td>DIY</td>
-                            <td>$!231231</td>
-                            <td>删除</td>
-                        </tr>
-                        <tr>
-                            <td>[]</td>
-                            <td>a</td>
-                            <td>承平预算</td>
-                            <td>$!231231</td>
-                            <td>删除</td>
-                        </tr>
+                        <tbody id="diy-cart">
                         </tbody>
                     </table>
                 </div>
@@ -278,8 +248,123 @@
         </div>
     </div>
 </div>
-<script>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body" id="myModalBody">
+                <div class="photo"></div>
+                <p class="name">aaaaaaaaaaaaaaaaaaaaaaaa</p>
+                <div class="info">
+                    <p class="price">100</p>
+                    <p class="brand">bbbbbbbbbbbbbbbbb</p>
+                    <p class="type">tttttttttttt</p>
+                </div>
+                <hr>
+                <p class="remark">rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="application/javascript">
+    $(function () {
+        showTableProduct();
+        showTableDIY();
+    });
 
+    function showTableProduct() {
+        $.ajax({
+            type: "GET",
+            url: "/api/productbudget/getallbyuser",
+            success: function (data) {
+                var str = "";
+                for (var i = 0; i < data.length; i++) {
+                    str += '<tr>\n' +
+                        '                            <td> <input type="checkbox" name="productcheck" value="' + data[i].id + '"></td>\n' +
+                        '                            <td style="width: 50%">\n' +
+                        '                                <div class="info-box">\n' +
+                        '                                    <div class="info-img"></div>\n' +
+                        '                                    <a class="info-name" href="#" data-toggle="modal" data-target="#myModal">' + data[i].furnitureName + '</a>\n' +
+                        '                                </div>\n' +
+                        '                            </td>\n' +
+                        '                            <td>成品预算</td>\n' +
+                        '                            <td>￥' + data[i].price + '</td>\n' +
+                        '                            <td><a href="#" onclick="deleteProduct(' + data[i].id + ')">删除</a></td>\n' +
+                        '                        </tr>';
+                }
+                $("#product-cart").html(str);
+            }
+        })
+    }
+
+    function showTableDIY() {
+        $.ajax({
+            type: "GET",
+            url: "/api/dIYBudget/getallbyuser",
+            success: function (data) {
+                var str = "";
+                for (var i = 0; i < data.length; i++) {
+                    str += '<tr>\n' +
+                        '                            <td> <input type="checkbox" name="diycheck" value="' + data[i].id + '"></td>\n' +
+                        '                            <td style="width: 50%">\n' +
+                        '                                <div class="info-box">\n' +
+                        '                                    <a class="info-name">' + data[i].meterialsName + '&' + data[i].workersName + '</a>\n' +
+                        '                                </div>\n' +
+                        '                            </td>\n' +
+                        '                            <td>DIY预算</td>\n' +
+                        '                            <td>￥' + data[i].price + '</td>\n' +
+                        '                            <td><a href="#" onclick="deleteDIY(\' + data[i].id + \')">删除</a></td>\n' +
+                        '                        </tr>';
+                }
+                $("#diy-cart").html(str);
+            }
+        })
+    }
+
+    function deleteProduct(obj) {
+        myConfirm('删除确认', '确认要删除这条记录吗？', function (e) {
+            if (e == true) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/api/productbudget/" + obj,
+                    success: function (data) {
+                        if (data.resultCode == 0) {
+                            myAlert("删除确认", "删除成功");
+                            showTableProduct();
+                        }
+                        else
+                            myAlert("删除失败！！！", data.message);
+                    }
+                })
+            }
+        })
+    }
+
+    function deleteDIY(obj) {
+        myConfirm('删除确认', '确认要删除这条记录吗？', function (e) {
+            if (e == true) {
+                $.ajax({
+                    type: "DELETE",
+                    url: "/api/dIYBudget/" + obj,
+                    success: function (data) {
+                        if (data.resultCode == 0) {
+                            myAlert("删除确认", "删除成功");
+                            showTableDIY();
+                        }
+                        else
+                            myAlert("删除失败！！！", data.message);
+                    }
+                })
+            }
+        })
+    }
 </script>
 <!-- footer -->
 <div class="footer">

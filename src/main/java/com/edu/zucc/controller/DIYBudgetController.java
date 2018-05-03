@@ -1,5 +1,6 @@
 package com.edu.zucc.controller;
 
+import com.edu.zucc.SecutityConfig;
 import com.edu.zucc.model.*;
 import com.edu.zucc.service.DIYBudgetService;
 import com.edu.zucc.service.MaterialService;
@@ -10,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -127,7 +129,8 @@ public class DIYBudgetController {
 
     @ApiOperation(value = "根据用户查询预算的标准信息")
     @RequestMapping(value = "/getallbyuser", method = RequestMethod.GET)
-    public Object getAllDIYBudgetByUser(@RequestParam String username) {
+    public Object getAllDIYBudgetByUser(HttpSession session) {
+        String username=session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();
         User user=userService.findByUsername(username);
         if (user==null)
             return "no such user";
