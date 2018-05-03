@@ -7,8 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by moshenlin on 2018/1/4.
@@ -32,11 +37,6 @@ public class Webcontroller {
     @Autowired
     private MaterialService materialService;
 
-
-    @RequestMapping("/login")
-    public String login() {
-        return "login";
-    }
 
     @RequestMapping("/")
     public String index() {
@@ -146,5 +146,33 @@ public class Webcontroller {
     @RequestMapping("/WorkerManager")
     public String toMWorker() {
         return "workermanager";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public @ResponseBody
+    Map<String, Object> login(String username, String password, HttpSession session) {
+        Map<String, Object> map = new HashMap<>();
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        EButil ebUtil = new EButil();
+        try {
+            ebUtil = userService.Login(user);
+        } catch (Throwable throwable) {
+            ebUtil.Error(throwable.getMessage());
+        }
+        map.put("message", ebUtil.getMessage());
+        map.put("result", ebUtil.getResultCode());
+        if (ebUtil.getResultCode() != 0)
+            return map;
+
+        session.setAttribute(SecutityConfig.SESSION_KEY_USER, username);
+        return map;
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpSession session) {
+        session.removeAttribute(SecutityConfig.SESSION_KEY_USER);
+        return "redirect:/";
     }
 }

@@ -31,7 +31,7 @@ body a:focus, a:hover {
     text-decoration: none;
 }
 
-input[type="button"], input[type="submit"] {
+input[type="button"], input[type="submit"], input[type="button"] {
     transition: 0.5s all;
     -webkit-transition: 0.5s all;
     -moz-transition: 0.5s all;
@@ -592,7 +592,7 @@ ul.input li {
     margin: 25px 0px;
 }
 
-.contact-me input[type="submit"] {
+.contact-me input[type="submit"], input[type="button"] {
     border: none;
     background-color: rgba(244, 67, 54, 0.76);
     font-weight: 400;
@@ -642,7 +642,7 @@ ul.input span.fa {
     color: white;
 }
 
-.contact-me input[type="submit"]:hover {
+.contact-me input[type="submit"], input[type="button"]:hover {
     background: #00BCD4;
 }
 
@@ -1169,7 +1169,7 @@ ul.input span.fa {
         margin: auto;
     }
 
-    .contact-me input[type="submit"] {
+    .contact-me input[type="submit"], input[type="button"] {
         padding: 9px 27%;
     }
 
@@ -1244,7 +1244,7 @@ ul.input span.fa {
         width: 350px;
     }
 
-    .contact-me input[type="submit"] {
+    .contact-me input[type="submit"], input[type="button"] {
         padding: 9px 23%;
     }
 
@@ -1263,7 +1263,7 @@ ul.input span.fa {
         width: 300px;
     }
 
-    .contact-me input[type="submit"] {
+    .contact-me input[type="submit"], input[type="button"] {
         padding: 9px 21%;
     }
 
@@ -1353,7 +1353,7 @@ ul.input span.fa {
         width: 280px;
     }
 
-    .contact-me input[type="submit"] {
+    .contact-me input[type="submit"], input[type="button"] {
         padding: 9px 20%;
         margin-left: 0;
     }

@@ -380,20 +380,42 @@
     <div class="container">
         <div class="contact-me">
             <p>注册或登陆您的账号，开始您的家装之旅</p>
-            <form action="/" method="post">
+            <form>
                 <ul class="input">
                     <li><span class="fa fa-user-o" aria-hidden="true"></span>
-                        <input type="text" name="name" placeholder="用户名" required>
+                        <input type="text" name="username" placeholder="用户名" required id="username">
                     </li>
                     <li><span class="fa fa-key" aria-hidden="true"></span>
-                        <input type="password" name="password" placeholder="密码" required>
+                        <input type="password" name="password" placeholder="密码" required id="password">
                     </li>
 
                 </ul>
-                <input type="submit" value="登陆">
+                <input type="button" onclick="log()" value="登陆">
             </form>
         </div>
     </div>
+    <script type="application/javascript">
+        function log() {
+            var username = $("#username").val();
+            var password = $("#password").val();
+            $.ajax({
+                type: "POST",
+                url: "/login",
+                data: {
+                    username: username,
+                    password: password
+                },
+                success: function (data) {
+                    if (data.result == 0)
+                        window.location.href = "/index";
+                    else
+                        alert(data.message);
+
+                }
+            })
+
+        }
+    </script>
 
 </div>
 <!-- //Contact -->
