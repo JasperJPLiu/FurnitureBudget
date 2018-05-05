@@ -26,6 +26,7 @@
     <link href="//fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,700i,800,900" rel="stylesheet">
     <!-- scripts -->
     <script src="js/jquery.min.js"></script>
+    <script src="js/alert.js"></script>
 </head>
 <body>
 <div class="agile-banner">
@@ -166,6 +167,7 @@
     .type-list a {
         display: inline-block;
         padding: 2px 5px;
+        transition: none !important;
     }
 
     .type-list a.active {
@@ -179,6 +181,10 @@
 
     .product-name a:hover, .type-list a:hover {
         color: #0b97c4;
+    }
+
+    .type-list a.active:hover {
+        color: orange;
     }
 
     .product-brand {
@@ -196,14 +202,14 @@
 <div class="page-box">
     <div class="type-box">
         <p>品牌</p>
-        <div class="type-list">
+        <div class="type-list" id="brandList">
             <a class="active" href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a
                 href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a
                 href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a
                 href="">aaaaa</a><a href="">aaaaa</a>
         </div>
         <p>种类</p>
-        <div class="type-list">
+        <div class="type-list" id="typeList">
             <a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a
                 href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a
                 href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a href="">aaaaa</a><a
@@ -260,20 +266,20 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                <h4 class="modal-title" id="myModalLabel">家具信息</h4>
             </div>
             <div class="modal-body" id="myModalBody">
                 <div class="photo"></div>
-                <p class="name">aaaaaaaaaaaaaaaaaaaaaaaa</p>
+                <p class="name" id="fname">aaaaaaaaaaaaaaaaaaaaaaaa</p>
                 <div class="info">
-                    <p class="price">100</p>
-                    <p class="brand">bbbbbbbbbbbbbbbbb</p>
-                    <p class="type">tttttttttttt</p>
+                    <p class="price" id="fprice">100</p>
+                    <p class="brand" id="fbrand">bbbbbbbbbbbbbbbbb</p>
+                    <p class="type" id="ftype">tttttttttttt</p>
                 </div>
                 <hr>
-                <p class="remark">rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr</p>
+                <p class="remark" id="fremark">rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr</p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" id="modalFooter">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -281,14 +287,15 @@
 </div>
 
 <script type="application/javascript">
+    var furnitures = {'datalist': []};
     $(function () {
         $.ajax({
             type: 'GET',
             url: '/api/brand',
             success: function (data) {
-                var str = '<a class="active" href="">全部</a>';
+                var str = '<a class="active" href="#" onclick="searchByBrand(this,0)">全部</a>';
                 for (var i = 0; i < data.length; i++) {
-                    str += '<a onclick="searchByBrand(' + data[i].id + ')">' + data[i].brandName + '</a>';
+                    str += '<a href="#" onclick="searchByBrand(this,' + data[i].id + ')">' + data[i].brandName + '</a>';
                 }
                 var list = document.getElementsByClassName("type-list")[0].innerHTML = str;
             }
@@ -297,9 +304,9 @@
             type: 'GET',
             url: '/api/furnituretype',
             success: function (data) {
-                var str = '<a class="active" href="">全部</a>';
+                var str = '<a class="active" href="#" onclick="searchByType(this,0)">全部</a>';
                 for (var i = 0; i < data.length; i++) {
-                    str += '<a onclick="searchByBrand(' + data[i].id + ')">' + data[i].typeName + '</a>';
+                    str += '<a  href="#" onclick="searchByType(this,' + data[i].id + ')">' + data[i].typeName + '</a>';
                 }
                 var list = document.getElementsByClassName("type-list")[1].innerHTML = str;
             }
@@ -311,16 +318,26 @@
                 var str = '';
                 var i = 0;
                 for (; i < data.length; i++) {
+                    var furnture = {
+                        id: data[i].id,
+                        name: data[i].furnitureName,
+                        brand: data[i].brandName,
+                        type: data[i].typeName,
+                        price: data[i].unitPrice,
+                        colour: data[i].colour,
+                        remark: data[i].otherInformation
+                    }
+                    furnitures.datalist.push(furnture);
                     str += '<div class="product">';
                     str += '<div class="product-photo"></div>';
                     str += '<div class="product-info">';
-                    str += '<p class="product-name"><a href="#" data-toggle="modal" data-target="#myModal" onclick="showFurniture('+data[i].id+')">'+data[i].furnitureName+'</a> </p>';
-                    str += '<p class="product-brand">'+data[i].brandName+'</p>';
-                    str += '<p class="product-type">'+data[i].typeName+'</p>';
+                    str += '<p class="product-name"><a href="#" onclick="showFurniture(' + data[i].id + ')">' + data[i].furnitureName + '</a> </p>';
+                    str += '<p class="product-brand">' + data[i].brandName + '</p>';
+                    str += '<p class="product-type">' + data[i].typeName + '</p>';
                     str += '</div></div>';
                 }
-                for(;i<12;i++)
-                    str+='<div class="product" style="border: none;box-shadow: none"></div>';
+                for (; i < 12; i++)
+                    str += '<div class="product" style="border: none;box-shadow: none"></div>';
                 var list = document.getElementsByClassName("info-box")[0].innerHTML = str;
             }
         });
@@ -337,12 +354,143 @@
         // })
     });
 
-    function searchByBrand(id) {
+
+    function searchByBrand(obj, id) {
+        $("#brandList .active").removeClass("active");
+        $(obj).addClass("active");
+        if (id == 0) {
+            $.ajax({
+                type: 'GET',
+                url: '/api/furniture/getall',
+                success: function (data) {
+                    var str = '';
+                    var i = 0;
+                    for (; i < data.length; i++) {
+                        str += '<div class="product">';
+                        str += '<div class="product-photo"></div>';
+                        str += '<div class="product-info">';
+                        str += '<p class="product-name"><a href="#" onclick="showFurniture(' + data[i].id + ')">' + data[i].furnitureName + '</a> </p>';
+                        str += '<p class="product-brand">' + data[i].brandName + '</p>';
+                        str += '<p class="product-type">' + data[i].typeName + '</p>';
+                        str += '</div></div>';
+                    }
+                    for (; i < 12; i++)
+                        str += '<div class="product" style="border: none;box-shadow: none"></div>';
+                    var list = document.getElementsByClassName("info-box")[0].innerHTML = str;
+                }
+            });
+        }
+        else {
+            $.ajax({
+                type: 'GET',
+                url: '/api/furniture/getInfoByBandID',
+                data: {brand: id},
+                success: function (data) {
+                    var str = '';
+                    var i = 0;
+                    for (; i < data.length; i++) {
+                        str += '<div class="product">';
+                        str += '<div class="product-photo"></div>';
+                        str += '<div class="product-info">';
+                        str += '<p class="product-name"><a href="#" onclick="showFurniture(' + data[i].id + ')">' + data[i].furnitureName + '</a> </p>';
+                        str += '<p class="product-brand">' + data[i].brandName + '</p>';
+                        str += '<p class="product-type">' + data[i].typeName + '</p>';
+                        str += '</div></div>';
+                    }
+                    for (; i < 12; i++)
+                        str += '<div class="product" style="border: none;box-shadow: none"></div>';
+                    var list = document.getElementsByClassName("info-box")[0].innerHTML = str;
+                }
+            });
+        }
+
+    }
+
+    function searchByType(obj, id) {
+        $("#typeList .active").removeClass("active");
+        $(obj).addClass("active");
+        if (id == 0) {
+            $.ajax({
+                type: 'GET',
+                url: '/api/furniture/getall',
+                success: function (data) {
+                    var str = '';
+                    var i = 0;
+                    for (; i < data.length; i++) {
+                        str += '<div class="product">';
+                        str += '<div class="product-photo"></div>';
+                        str += '<div class="product-info">';
+                        str += '<p class="product-name"><a href="#" onclick="showFurniture(' + data[i].id + ')">' + data[i].furnitureName + '</a> </p>';
+                        str += '<p class="product-brand">' + data[i].brandName + '</p>';
+                        str += '<p class="product-type">' + data[i].typeName + '</p>';
+                        str += '</div></div>';
+                    }
+                    for (; i < 12; i++)
+                        str += '<div class="product" style="border: none;box-shadow: none"></div>';
+                    var list = document.getElementsByClassName("info-box")[0].innerHTML = str;
+                }
+            });
+        }
+        else {
+            $.ajax({
+                type: 'GET',
+                url: '/api/furniture/getInfoByTypeID',
+                data: {type: id},
+                success: function (data) {
+                    var str = '';
+                    var i = 0;
+                    for (; i < data.length; i++) {
+                        str += '<div class="product">';
+                        str += '<div class="product-photo"></div>';
+                        str += '<div class="product-info">';
+                        str += '<p class="product-name"><a href="#" onclick="showFurniture(' + data[i].id + ')">' + data[i].furnitureName + '</a> </p>';
+                        str += '<p class="product-brand">' + data[i].brandName + '</p>';
+                        str += '<p class="product-type">' + data[i].typeName + '</p>';
+                        str += '</div></div>';
+                    }
+                    for (; i < 12; i++)
+                        str += '<div class="product" style="border: none;box-shadow: none"></div>';
+                    var list = document.getElementsByClassName("info-box")[0].innerHTML = str;
+                }
+            });
+        }
 
     }
 
     function showFurniture(id) {
+        var fs = furnitures.datalist;
+        for (var i = 0; i < fs.length; i++) {
+            if (fs[i].id != id)
+                continue;
+            $("#fname").text(fs[i].name);
+            $("#fbrand").text(fs[i].brand);
+            $("#ftype").text(fs[i].type);
+            $("#fprice").text("￥" + fs[i].price);
+            $("#fremark").text(fs[i].remark);
+            $("#myModal").modal('show');
+            $("#modalFooter").html('  <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>\n' +
+                '<button type="button" class="btn btn-primary" id="saveChanges" onclick="addToUser(' + fs[i].id + ')">添加到收藏夹</button>');
+        }
+    }
 
+    function addToUser(id) {
+        myConfirm("确认收藏", "是否确认收藏该家具?", function (e) {
+            if (e == true) {
+                $.ajax({
+                    type: "POST",
+                    url: "/api/productbudget/addwithuser",
+                    data: {id: id},
+                    success: function (data) {
+                        if (data.resultCode == 0) {
+                            myAlert("收藏成功", "该家具收藏成功");
+                            $("#myModal").modal('hide');
+                        } else {
+                            myAlert("收藏失败", data.message);
+                        }
+                    }
+                })
+            }
+        })
     }
 </script>
 <!-- footer -->

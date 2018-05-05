@@ -25,6 +25,13 @@ public class ProductbudgetService {
         return productbudgetMapper.findByUser(productbudget);
     }
 
+    public Productbudget findByUserAndFurniture(int user,int furniture) {
+        Productbudget productbudget = new Productbudget();
+        productbudget.setUser(user);
+        productbudget.setFurnitures(furniture);
+        return productbudgetMapper.findByUserAndFurniture(productbudget);
+    }
+
 
     public Productbudget findById(int id) {
         Productbudget productbudget = new Productbudget();
@@ -38,6 +45,11 @@ public class ProductbudgetService {
 
     public EButil add(Productbudget productbudget) {
         EButil result = new EButil();
+        Productbudget productbudget1=findByUserAndFurniture(productbudget.getUser(),productbudget.getFurnitures());
+        if (productbudget1!=null){
+            result.Error("此相同的收藏记录已存在");
+            return result;
+        }
         productbudgetMapper.add(productbudget);
         result.Success();
         return result;

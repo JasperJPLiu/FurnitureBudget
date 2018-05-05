@@ -27,6 +27,13 @@ public class FurnitureService {
         return furnitureMapper.findByType(furnituretype);
     }
 
+    /*根据家具类型查*/
+    public List<Furniture> findByType(int id) {
+        Furniture furniture=new Furniture();
+        furniture.setFurnitureType(id);
+        return furnitureMapper.findByTypeID(furniture);
+    }
+
     /*根据家具名称查*/
     public List<Furniture> findByName(String furnitureName) {
         Furniture furniture = new Furniture();
@@ -39,6 +46,13 @@ public class FurnitureService {
         Brand brand = new Brand();
         brand.setBrandName(brandName);
         return furnitureMapper.findByBand(brand);
+    }
+
+    /*根据品牌ID查*/
+    public List<Furniture> findByBand(int id) {
+        Furniture furniture=new Furniture();
+        furniture.setBrand(id);
+        return furnitureMapper.findByBandID(furniture);
     }
 
     /*根据价格区间查*/

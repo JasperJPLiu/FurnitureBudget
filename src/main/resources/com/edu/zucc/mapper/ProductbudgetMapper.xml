@@ -28,6 +28,10 @@
         SELECT * FROM product_budget WHERE id=#{id}
     </select>
 
+    <select id="findByUserAndFurniture" resultType="Productbudget">
+        SELECT * FROM product_budget WHERE user=#{user} AND furnitures=#{furnitures}
+    </select>
+
     <!--根据用户查-->
     <select id="findByUser" resultType="Productbudget">
         SELECT * FROM product_budget WHERE user=#{user}

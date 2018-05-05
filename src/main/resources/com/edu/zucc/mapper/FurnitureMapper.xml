@@ -61,6 +61,20 @@
         AND b.brandName=#{brandName}
     </select>
 
+    <!--根据品牌id查-->
+    <select id="findByBandID" resultType="Furniture">
+        SELECT *
+        FROM furniture
+        WHERE brand=#{brand}
+    </select>
+
+    <!--根据Type id查-->
+    <select id="findByTypeID" resultType="Furniture">
+        SELECT *
+        FROM furniture
+        WHERE furnitureType=#{furnitureType}
+    </select>
+
     <!--根据价格区间查-->
     <select id="findByPrice" resultType="Furniture">
         SELECT * FROM furniture WHERE unitPrice BETWEEN #{first} AND #{last}

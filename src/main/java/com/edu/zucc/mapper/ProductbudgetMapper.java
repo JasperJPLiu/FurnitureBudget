@@ -15,6 +15,8 @@ public interface ProductbudgetMapper {
 
     Productbudget findByKey(Productbudget productbudget);
 
+    Productbudget findByUserAndFurniture(Productbudget productbudget);
+
     /*根据用户查*/
     List<Productbudget> findByUser(Productbudget productbudget);
 }

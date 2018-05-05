@@ -27,11 +27,11 @@ public class FurnitureController {
 
 
     /*根据家具类型名查*/
-     @ApiOperation(value = "根据家具类型名查")
-     @RequestMapping(value = "/findByType", method = RequestMethod.GET)
-     public Object findByType(@RequestParam String typeName) {
-         return furnitureService.findByType(typeName);
-     }
+    @ApiOperation(value = "根据家具类型名查")
+    @RequestMapping(value = "/findByType", method = RequestMethod.GET)
+    public Object findByType(@RequestParam String typeName) {
+        return furnitureService.findByType(typeName);
+    }
 
     /*根据家具名称查*/
     @ApiOperation(value = "根据家具名称查")
@@ -47,11 +47,12 @@ public class FurnitureController {
         return furnitureService.findByBand(brandName);
     }
 
+
     /*根据价格区间查*/
     @ApiOperation(value = "根据价格区间查")
     @RequestMapping(value = "/findByPrice", method = RequestMethod.GET)
     public Object findByPrice(@RequestParam float first, @RequestParam float last) {
-        return furnitureService.findByPrice(first,last);
+        return furnitureService.findByPrice(first, last);
     }
 
 
@@ -92,7 +93,7 @@ public class FurnitureController {
     @RequestMapping(value = "/getall", method = RequestMethod.GET)
     public Object getAllFuniture() {
         List<Furniture> furnitures = furnitureService.findAll();
-        List<FurnitureInfo> furnitureInfos=new ArrayList<>();
+        List<FurnitureInfo> furnitureInfos = new ArrayList<>();
         if (furnitures != null) {
             List<Brand> brands = brandService.findAll();
             List<Furnituretype> furnituretypes = furnituretypeService.findAll();
@@ -100,10 +101,73 @@ public class FurnitureController {
                     Collectors.toMap(Brand::getId, Brand::getBrandName));
             Map<Integer, String> mapTypes = furnituretypes.stream().collect(
                     Collectors.toMap(Furnituretype::getId, Furnituretype::getTypeName));
-            for (Furniture furniture:furnitures){
-                int b=furniture.getBrand();
-                int t=furniture.getFurnitureType();
-                furnitureInfos.add(new FurnitureInfo(furniture,mapTypes.get(t),mapBrands.get(b)));
+            for (Furniture furniture : furnitures) {
+                int b = furniture.getBrand();
+                int t = furniture.getFurnitureType();
+                furnitureInfos.add(new FurnitureInfo(furniture, mapTypes.get(t), mapBrands.get(b)));
+            }
+        }
+        return furnitureInfos;
+    }
+
+    @ApiOperation(value = "根据ID查找家具的标准信息")
+    @RequestMapping(value = "/getInfoById", method = RequestMethod.GET)
+    public Object getInfoById(@RequestParam int id) {
+        Furniture furniture = furnitureService.findById(id);
+        FurnitureInfo furnitureInfo = null;
+        if (furniture != null) {
+            List<Brand> brands = brandService.findAll();
+            List<Furnituretype> furnituretypes = furnituretypeService.findAll();
+            Map<Integer, String> mapBrands = brands.stream().collect(
+                    Collectors.toMap(Brand::getId, Brand::getBrandName));
+            Map<Integer, String> mapTypes = furnituretypes.stream().collect(
+                    Collectors.toMap(Furnituretype::getId, Furnituretype::getTypeName));
+            int b = furniture.getBrand();
+            int t = furniture.getFurnitureType();
+            furnitureInfo = new FurnitureInfo(furniture, mapTypes.get(t), mapBrands.get(b));
+        }
+        return furnitureInfo;
+    }
+
+    /*根据品牌ID查*/
+    @ApiOperation(value = "根据品牌ID查找家具的标准信息")
+    @RequestMapping(value = "/getInfoByBandID", method = RequestMethod.GET)
+    public Object findByBand(@RequestParam int brand) {
+        List<Furniture> furnitures = furnitureService.findByBand(brand);
+        List<FurnitureInfo> furnitureInfos = new ArrayList<>();
+        if (furnitures != null) {
+            List<Brand> brands = brandService.findAll();
+            List<Furnituretype> furnituretypes = furnituretypeService.findAll();
+            Map<Integer, String> mapBrands = brands.stream().collect(
+                    Collectors.toMap(Brand::getId, Brand::getBrandName));
+            Map<Integer, String> mapTypes = furnituretypes.stream().collect(
+                    Collectors.toMap(Furnituretype::getId, Furnituretype::getTypeName));
+            for (Furniture furniture : furnitures) {
+                int b = furniture.getBrand();
+                int t = furniture.getFurnitureType();
+                furnitureInfos.add(new FurnitureInfo(furniture, mapTypes.get(t), mapBrands.get(b)));
+            }
+        }
+        return furnitureInfos;
+    }
+
+    /*根据品牌ID查*/
+    @ApiOperation(value = "根据品牌ID查找家具的标准信息")
+    @RequestMapping(value = "/getInfoByTypeID", method = RequestMethod.GET)
+    public Object findByType(@RequestParam int type) {
+        List<Furniture> furnitures = furnitureService.findByType(type);
+        List<FurnitureInfo> furnitureInfos = new ArrayList<>();
+        if (furnitures != null) {
+            List<Brand> brands = brandService.findAll();
+            List<Furnituretype> furnituretypes = furnituretypeService.findAll();
+            Map<Integer, String> mapBrands = brands.stream().collect(
+                    Collectors.toMap(Brand::getId, Brand::getBrandName));
+            Map<Integer, String> mapTypes = furnituretypes.stream().collect(
+                    Collectors.toMap(Furnituretype::getId, Furnituretype::getTypeName));
+            for (Furniture furniture : furnitures) {
+                int b = furniture.getBrand();
+                int t = furniture.getFurnitureType();
+                furnitureInfos.add(new FurnitureInfo(furniture, mapTypes.get(t), mapBrands.get(b)));
             }
         }
         return furnitureInfos;

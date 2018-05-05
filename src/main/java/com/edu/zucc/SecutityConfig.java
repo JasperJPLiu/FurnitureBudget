@@ -38,12 +38,12 @@ public class SecutityConfig extends WebMvcConfigurerAdapter {
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
             HttpSession session = request.getSession();
             String username = (String) session.getAttribute(SESSION_KEY_USER);
-//            return true;
-            if (session.getAttribute(SESSION_KEY_USER) != null)
-                return true;
-            String url = "/";
-            response.sendRedirect(url);
-            return false;
+            return true;
+//            if (session.getAttribute(SESSION_KEY_USER) != null)
+//                return true;
+//            String url = "/";
+//            response.sendRedirect(url);
+//            return false;
         }
     }
 }

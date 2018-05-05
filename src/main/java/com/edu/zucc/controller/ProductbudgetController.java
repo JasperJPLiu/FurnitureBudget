@@ -118,4 +118,14 @@ public class ProductbudgetController {
         }
         return productInfos;
     }
+
+    @ApiOperation(value = "用户新增成品预算信息")
+    @RequestMapping(value = "/addwithuser", method = RequestMethod.POST)
+    public Object create(@RequestParam int id,HttpSession session) {
+        Productbudget productbudget=new Productbudget();
+        productbudget.setFurnitures(id);
+        User user=userService.findByUsername(session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString());
+        productbudget.setUser(user.getId());
+        return productbudgetService.add(productbudget);
+    }
 }
