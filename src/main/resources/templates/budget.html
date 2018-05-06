@@ -20,12 +20,14 @@
     <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen"/> <!-- Testimonials js-->
     <link rel="stylesheet" href="css/lightbox.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="http://www.bootcss.com/p/buttons/css/buttons.css">
 
     <!-- google fonts -->
     <link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,700i,800,900" rel="stylesheet">
     <!-- scripts -->
     <script src="js/jquery.min.js"></script>
+    <script src="js/alert.js"></script>
 </head>
 <body>
 <div class="agile-banner">
@@ -59,7 +61,7 @@
 
                         <ul class="nav navbar-nav w3ls-nav1 text-center">
 
-                            <li >
+                            <li>
                                 <a href="/index" class="scroll">用户中心</a>
                             </li>
                             <li>
@@ -83,322 +85,398 @@
                 </div> <!-- end col -->
             </div> <!-- end row -->
         </div> <!-- end container -->
-
     </nav> <!-- end navbar -->
+</div>
+<div style="width: 100%;height: 240px;background-image: url('images/banner1.jpg')"></div>
+<style>
+    p {
+        font-family: 'Open Sans', sans-serif;
+    }
 
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
+    .page-box {
+        position: relative;
+        width: 100%;
+        min-height: 900px;
+        overflow: hidden;
+        padding: 0 10%;
+    }
 
-            <div class="item active">
+    .list-title {
+        padding: 1% 1%;
+        color: darkgreen;
+        border-bottom: 1px solid orange;
+    }
 
-                <img src="images/banner1.jpg" alt="Los Angeles" style="width:100%;">
-                <div class="carousel-caption banner-dott">
-                    <div class="carousel-caption1">
-                        <h1>动手设计你自己的<span class="b-head">世界</span></h1>
-                        <p>让你的世界更加美丽</p>
-                    </div>
+    .list-box {
+        width: 100%;
+        padding: 1% 0;
+    }
+
+    .list-row::after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+
+    .list-span {
+        float: left;
+        width: 19%;
+        margin-bottom: 20px;
+        border: 1px solid #d3d3d3;
+        border-radius: 4px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+        padding: 8px;
+        margin-left: 1.25%;
+    }
+
+    .list-span.active {
+        border: 1px solid #FFF749;
+        box-shadow: 0 1px 1px rgba(255, 247, 73, 1);
+    }
+
+    .list-span:first-child {
+        margin-left: 0;
+    }
+
+    #material-list .list-span {
+        height: 150px;
+    }
+
+    #worker-list .list-span {
+        height: 130px;
+    }
+
+    .material-name, .worker-name {
+        color: #0b3e6f;
+        font-size: 3rem;
+        font-weight: 700;
+    }
+
+    .material-brand {
+        display: inline;
+        color: #aaaaaa;
+    }
+
+    .worker-Position {
+        color: #aaaaaa;
+    }
+
+    .material-type {
+        float: right;
+        color: #aaaaaa;
+        text-align: right;
+    }
+
+    .material-colour {
+        color: #aaaaaa;
+    }
+
+    .material-price, .worker-price {
+        float: right;
+        font-size: 2rem;
+        color: orange;
+    }
+
+    .btn-add {
+        float: right;
+        margin-top: 2px;
+        margin-left: 5px;
+    }
+
+    .material-name a {
+        color: #0b97c4;
+        transition: color 0.2s;
+    }
+
+    .material-name a:hover {
+        color: orange;
+    }
+
+
+</style>
+<div class="page-box">
+    <div class="row">
+        <div class="col-md-12 list-title">
+            <h2>材料选择</h2>
+        </div>
+    </div>
+    <div class="list-box" id="material-list">
+        <div class="list-row">
+            <div class="list-span">
+                <p class="material-name">name</p>
+                <p class="material-brand">brand</p>
+                <p class="material-type">type</p>
+                <p class="material-colour">colour</p>
+
+                <button class="button button-raised button-action button-circle button-jumbo button-small btn-add">
+                    <i class="fa fa-plus"></i>
+                </button>
+                <p class="material-price">price</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 list-title">
+            <h2>技工选择</h2>
+        </div>
+    </div>
+    <div class="list-box" id="worker-list">
+        <div class="list-row">
+            <div class="list-span">
+                <p class="worker-name">name</p>
+                <p class="worker-Position">brand</p>
+
+                <button class="button button-raised button-action button-circle button-jumbo button-small btn-add">
+                    <i class="fa fa-plus"></i>
+                </button>
+                <p class="worker-price">price</p>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: center;margin-top: 50px">
+        <a href="#" class="button button-3d button-primary button-rounded"
+           style="font-size: 3rem;font-weight: 700" onclick="addDIYBudget()">添加到收藏夹</a>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">材料信息</h4>
+            </div>
+            <div class="modal-body" id="myModalBody">
+                <p class="name" id="fname">aaaaaaaaaaaaaaaaaaaaaaaa</p>
+                <div class="info">
+                    <p class="price" id="fprice">100</p>
+                    <p class="brand" id="fbrand">bbbbbbbbbbbbbbbbb</p>
+                    <p class="type" id="ftype">tttttttttttt</p>
                 </div>
+                <hr>
+                <p class="remark" id="fremark">rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr</p>
             </div>
-
-            <div class="item">
-
-                <img src="images/banner2.jpg" alt="Chicago" style="width:100%;">
-                <div class="carousel-caption banner-dott">
-                    <div class="carousel-caption1">
-                        <h2>动手设计你自己的<span class="b-head">小窝</span></h2>
-                        <p>让简单的小窝也能登上流行的舞台</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="item">
-
-                <img src="images/banner3.jpg" alt="New York" style="width:100%;">
-                <div class="carousel-caption banner-dott">
-                    <div class="carousel-caption1">
-                        <h2>动手设计你自己的<span class="b-head">工作室</span></h2>
-                        <p>让他简约但更加华丽</p>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="fa fa-angle-left"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="fa fa-angle-right"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
-
-
-</div>
-<!-- About us -->
-<div class="about" id="about">
-    <h3 class="center">关于我们</h3>
-    <div class="container">
-        <div class="d-flex">
-            <div class="about1">
-                <h4>最棒的家具预算团队</h4>
-                <p class="details">我们竭诚为各种家具装修需求提供家具预算，让您的家不但温馨，跟能紧跟潮流，追求简约奢华来符合您的各种各样的需求</p>
-                <ul class="about-list">
-                    <li>
-                        <span class="fa fa-graduation-cap" aria-hidden="true"></span>
-                        <div class="in-block">
-                            <h5>独特设计</h5>
-                            <p>我们的家具成品由法国大师亲历设计，每种设计独一无二，能符合您无论是办公，甜蜜，温馨等各种各样的想法。</p>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="fa fa-home" aria-hidden="true"></span>
-                        <div class="in-block">
-                            <h5>最好的设计装修团队</h5>
-                            <p>我们的预算从设计到家具到装修技工一站搞定，让您无后顾之忧。更能让您体验到优秀团队带来的舒适的装修体验</p>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="fa fa-gift" aria-hidden="true"></span>
-                        <div class="in-block">
-                            <h5>由您设计</h5>
-                            <p>如果您对我们的家具成品不满意或者有更好的想法，您可以在本站自由选择材料并联系本站设计师，我们的DIY预算功能将竭诚为您服务</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="about2">
-
+            <div class="modal-footer" id="modalFooter">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
-<!-- //About us -->
-<!-- Services -->
-<div class="service" id="service">
-    <h3 class="center">我们的服务</h3>
-    <div class="container">
-        <h4>室内和室外装饰的最佳服务提供商</h4>
-        <p class="details">我们提供内部和外部装饰，家具，办公设备，家用设备的服务，并提供住宅和商业场所室内装修所需的材料。</p>
-        <div class="service-list">
-            <div class="service1">
-                <span class="fa fa-diamond" aria-hidden="true"></span>
-                <h5>成品家具</h5>
-                <p>提供各类独特的家具成品，让您按照您想要的风格装修您的家</p>
-            </div>
-            <div class="service2">
-                <span class="fa fa-university" aria-hidden="true"></span>
-                <h5>设计装修</h5>
-                <p>当您选好家具后，我们提供设计装修服务，让您无后顾之忧</p>
-            </div>
-            <div class="service3">
-                <span class="fa fa-weibo" aria-hidden="true"></span>
-                <h5>DIY设计家具</h5>
-                <p>自己设计家具，让您的家具独一无二，当然我们有DIY团队供您选择，让您满意</p>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- //Services -->
-<!-- gallery -->
-<div id="gallery" class="gallery">
-    <h3 class="center">我们的成品</h3>
-    <div class="gallery-w3lsrow">
-        <div class="col-sm-3 col-xs-6 gallery-grids">
-            <div class="w3ls-hover">
-                <a href="images/g1.jpg" data-lightbox="example-set"
-                   data-title="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
-                    <img src="images/g1.jpg" class="img-responsive zoom-img" alt=""/>
-                    <div class="view-caption">
-                        <h5>沙滩气息</h5>
-                        <span class="fa fa-snowflake-o" aria-hidden="true"></span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 gallery-grids">
-            <div class="w3ls-hover">
-                <a href="images/g2.jpg" data-lightbox="example-set"
-                   data-title="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
-                    <img src="images/g2.jpg" class="img-responsive zoom-img" alt=""/>
-                    <div class="view-caption">
-                        <h5>简约办公</h5>
-                        <span class="fa fa-snowflake-o" aria-hidden="true"></span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 gallery-grids">
-            <div class="w3ls-hover">
-                <a href="images/g3.jpg" data-lightbox="example-set"
-                   data-title="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
-                    <img src="images/g3.jpg" class="img-responsive zoom-img" alt=""/>
-                    <div class="view-caption">
-                        <h5>冬林印象</h5>
-                        <span class="fa fa-snowflake-o" aria-hidden="true"></span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 gallery-grids">
-            <div class="w3ls-hover">
-                <a href="images/g4.jpg" data-lightbox="example-set"
-                   data-title="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
-                    <img src="images/g4.jpg" class="img-responsive zoom-img" alt=""/>
-                    <div class="view-caption">
-                        <h5>舒适客厅</h5>
-                        <span class="fa fa-snowflake-o" aria-hidden="true"></span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 gallery-grids">
-            <div class="w3ls-hover">
-                <a href="images/g5.jpg" data-lightbox="example-set"
-                   data-title="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
-                    <img src="images/g5.jpg" class="img-responsive zoom-img" alt=""/>
-                    <div class="view-caption">
-                        <h5>温暖围炉</h5>
-                        <span class="fa fa-snowflake-o" aria-hidden="true"></span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 gallery-grids">
-            <div class="w3ls-hover">
-                <a href="images/g6.jpg" data-lightbox="example-set"
-                   data-title="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
-                    <img src="images/g6.jpg" class="img-responsive zoom-img" alt=""/>
-                    <div class="view-caption">
-                        <h5>巴洛特沙发</h5>
-                        <span class="fa fa-snowflake-o" aria-hidden="true"></span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 gallery-grids">
-            <div class="w3ls-hover">
-                <a href="images/g7.jpg" data-lightbox="example-set"
-                   data-title="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
-                    <img src="images/g7.jpg" class="img-responsive zoom-img" alt=""/>
-                    <div class="view-caption">
-                        <h5>艺术感感</h5>
-                        <span class="fa fa-snowflake-o" aria-hidden="true"></span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="col-sm-3 col-xs-6 gallery-grids">
-            <div class="w3ls-hover">
-                <a href="images/g8.jpg" data-lightbox="example-set"
-                   data-title="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
-                    <img src="images/g8.jpg" class="img-responsive zoom-img" alt=""/>
-                    <div class="view-caption">
-                        <h5>欧式奢华</h5>
-                        <span class="fa fa-snowflake-o" aria-hidden="true"></span>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-    <!--  light box js -->
-    <script src="js/lightbox-plus-jquery.min.js"></script>
-    <!-- //light box js-->
-</div>
-<!-- //gallery -->
-<!-- testimonials -->
-<div class="w3ls-testimons" id="testimon">
-    <h3 class="center">我们的设计师</h3>
-    <div class="container">
-        <div class="flexslider-info">
-            <section class="slider">
-                <div class="flexslider">
-                    <ul class="slides">
-                        <li>
-                            <div class="user-review">
-                                <div class="usr-txt">
-                                    <h6 class="review">艺术源于生活，而生活是艺术的来源，在生活中追求艺术之美的存在。</h6>
-                                    <p class="indent">代表作品：大华西溪，青山湖玫瑰园，九溪玫瑰园，万科公望，香格里拉，上林湖，七里香溪等</p>
-                                    <p class="usr-name">Michel Blobs, <span class="designation">时尚设计师</span>
-                                    </p>
-                                </div>
-                                <div class="usr-img">
-                                    <img src="images/u1.jpg" alt="Customer1" class="img-responsive">
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="user-review">
-                                <div class="usr-txt">
-                                    <h6 class="review">设计就是规划生活，好的设计取决于对生活的态度，能反应出个人文化修为的高度，热爱生活，才能做好设计。
-                                        .</h6>
-                                    <p class="indent">代表作品：富春山居，桃花源，大华西溪风情，天乐云都，九龙山庄，金地自在城</p>
-                                    <p class="usr-name">Nicolas Cage, <span class="designation">首席设计师</span>
-                                    </p>
-                                </div>
-                                <div class="usr-img">
-                                    <img src="images/u2.jpg" alt="Customer1" class="img-responsive">
-                                </div>
-                            </div>
+<script>
+    var materials = {'datalist': []};
+    var workers = {'datalist': []};
+    var ms = {'datalist': []};
+    var ws = {'datalist': []};
+    $(function () {
+        $.ajax({
+            type: "GET",
+            url: "/api/worker",
+            success: function (data) {
+                var str = '<div class="list-row">';
+                for (var i = 0; i < data.length; i++) {
+                    if (i % 5 == 0 && i != 0)
+                        str += '</div><div class="list-row">'
+                    var worker = {
+                        id: data[i].id,
+                        workerName: data[i].workerName,
+                        position: data[i].position,
+                        dailyWage: data[i].dailyWage
+                    }
+                    workers.datalist.push(worker);
+                    str += '<div class="list-span">\n' +
+                        '<p class="worker-name">' + data[i].workerName + '</p>\n' +
+                        '<p class="worker-Position">' + data[i].position + '</p>\n' +
+                        '<div><button class="button button-raised button-action button-circle button-jumbo button-small btn-add" onclick="addWorker(this,' + data[i].id + ',' + data[i].dailyWage + ')">\n' +
+                        '<i class="fa fa-plus"></i>\n' +
+                        '</button> \n' +
+                        '<p class="worker-price">￥' + data[i].dailyWage + '/天</p>\n' +
+                        '</div></div>\n';
+                }
+                $("#worker-list").html(str + '</div>');
+            }
+        });
+        $.ajax({
+            type: "GET",
+            url: "/api/material/getall",
+            success: function (data) {
+                var str = '<div class="list-row">';
+                for (var i = 0; i < data.length; i++) {
+                    if (i % 5 == 0 && i != 0)
+                        str += '</div><div class="list-row">'
+                    var material = {
+                        id: data[i].id,
+                        materialName: data[i].materialName,
+                        unitPrice: data[i].unitPrice,
+                        colour: data[i].colour,
+                        otherInformation: data[i].otherInformation,
+                        brandName: data[i].brandName,
+                        typeName: data[i].typeName
+                    }
+                    materials.datalist.push(material);
+                    str += '<div class="list-span">\n' +
+                        '<p class="material-name"><a href="#" onclick="showRemark(' + data[i].id + ')">' + data[i].materialName + '</a></p>\n' +
+                        '<p class="material-brand">' + data[i].brandName + '</p>\n' +
+                        '<p class="material-type">' + data[i].typeName + '</p>\n' +
+                        '<p class="material-colour">' + data[i].colour + '</p>\n' +
+                        '<div>' +
+                        '<button class="button button-raised button-action button-circle button-jumbo button-small btn-add" onclick="addMaterial(this,' + data[i].id + ',' + data[i].unitPrice + ')">\n' +
+                        '<i class="fa fa-plus"></i>\n' +
+                        '</button>\n' +
+                        '<p class="material-price">￥' + data[i].unitPrice + '</p>\n' +
+                        '</div></div>'
+                }
+                $("#material-list").html(str + '</div>');
+            }
+        })
+    })
 
-                        </li>
-                        <li>
-                            <div class="user-review">
-                                <div class="usr-txt">
-                                    <h6 class="review">颠覆有限的空间——创造无限的可能</h6>
-                                    <p class="indent">代表作品：九月森林别墅、九溪玫瑰园别墅、七里香溪别墅、大华西溪风情别墅、九龙山庄别墅、台州橘子洲别墅、</p>
-                                    <p class="usr-name">Simon Josef, <span class="designation">主任设计师</span></p>
-                                </div>
-                                <div class="usr-img">
-                                    <img src="images/u3.jpg" alt="Customer1" class="img-responsive">
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="clearfix"></div>
-            </section>
-        </div>
-        <div class="clearfix"></div>
-    </div>
-</div>
-<!-- //testimonials -->
-<!-- Contact -->
-<div class="contact" id="contact">
-    <h3 class="center">加入我们</h3>
-    <div class="container">
-        <div class="contact-me">
-            <p>注册或登陆您的账号，开始您的家装之旅</p>
-            <form action="/" method="post">
-                <ul class="input">
-                    <li><span class="fa fa-user-o" aria-hidden="true"></span>
-                        <input type="text" name="name" placeholder="用户名" required>
-                    </li>
-                    <li><span class="fa fa-key" aria-hidden="true"></span>
-                        <input type="password" name="password" placeholder="密码" required>
-                    </li>
+    function showRemark(id) {
+        var fs = materials.datalist;
+        for (var i = 0; i < fs.length; i++) {
+            if (fs[i].id != id)
+                continue;
+            $("#fname").text(fs[i].materialName);
+            $("#fbrand").text(fs[i].brandName);
+            $("#ftype").text(fs[i].typeName);
+            $("#fprice").text("￥" + fs[i].unitPrice);
+            $("#fremark").text(fs[i].otherInformation);
+            $("#myModal").modal('show');
+        }
+    }
 
-                </ul>
-                <input type="submit" value="登陆">
-            </form>
-        </div>
-    </div>
+    function addWorker(obj, id, price) {
+        var $spn = $(obj).parent().parent();
+        var $btn = $(obj).parent();
+        myInput("添加技工", "时长", "number", "天数", function (e) {
+            if (e == "")
+                myAlert("添加错误", "没有输入工作时长");
+            if (e != false) {
+                var worker = {
+                    id: id,
+                    time: e
+                };
+                ws.datalist.push(worker);
+                $spn.addClass("active");
+                $btn.html('<button class="button button-raised button-primary button-circle button-jumbo button-small btn-add" onclick="delWorker(this,' + id + ',' + price + ')">\n' +
+                    '<i class="fa fa-minus"></i>\n' +
+                    '</button> \n' +
+                    '<p class="worker-price">￥' + price + '/天*' + e + '</p>\n')
+                // myAlert("添加技工", "添加成功");
+            }
+        })
+    }
 
-</div>
-<!-- //Contact -->
-<!-- map -->
-<!-- //map -->
+    function delWorker(obj,id,price) {
+        var fs=ws.datalist;
+        for(var i=0;i<fs.length;i++){
+            if(fs[i].id!=id)
+                continue;
+            fs.splice(i,1);
+            break;
+        }
+        var $spn = $(obj).parent().parent();
+        var $btn = $(obj).parent();
+        $spn.removeClass("active")
+        $btn.html('<button class="button button-raised button-action button-circle button-jumbo button-small btn-add" onclick="addWorker(this,' + id + ',' + price + ')">\n' +
+        '<i class="fa fa-plus"></i>\n' +
+        '</button> \n' +
+        '<p class="worker-price">￥' + price + '/天</p>\n');
+    }
+
+    function addMaterial(obj,id,price) {
+        var $spn = $(obj).parent().parent();
+        var $btn = $(obj).parent();
+        myInput("添加材料", "数量", "number", "数量", function (e) {
+            if (e == "")
+                myAlert("添加错误", "没有输入材料数量");
+            if (e != false) {
+                var material = {
+                    id: id,
+                    count: e
+                };
+                ms.datalist.push(material);
+                $spn.addClass("active");
+                $btn.html('<button class="button button-raised button-primary button-circle button-jumbo button-small btn-add" onclick="delMaterial(this,' + id + ',' + price + ')">\n' +
+                    '<i class="fa fa-minus"></i>\n' +
+                    '</button> \n' +
+                    '<p class="material-price">￥' + price + '*' + e + '</p>\n')
+                // myAlert("添加技工", "添加成功");
+            }
+        })
+    }
+
+    function delMaterial(obj,id,price) {
+        var fs=ms.datalist;
+        for(var i=0;i<fs.length;i++){
+            if(fs[i].id!=id)
+                continue;
+            fs.splice(i,1);
+            break;
+        }
+        var $spn = $(obj).parent().parent();
+        var $btn = $(obj).parent();
+        $spn.removeClass("active")
+        $btn.html('<button class="button button-raised button-action button-circle button-jumbo button-small btn-add" onclick="addMaterial(this,' + id + ',' + price + ')">\n' +
+            '<i class="fa fa-plus"></i>\n' +
+            '</button> \n' +
+            '<p class="material-price">￥' + price + '</p>\n');
+    }
+
+    function addDIYBudget() {
+        myConfirm("添加DIY","确认要添加DIY预算收藏吗?",function (e) {
+            if(e!=true)
+                return false;
+        })
+        var mdata = ms.datalist;
+        var materials = "";
+        for (var i = 0; i < mdata.length; i++) {
+            var id = mdata[i].id;
+            var count = mdata[i].count;
+            materials += (id + "-" + count);
+            if (i != mdata.length - 1)
+                materials += ",";
+        }
+        var wdata = ws.datalist;
+        var workers = "";
+        for (var i = 0; i < wdata.length; i++) {
+            var id = wdata[i].id;
+            var time = wdata[i].time;
+            workers += (id + "-" + time);
+            if (i != wdata.length - 1)
+                workers += ",";
+        }
+        if (materials == "")
+            myAlert("添加错误","没有选择任何材料");
+        else if (workers == "")
+            myAlert("添加错误","没有选择任何技工");
+        else {
+            $.ajax({
+                type: "POST",
+                url: "/api/dIYBudget/addwithuser",
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    meterials: materials,
+                    workers: workers
+                }),
+                success: function (data) {
+                    if (data.resultCode == 0) {
+                        myAlert("系统提示", "新建成功");
+                        $("#myModal").modal("hide");
+                        $('#table').bootstrapTable('refresh');
+                        initModal();
+                    }
+                    else {
+                        myAlert("添加错误",data.message);
+                    }
+                }
+            })
+        }
+    }
+</script>
 <!-- footer -->
 <div class="footer">
     <div class="container">
@@ -440,6 +518,9 @@
 <script src="js/bootstrap.min.js"></script>
 
 <script src="js/jquery.flexslider.js"></script>
+
+<!--Start-slider-script-->
+
 <!--End-slider-script-->
 
 <!-- smooth scrolling -->
@@ -447,6 +528,11 @@
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
 <!-- here stars scrolling icon -->
-<script type="text/javascript">
+<!-- //here ends scrolling icon -->
+<!-- smooth scrolling -->
+
+<!-- scrolling script -->
+<!-- //scrolling script -->
+
 </body>
 </html>

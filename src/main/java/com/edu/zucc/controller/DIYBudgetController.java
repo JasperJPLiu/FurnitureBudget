@@ -57,6 +57,15 @@ public class DIYBudgetController {
         return dIYBudgetService.add(dIYBudget);
     }
 
+    @ApiOperation(value = "新增DIY预算")
+    @RequestMapping(value = "/addwithuser", method = RequestMethod.POST)
+    public Object addwithuser(@RequestBody DIYBudget dIYBudget,HttpSession session) {
+        String username=session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();
+        User user=userService.findByUsername(username);
+        dIYBudget.setUser(user.getId());
+        return dIYBudgetService.add(dIYBudget);
+    }
+
     @ApiOperation(value = "删除DIY预算")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Object delete(@PathVariable int id) {
@@ -75,71 +84,11 @@ public class DIYBudgetController {
     @RequestMapping(value = "/getall", method = RequestMethod.GET)
     public Object getAllDIYBudget() {
         List<DIYBudget> diyBudgets = dIYBudgetService.findAll();
-        List<DIYInfo> diyInfos=new ArrayList<>();
+        List<DIYInfo> diyInfos = new ArrayList<>();
         if (diyBudgets != null) {
             List<User> users = userService.findAll();
             List<Worker> workers = workerService.findAll();
-            List<Material> materials=materialService.findAll();
-            Map<Integer, String> mapUsers = users.stream().collect(
-                    Collectors.toMap(User::getId, User::getUsername));
-            Map<Integer, String> mapWorkers = workers.stream().collect(
-                    Collectors.toMap(Worker::getId, Worker::getWorkerName));
-            Map<Integer, Float> mapWage = workers.stream().collect(
-                    Collectors.toMap(Worker::getId, Worker::getDailyWage));
-            Map<Integer, String> mapMaterials = materials.stream().collect(
-                    Collectors.toMap(Material::getId, Material::getMaterialName));
-             Map<Integer, Float> mapPrices = materials.stream().collect(
-                    Collectors.toMap(Material::getId, Material::getUnitPrice));
-            for (DIYBudget diy:diyBudgets){
-                int u=diy.getUser();
-                String worker_ids=diy.getWorkers();
-                String material_ids=diy.getMeterials();
-                String[] Workers=worker_ids.split(",");
-                String[] Materials=material_ids.split(",");
-                String w=new String();
-                String m=new String();
-                float price=0;
-                for(int i=0;i<Workers.length;i++){
-                    String[] wd=Workers[i].split("-");
-                    int wid=Integer.parseInt(wd[0]);
-                    float wday=Float.parseFloat(wd[1]);
-                    float p=wday*mapWage.get(wid);
-                    w+=mapWorkers.get(wid);
-                    w+="("+wday+"/￥"+p+")";
-                    price+=p;
-                    if (i!=Workers.length-1)
-                        w+=",";
-                }
-                for(int i=0;i<Materials.length;i++){
-                    String[] md=Materials[i].split("-");
-                    int mid=Integer.parseInt(md[0]);
-                    float mper=Float.parseFloat(md[1]);
-                    float p=mper*mapPrices.get(mid);
-                    m+=mapMaterials.get(mid);
-                    m+="("+mper+"/￥"+p+")";
-                    price+=p;
-                    if (i!=Materials.length-1)
-                        m+=",";
-                }
-                diyInfos.add(new DIYInfo(diy,mapUsers.get(u),w,m,price));
-            }
-        }
-        return diyInfos;
-    }
-
-    @ApiOperation(value = "根据用户查询预算的标准信息")
-    @RequestMapping(value = "/getallbyuser", method = RequestMethod.GET)
-    public Object getAllDIYBudgetByUser(HttpSession session) {
-        String username=session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();
-        User user=userService.findByUsername(username);
-        if (user==null)
-            return "no such user";
-        List<DIYBudget> diyBudgets = dIYBudgetService.findByUser(user.getId());
-        List<DIYInfo> diyInfos=new ArrayList<>();
-        if (diyBudgets != null) {
-            List<User> users = userService.findAll();
-            List<Worker> workers = workerService.findAll();
-            List<Material> materials=materialService.findAll();
+            List<Material> materials = materialService.findAll();
             Map<Integer, String> mapUsers = users.stream().collect(
                     Collectors.toMap(User::getId, User::getUsername));
             Map<Integer, String> mapWorkers = workers.stream().collect(
@@ -150,38 +99,98 @@ public class DIYBudgetController {
                     Collectors.toMap(Material::getId, Material::getMaterialName));
             Map<Integer, Float> mapPrices = materials.stream().collect(
                     Collectors.toMap(Material::getId, Material::getUnitPrice));
-            for (DIYBudget diy:diyBudgets){
-                int u=diy.getUser();
-                String worker_ids=diy.getWorkers();
-                String material_ids=diy.getMeterials();
-                String[] Workers=worker_ids.split(",");
-                String[] Materials=material_ids.split(",");
-                String w=new String();
-                String m=new String();
-                float price=0;
-                for(int i=0;i<Workers.length;i++){
-                    String[] wd=Workers[i].split("-");
-                    int wid=Integer.parseInt(wd[0]);
-                    float wday=Float.parseFloat(wd[1]);
-                    float p=wday*mapWage.get(wid);
-                    w+=mapWorkers.get(wid);
-                    w+="("+wday+"/￥"+p+")";
-                    price+=p;
-                    if (i!=Workers.length-1)
-                        w+=",";
+            for (DIYBudget diy : diyBudgets) {
+                int u = diy.getUser();
+                String worker_ids = diy.getWorkers();
+                String material_ids = diy.getMeterials();
+                String[] Workers = worker_ids.split(",");
+                String[] Materials = material_ids.split(",");
+                String w = new String();
+                String m = new String();
+                float price = 0;
+                for (int i = 0; i < Workers.length; i++) {
+                    String[] wd = Workers[i].split("-");
+                    int wid = Integer.parseInt(wd[0]);
+                    float wday = Float.parseFloat(wd[1]);
+                    float p = wday * mapWage.get(wid);
+                    w += mapWorkers.get(wid);
+                    w += "(" + wday + "/￥" + p + ")";
+                    price += p;
+                    if (i != Workers.length - 1)
+                        w += ",";
                 }
-                for(int i=0;i<Materials.length;i++){
-                    String[] md=Materials[i].split("-");
-                    int mid=Integer.parseInt(md[0]);
-                    float mper=Float.parseFloat(md[1]);
-                    float p=mper*mapPrices.get(mid);
-                    m+=mapMaterials.get(mid);
-                    m+="("+mper+"/￥"+p+")";
-                    price+=p;
-                    if (i!=Materials.length-1)
-                        m+=",";
+                for (int i = 0; i < Materials.length; i++) {
+                    String[] md = Materials[i].split("-");
+                    int mid = Integer.parseInt(md[0]);
+                    float mper = Float.parseFloat(md[1]);
+                    float p = mper * mapPrices.get(mid);
+                    m += mapMaterials.get(mid);
+                    m += "(" + mper + "/￥" + p + ")";
+                    price += p;
+                    if (i != Materials.length - 1)
+                        m += ",";
                 }
-                diyInfos.add(new DIYInfo(diy,mapUsers.get(u),w,m,price));
+                diyInfos.add(new DIYInfo(diy, mapUsers.get(u), w, m, price));
+            }
+        }
+        return diyInfos;
+    }
+
+    @ApiOperation(value = "根据用户查询预算的标准信息")
+    @RequestMapping(value = "/getallbyuser", method = RequestMethod.GET)
+    public Object getAllDIYBudgetByUser(HttpSession session) {
+        String username = session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();
+        User user = userService.findByUsername(username);
+        if (user == null)
+            return "no such user";
+        List<DIYBudget> diyBudgets = dIYBudgetService.findByUser(user.getId());
+        List<DIYInfo> diyInfos = new ArrayList<>();
+        if (diyBudgets != null) {
+            List<User> users = userService.findAll();
+            List<Worker> workers = workerService.findAll();
+            List<Material> materials = materialService.findAll();
+            Map<Integer, String> mapUsers = users.stream().collect(
+                    Collectors.toMap(User::getId, User::getUsername));
+            Map<Integer, String> mapWorkers = workers.stream().collect(
+                    Collectors.toMap(Worker::getId, Worker::getWorkerName));
+            Map<Integer, Float> mapWage = workers.stream().collect(
+                    Collectors.toMap(Worker::getId, Worker::getDailyWage));
+            Map<Integer, String> mapMaterials = materials.stream().collect(
+                    Collectors.toMap(Material::getId, Material::getMaterialName));
+            Map<Integer, Float> mapPrices = materials.stream().collect(
+                    Collectors.toMap(Material::getId, Material::getUnitPrice));
+            for (DIYBudget diy : diyBudgets) {
+                int u = diy.getUser();
+                String worker_ids = diy.getWorkers();
+                String material_ids = diy.getMeterials();
+                String[] Workers = worker_ids.split(",");
+                String[] Materials = material_ids.split(",");
+                String w = new String();
+                String m = new String();
+                float price = 0;
+                for (int i = 0; i < Workers.length; i++) {
+                    String[] wd = Workers[i].split("-");
+                    int wid = Integer.parseInt(wd[0]);
+                    float wday = Float.parseFloat(wd[1]);
+                    float p = wday * mapWage.get(wid);
+                    w += mapWorkers.get(wid);
+                    w += "(" + wday + "/￥" + p + ")";
+                    price += p;
+                    if (i != Workers.length - 1)
+                        w += ",";
+                }
+                for (int i = 0; i < Materials.length; i++) {
+                    String[] md = Materials[i].split("-");
+                    int mid = Integer.parseInt(md[0]);
+                    float mper = Float.parseFloat(md[1]);
+                    float p = mper * mapPrices.get(mid);
+                    m += mapMaterials.get(mid);
+                    m += "(" + mper + "/￥" + p + ")";
+                    price += p;
+                    if (i != Materials.length - 1)
+                        m += ",";
+                }
+                diyInfos.add(new DIYInfo(diy, mapUsers.get(u), w, m, price));
             }
         }
         return diyInfos;
