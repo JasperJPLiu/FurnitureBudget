@@ -69,12 +69,20 @@ public class Webcontroller {
     }
 
     @RequestMapping("/BrandManager")
-    public String toMBrand() {
+    public String toMBrand(HttpSession session) {
+        String unme = session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();
+        User uSer = userService.findByUsername(unme);
+        if (uSer.getUserType().equals("normal"))
+            return "redirect:/index";
         return "brandmanager";
     }
 
     @RequestMapping("/BudgetManager")
-    public String toMBudget(Model model) {
+    public String toMBudget(Model model, HttpSession session) {
+        String unme = session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();
+        User uSer = userService.findByUsername(unme);
+        if (uSer.getUserType().equals("normal"))
+            return "redirect:/index";
         List<User> users = userService.findAll();
         List<Material> materials = materialService.findAll();
         List<Worker> workers = workerService.findAll();
@@ -85,7 +93,11 @@ public class Webcontroller {
     }
 
     @RequestMapping("/FurnitureManager")
-    public String toMFurniture(Model model) {
+    public String toMFurniture(Model model, HttpSession session) {
+        String unme = session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();
+        User uSer = userService.findByUsername(unme);
+        if (uSer.getUserType().equals("normal"))
+            return "redirect:/index";
         List<Brand> brands = brandService.findAll();
         List<Furnituretype> furnituretypes = furnituretypeService.findAll();
         model.addAttribute("brands", brands);
@@ -94,12 +106,20 @@ public class Webcontroller {
     }
 
     @RequestMapping("/KnowManager")
-    public String toMKnow() {
+    public String toMKnow(HttpSession session) {
+        String unme = session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();
+        User uSer = userService.findByUsername(unme);
+        if (uSer.getUserType().equals("normal"))
+            return "redirect:/index";
         return "knowmanager";
     }
 
     @RequestMapping("/MaterialManager")
-    public String toMMaterial(Model model) {
+    public String toMMaterial(Model model, HttpSession session) {
+        String unme = session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();
+        User uSer = userService.findByUsername(unme);
+        if (uSer.getUserType().equals("normal"))
+            return "redirect:/index";
         List<Brand> brands = brandService.findAll();
         List<Materialtype> materialtypes = materialtypeService.findAll();
         model.addAttribute("brands", brands);
@@ -108,19 +128,31 @@ public class Webcontroller {
     }
 
     @RequestMapping("/MessageManager")
-    public String toMMessage(Model model) {
+    public String toMMessage(Model model, HttpSession session) {
+        String unme = session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();
+        User uSer = userService.findByUsername(unme);
+        if (uSer.getUserType().equals("normal"))
+            return "redirect:/index";
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
         return "messmanger";
     }
 
     @RequestMapping("/MaterialTypeManager")
-    public String toMMType() {
+    public String toMMType(HttpSession session) {
+        String unme = session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();
+        User uSer = userService.findByUsername(unme);
+        if (uSer.getUserType().equals("normal"))
+            return "redirect:/index";
         return "mtypemanager";
     }
 
     @RequestMapping("/ProductManager")
-    public String toMProduct(Model model) {
+    public String toMProduct(Model model, HttpSession session) {
+        String unme = session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();
+        User uSer = userService.findByUsername(unme);
+        if (uSer.getUserType().equals("normal"))
+            return "redirect:/index";
         List<User> users = userService.findAll();
         List<Furniture> furnitures = furnitureService.findAll();
         model.addAttribute("users", users);
@@ -129,22 +161,38 @@ public class Webcontroller {
     }
 
     @RequestMapping("/SkillManager")
-    public String toMSkill() {
+    public String toMSkill(HttpSession session) {
+        String unme = session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();
+        User uSer = userService.findByUsername(unme);
+        if (uSer.getUserType().equals("normal"))
+            return "redirect:/index";
         return "skillmanager";
     }
 
     @RequestMapping("/TypeManager")
-    public String toMType() {
+    public String toMType(HttpSession session) {
+        String unme = session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();
+        User uSer = userService.findByUsername(unme);
+        if (uSer.getUserType().equals("normal"))
+            return "redirect:/index";
         return "typemanager";
     }
 
     @RequestMapping("/UserManager")
-    public String toMUser() {
+    public String toMUser(HttpSession session) {
+        String unme = session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();
+        User uSer = userService.findByUsername(unme);
+        if (uSer.getUserType().equals("normal"))
+            return "redirect:/index";
         return "usermanager";
     }
 
     @RequestMapping("/WorkerManager")
-    public String toMWorker() {
+    public String toMWorker(HttpSession session) {
+        String unme = session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();
+        User uSer = userService.findByUsername(unme);
+        if (uSer.getUserType().equals("normal"))
+            return "redirect:/index";
         return "workermanager";
     }
 

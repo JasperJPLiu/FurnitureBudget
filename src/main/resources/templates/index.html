@@ -407,7 +407,10 @@
                 },
                 success: function (data) {
                     if (data.result == 0)
-                        window.location.href = "/index";
+                        if (data.message == "normal")
+                            window.location.href = "/index";
+                        else
+                            window.location.href = "/UserManager";
                     else
                         alert(data.message);
 

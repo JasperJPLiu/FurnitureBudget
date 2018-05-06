@@ -77,6 +77,7 @@ public class UserService {
             return result;
         }
         result.Success();
+        result.setMessage(user1.getUserType());
         return result;
     }
 
