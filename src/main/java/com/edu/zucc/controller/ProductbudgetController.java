@@ -86,7 +86,7 @@ public class ProductbudgetController {
             for (Productbudget productbudget : product_budgets) {
                 int b = productbudget.getUser();
                 int t = productbudget.getFurnitures();
-                productInfos.add(new ProductInfo(productbudget, mapUsers.get(b), mapFurnitures.get(t),null));
+                productInfos.add(new ProductInfo(productbudget, mapUsers.get(b), mapFurnitures.get(t)));
             }
         }
         return productInfos;

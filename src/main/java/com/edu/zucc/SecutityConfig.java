@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Created by liujiapeng on 2017/12/15.
+ * Created by moshennlin on 2017/12/15.
  */
 @Configuration
 public class SecutityConfig extends WebMvcConfigurerAdapter {
@@ -38,7 +38,6 @@ public class SecutityConfig extends WebMvcConfigurerAdapter {
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
             HttpSession session = request.getSession();
             String username = (String) session.getAttribute(SESSION_KEY_USER);
-//            return true;
             if (session.getAttribute(SESSION_KEY_USER) != null)
                 return true;
             String url = "/";

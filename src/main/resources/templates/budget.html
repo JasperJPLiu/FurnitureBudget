@@ -132,8 +132,8 @@
     }
 
     .list-span.active {
-        border: 1px solid #FFF749;
-        box-shadow: 0 1px 1px rgba(255, 247, 73, 1);
+        border: 1px solid red;
+        box-shadow: 0 1px 1px rgba(255, 0, 0, 1);
     }
 
     .list-span:first-child {
@@ -149,8 +149,12 @@
     }
 
     .material-name, .worker-name {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
         color: #0b3e6f;
-        font-size: 3rem;
+        font-size: 27px;
         font-weight: 700;
     }
 
@@ -175,7 +179,7 @@
 
     .material-price, .worker-price {
         float: right;
-        font-size: 2rem;
+        font-size: 18px;
         color: orange;
     }
 
@@ -464,9 +468,11 @@
                 }),
                 success: function (data) {
                     if (data.resultCode == 0) {
-                        myAlert("系统提示", "新建成功");
+                        myAlert("系统提示", "新建成功",function (e) {
+                            if(e==true)
+                                location.reload();
+                        });
                         $("#myModal").modal("hide");
-                        $('#table').bootstrapTable('refresh');
                         initModal();
                     }
                     else {

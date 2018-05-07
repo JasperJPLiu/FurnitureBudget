@@ -17,6 +17,14 @@ public class ProductInfo extends Productbudget {
         this.price=price;
     }
 
+    public ProductInfo(Productbudget productbudget,String userName, String furnitureName) {
+        super.setId(productbudget.getId());
+        super.setFurnitures(productbudget.getFurnitures());
+        super.setUser(productbudget.getUser());
+        this.userName = userName;
+        this.furnitureName = furnitureName;
+    }
+
     public String getUserName() {
         return userName;
     }

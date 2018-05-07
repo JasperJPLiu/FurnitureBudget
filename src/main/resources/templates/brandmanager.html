@@ -98,18 +98,23 @@
         <!--})-->
         <!--})-->
         <!--</script>-->
+
         <!-- Modal -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
+                    <!-- modal-header id: myModalLabel -->
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel"></h4>
                     </div>
+                    <!-- modal-body -->
                     <div class="modal-body">
+                        <!-- modalAlert -->
                         <div class="alert" role="alert" id="modalAlert" hidden></div>
                         <form class="form-horizontal">
+                            <!-- inputID    Brand ID -->
                             <div class="form-group" id="groupID">
                                 <label for="inputID" class="col-sm-2 control-label">Brand ID</label>
                                 <div class="col-sm-10">
@@ -117,12 +122,14 @@
                                            disabled>
                                 </div>
                             </div>
+                            <!-- inputName    Brand Name -->
                             <div class="form-group">
                                 <label for="inputName" class="col-sm-2 control-label">Brand Name</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="inputName" placeholder="User's Name">
                                 </div>
                             </div>
+                            <!-- inputIntroduce    Introduce -->
                             <div class="form-group">
                                 <label for="inputIntroduce" class="col-sm-2 control-label">Introduce</label>
                                 <div class="col-sm-10">
@@ -132,6 +139,7 @@
                             </div>
                         </form>
                     </div>
+                    <!-- modal-footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary" id="saveChanges">Save changes</button>
