@@ -27,7 +27,7 @@ public class SecutityConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         InterceptorRegistration addInterceptor = registry.addInterceptor(getSecurityInterceptor());
-        addInterceptor.excludePathPatterns("/login", "/fonts/**", "/css/**", "/js/**", "/images/**");
+        addInterceptor.excludePathPatterns("/login", "/fonts/**", "/css/**", "/js/**", "/images/**", "/register");
         addInterceptor.addPathPatterns("/api/**","/index","/skills","/knowledge","/product","/budget"
                 ,"/BrandManager","/BudgetManager","/FurnitureManager","/KnowManager","/MaterialManager",
                 "/MessageManager","/MaterialTypeManager","/ProductManager","/SkillManager","/TypeManager","/UserManager","/WorkerManager");

@@ -64,4 +64,15 @@ public class UserController {
         user.setPassword(password);
         return userService.Login(user);
     }
+
+    /*注册*/
+    @ApiOperation(value = "注册")
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public Object createUser(@RequestParam String username, @RequestParam String password) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setUserType("normal");
+        return userService.add(user);
+    }
 }

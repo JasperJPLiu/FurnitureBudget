@@ -223,4 +223,10 @@ public class Webcontroller {
         session.removeAttribute(SecutityConfig.SESSION_KEY_USER);
         return "redirect:/";
     }
+
+    @RequestMapping("/register")
+    public String register() {
+        return "register";
+    }
+
 }
