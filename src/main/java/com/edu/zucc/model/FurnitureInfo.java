@@ -15,6 +15,7 @@ public class FurnitureInfo extends Furniture{
         super.setUnitPrice(furniture.getUnitPrice());
         super.setColour(furniture.getColour());
         super.setOtherInformation(furniture.getOtherInformation());
+        super.setImage(furniture.getImage());
         this.typeName = typeName;
         this.brandName = brandName;
     }

@@ -31,17 +31,17 @@
     </select>
 
     <select id="findByKey" resultType="Messageboard">
-        SELECT * FROM message_board WHERE id=#{id}
+        SELECT * FROM message_board WHERE id=#{id} ORDER BY releaseTime DESC
     </select>
 
     <!--根据标题查-->
     <select id="findByTitle" resultType="Messageboard">
-        SELECT * FROM message_board WHERE title like '%${title}%'
+        SELECT * FROM message_board WHERE title like '%${title}%' ORDER BY releaseTime DESC
     </select>
 
     <!--根据发布用户查-->
     <select id="findByUser" resultType="Messageboard">
-        SELECT * FROM message_board WHERE user=#{user}
+        SELECT * FROM message_board WHERE user=#{user} ORDER BY releaseTime DESC
     </select>
 
 

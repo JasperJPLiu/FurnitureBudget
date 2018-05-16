@@ -8,6 +8,7 @@ public class Furniture {
     private float unitPrice;
     private String colour;
     private String otherInformation;
+    private String image;
 
     /*区间查找*/
     private float first;
@@ -84,5 +85,13 @@ public class Furniture {
 
     public void setOtherInformation(String otherInformation) {
         this.otherInformation = otherInformation;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

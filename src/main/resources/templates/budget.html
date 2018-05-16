@@ -76,6 +76,7 @@
                             <li class="active">
                                 <a href="/budget" class="scroll">DIY家具预算</a>
                             </li>
+                            <li><a href="/message" class="scroll">留言板</a></li>
                             <li>
                                 <a href="/logout" class="scroll">注销</a>
                             </li>
@@ -373,24 +374,24 @@
         })
     }
 
-    function delWorker(obj,id,price) {
-        var fs=ws.datalist;
-        for(var i=0;i<fs.length;i++){
-            if(fs[i].id!=id)
+    function delWorker(obj, id, price) {
+        var fs = ws.datalist;
+        for (var i = 0; i < fs.length; i++) {
+            if (fs[i].id != id)
                 continue;
-            fs.splice(i,1);
+            fs.splice(i, 1);
             break;
         }
         var $spn = $(obj).parent().parent();
         var $btn = $(obj).parent();
         $spn.removeClass("active")
         $btn.html('<button class="button button-raised button-action button-circle button-jumbo button-small btn-add" onclick="addWorker(this,' + id + ',' + price + ')">\n' +
-        '<i class="fa fa-plus"></i>\n' +
-        '</button> \n' +
-        '<p class="worker-price">￥' + price + '/天</p>\n');
+            '<i class="fa fa-plus"></i>\n' +
+            '</button> \n' +
+            '<p class="worker-price">￥' + price + '/天</p>\n');
     }
 
-    function addMaterial(obj,id,price) {
+    function addMaterial(obj, id, price) {
         var $spn = $(obj).parent().parent();
         var $btn = $(obj).parent();
         myInput("添加材料", "数量", "number", "数量", function (e) {
@@ -412,12 +413,12 @@
         })
     }
 
-    function delMaterial(obj,id,price) {
-        var fs=ms.datalist;
-        for(var i=0;i<fs.length;i++){
-            if(fs[i].id!=id)
+    function delMaterial(obj, id, price) {
+        var fs = ms.datalist;
+        for (var i = 0; i < fs.length; i++) {
+            if (fs[i].id != id)
                 continue;
-            fs.splice(i,1);
+            fs.splice(i, 1);
             break;
         }
         var $spn = $(obj).parent().parent();
@@ -430,57 +431,55 @@
     }
 
     function addDIYBudget() {
-        myConfirm("添加DIY","确认要添加DIY预算收藏吗?",function (e) {
-            if(e!=true)
-                return false;
-        })
-        var mdata = ms.datalist;
-        var materials = "";
-        for (var i = 0; i < mdata.length; i++) {
-            var id = mdata[i].id;
-            var count = mdata[i].count;
-            materials += (id + "-" + count);
-            if (i != mdata.length - 1)
-                materials += ",";
-        }
-        var wdata = ws.datalist;
-        var workers = "";
-        for (var i = 0; i < wdata.length; i++) {
-            var id = wdata[i].id;
-            var time = wdata[i].time;
-            workers += (id + "-" + time);
-            if (i != wdata.length - 1)
-                workers += ",";
-        }
-        if (materials == "")
-            myAlert("添加错误","没有选择任何材料");
-        else if (workers == "")
-            myAlert("添加错误","没有选择任何技工");
-        else {
-            $.ajax({
-                type: "POST",
-                url: "/api/dIYBudget/addwithuser",
-                dataType: 'json',
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({
-                    meterials: materials,
-                    workers: workers
-                }),
-                success: function (data) {
-                    if (data.resultCode == 0) {
-                        myAlert("系统提示", "新建成功",function (e) {
-                            if(e==true)
-                                location.reload();
-                        });
-                        $("#myModal").modal("hide");
-                        initModal();
-                    }
-                    else {
-                        myAlert("添加错误",data.message);
-                    }
+        myConfirm("添加DIY", "确认要添加DIY预算收藏吗?", function (e) {
+            if (e == true) {
+                var mdata = ms.datalist;
+                var materials = "";
+                for (var i = 0; i < mdata.length; i++) {
+                    var id = mdata[i].id;
+                    var count = mdata[i].count;
+                    materials += (id + "-" + count);
+                    if (i != mdata.length - 1)
+                        materials += ",";
                 }
-            })
-        }
+                var wdata = ws.datalist;
+                var workers = "";
+                for (var i = 0; i < wdata.length; i++) {
+                    var id = wdata[i].id;
+                    var time = wdata[i].time;
+                    workers += (id + "-" + time);
+                    if (i != wdata.length - 1)
+                        workers += ",";
+                }
+                if (materials == "")
+                    myAlert("添加错误", "没有选择任何材料");
+                else if (workers == "")
+                    myAlert("添加错误", "没有选择任何技工");
+                else {
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/dIYBudget/addwithuser",
+                        dataType: 'json',
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({
+                            meterials: materials,
+                            workers: workers
+                        }),
+                        success: function (data) {
+                            if (data.resultCode == 0) {
+                                myAlert("系统提示", "新建成功", function (e) {
+                                    if (e == true)
+                                        location.reload();
+                                });
+                            }
+                            else {
+                                myAlert("添加错误", data.message);
+                            }
+                        }
+                    })
+                }
+            }
+        })
     }
 </script>
 <!-- footer -->

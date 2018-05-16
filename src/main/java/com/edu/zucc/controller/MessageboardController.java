@@ -1,5 +1,6 @@
 package com.edu.zucc.controller;
 
+import com.edu.zucc.SecutityConfig;
 import com.edu.zucc.model.Furniture;
 import com.edu.zucc.model.MessageInfo;
 import com.edu.zucc.model.Messageboard;
@@ -11,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +57,15 @@ public class MessageboardController {
     @ApiOperation(value = "新增留言板信息")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Object create(@RequestBody Messageboard messageboard) {
+        return messageboardService.add(messageboard);
+    }
+
+    @ApiOperation(value = "新增留言板信息")
+    @RequestMapping(value = "/addnouser", method = RequestMethod.POST)
+    public Object createWithoutUser(@RequestBody Messageboard messageboard, HttpSession session) {
+        String name=session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();
+        User user=userService.findByUsername(name);
+        messageboard.setUser(user.getId());
         return messageboardService.add(messageboard);
     }
 

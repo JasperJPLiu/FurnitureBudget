@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.edu.zucc.mapper.FurnitureMapper">
     <insert id="add" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO furniture(id,furnitureType,furnitureName,brand,unitPrice,colour,otherInformation) VALUE (#{id},#{furnitureType},#{furnitureName},#{brand},#{unitPrice},#{colour},#{otherInformation})
+        INSERT INTO furniture(id,furnitureType,furnitureName,brand,unitPrice,colour,otherInformation,image) VALUE (#{id},#{furnitureType},#{furnitureName},#{brand},#{unitPrice},#{colour},#{otherInformation},#{image})
     </insert>
 
     <delete id="delete">
@@ -28,6 +28,9 @@
         </if>
         <if test="otherInformation!=null">
             ,otherInformation=#{otherInformation}
+        </if>
+        <if test="image!=null">
+            ,image=#{image}
         </if>
         WHERE id=#{id}
     </update>

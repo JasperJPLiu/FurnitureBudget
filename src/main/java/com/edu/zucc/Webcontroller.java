@@ -68,6 +68,11 @@ public class Webcontroller {
         return "budget";
     }
 
+    @RequestMapping("/message")
+    public String message() {
+        return "message";
+    }
+
     @RequestMapping("/BrandManager")
     public String toMBrand(HttpSession session) {
         String unme = session.getAttribute(SecutityConfig.SESSION_KEY_USER).toString();

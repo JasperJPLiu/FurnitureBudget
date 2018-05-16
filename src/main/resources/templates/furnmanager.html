@@ -46,6 +46,7 @@
                 <th data-field="colour">Colour</th>
                 <th data-field="otherInformation">Remark</th>
                 <th data-field="unitPrice">Price</th>
+                <th data-field="image">Image</th>
                 <th data-field="console" data-formatter="optFormatter">Option</th>
             </tr>
             </thead>
@@ -167,6 +168,15 @@
                                            placeholder="Introduce">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="inputImage" class="col-sm-2 control-label">Image</label>
+                                <div class="col-sm-7" style="padding-right: 0px">
+                                    <input type="text" class="form-control" id="inputImage"
+                                           placeholder="Image" disabled>
+                                    <input type="file" id="fileImage"id="files" style="display: none"  onchange="im();">
+                                </div>
+                                <button type="button" class="col-sm-2 btn btn-info" style="float: right;margin-right: 14px;" onclick="importImage()">导入</button>
+                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -186,6 +196,67 @@
                     $("#inputPrice").val("");
                     $("#inputColour").val("");
                     $("#inputRemark").val("");
+                }
+                var fileBox = document.getElementById('files');
+
+                function importImage() {
+                    $("#files").click();
+                }
+                
+                function im() {
+                    //获取选择文件的数组
+                    var fileList = fileBox.files;
+                    for (var i = 0; i < fileList.length; i++) {
+                        var file = fileList[i];
+                        //图片类型验证第二种方式
+                        if (/image\/\w+/.test(file.type))
+                            readFile(file);
+                        else
+                            console.log(file.name + ':不是图片');
+                    }
+                }
+
+                function uploadImage() {
+                    var fileList = fileBox.files;
+                    for (var i = 0; i < fileList.length; i++) {
+                        var file = fileList[i];
+                        //图片类型验证第二种方式
+                        if (/image\/\w+/.test(file.type))
+                            uploadFile(file);
+                        else
+                            console.log(file.name + ':不是图片');
+                    }
+                }
+
+                function uploadFile(file) {
+                    var reader = new FileReader();
+                    reader.readAsArrayBuffer(file);
+                    reader.onload = function () {
+                        var blob = new Blob([reader.result], { type: 'image/jpg' });
+                        //提交到服务器
+                        var fd = new FormData();
+                        fd.append('file', blob);
+                        var ext = file.name.substring(file.name.lastIndexOf('.'));
+                        fd.append('extention', ext);
+                        fd.append('isClip', -1);
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('post', '../ashx/upload.ashx', true);
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState == 4 && xhr.status == 200) {
+                                var data = eval('(' + xhr.responseText + ')');
+                                console.info(data);
+                                if (data.success) {
+                                    //上传成功
+                                    var imgName = data.msg;
+                                    alert(imgName);
+                                } else {
+                                    alert(data.msg);
+                                }
+                            }
+                        }
+                        //开始发送
+                        xhr.send(fd);
+                    }
                 }
 
                 function alertError(text) {

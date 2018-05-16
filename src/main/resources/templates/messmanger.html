@@ -74,14 +74,14 @@
                 var id = tr.cells[0].innerHTML;
                 var name = tr.cells[1].innerHTML;
                 var furn = tr.cells[2].innerHTML;
-                myConfirm("删除成品预算", "是否删除成品预算" + name + "的" + furn + "？", function (con) {
+                myConfirm("删除留言", "是否删除" + name + "的" + furn + "留言？", function (con) {
                     if (con == true) {
                         $.ajax({
                             type: "DELETE",
                             url: "/api/messageboard/" + id,
                             success: function (data) {
                                 if (data.resultCode == 0) {
-                                    myAlert("系统提示", "删除成品预算成功");
+                                    myAlert("系统提示", "删除留言成功");
                                     $("#myModal").modal("hide");
                                     $('#table').bootstrapTable('refresh');
                                     initModal();
