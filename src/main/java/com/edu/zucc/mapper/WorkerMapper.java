@@ -7,7 +7,7 @@ import java.util.List;
 public interface WorkerMapper {
     int add(Worker worker);
 
-    int delete(Worker worker);
+    int delete(Worker worker) throws Throwable;
 
     int update(Worker worker);
 

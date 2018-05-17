@@ -1,10 +1,12 @@
 package com.edu.zucc.controller;
 
 import com.edu.zucc.model.Brand;
+import com.edu.zucc.model.EButil;
 import com.edu.zucc.service.BrandService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class BrandController {
     @ApiOperation(value = "获得所有品牌信息")
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Object getAll() {
-        List<Brand> brands=brandService.findAll();
+        List<Brand> brands = brandService.findAll();
         return brands;
     }
 
@@ -40,7 +42,15 @@ public class BrandController {
     public Object delete(@PathVariable int id) {
         Brand brand = new Brand();
         brand.setId(id);
-        return brandService.delete(brand);
+        try {
+            return brandService.delete(brand);
+        }catch (DataIntegrityViolationException exception){
+            exception.printStackTrace();
+            return EButil.Err("该记录存在子记录，不能删除");
+        } catch (Throwable throwable) {
+           throwable.printStackTrace();
+           return EButil.Err(throwable.getMessage());
+        }
     }
 
     @ApiOperation(value = "修改品牌信息")

@@ -62,7 +62,7 @@ public class WorkerService {
         return result;
     }
 
-    public EButil delete(Worker worker) {
+    public EButil delete(Worker worker) throws  Throwable{
         EButil result = new EButil();
         if (findById(worker.getId()) == null) {
             result.Error("Worker is not existed");

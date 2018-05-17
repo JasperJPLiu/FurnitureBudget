@@ -9,7 +9,7 @@ import java.util.List;
 public interface MaterialMapper {
     int add(Material material);
 
-    int delete(Material material);
+    int delete(Material material) throws Throwable;
 
     int update(Material material);
 

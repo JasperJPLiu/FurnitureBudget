@@ -40,7 +40,7 @@ public class UserService {
         return result;
     }
 
-    public EButil delete(User user) {
+    public EButil delete(User user) throws Throwable {
         EButil result = new EButil();
         if (findById(user.getId()) == null) {
             result.Error("Account is not existed");

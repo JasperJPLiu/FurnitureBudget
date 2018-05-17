@@ -1,10 +1,12 @@
 package com.edu.zucc.controller;
 
+import com.edu.zucc.model.EButil;
 import com.edu.zucc.model.Worker;
 import com.edu.zucc.service.WorkerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 @Api(value = "12技工接口", description = "技工管理")
@@ -32,7 +34,7 @@ public class WorkerController {
     @ApiOperation(value = "根据员工日工资区间查")
     @RequestMapping(value = "/findByDailyWage", method = RequestMethod.GET)
     public Object getByDailyWage(@RequestParam float first, @RequestParam float last) {
-        return workerService.findByDailyWage(first,last);
+        return workerService.findByDailyWage(first, last);
     }
 
 
@@ -59,7 +61,15 @@ public class WorkerController {
     public Object delete(@PathVariable int id) {
         Worker worker = new Worker();
         worker.setId(id);
-        return workerService.delete(worker);
+        try {
+            return workerService.delete(worker);
+        } catch (DataIntegrityViolationException exception) {
+            exception.printStackTrace();
+            return EButil.Err("该记录存在子记录，不能删除");
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+            return EButil.Err(throwable.getMessage());
+        }
     }
 
     @ApiOperation(value = "修改技工信息")

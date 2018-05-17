@@ -1,9 +1,6 @@
 package com.edu.zucc.controller;
 
-import com.edu.zucc.model.Brand;
-import com.edu.zucc.model.Material;
-import com.edu.zucc.model.MaterialInfo;
-import com.edu.zucc.model.Materialtype;
+import com.edu.zucc.model.*;
 import com.edu.zucc.service.BrandService;
 import com.edu.zucc.service.ListToMap;
 import com.edu.zucc.service.MaterialService;
@@ -11,6 +8,7 @@ import com.edu.zucc.service.MaterialtypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -81,7 +79,15 @@ public class MaterialController {
     public Object delete(@PathVariable int id) {
         Material material = new Material();
         material.setId(id);
-        return materialService.delete(material);
+        try {
+            return materialService.delete(material);
+        } catch (DataIntegrityViolationException exception) {
+            exception.printStackTrace();
+            return EButil.Err("该记录存在子记录，不能删除");
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+            return EButil.Err(throwable.getMessage());
+        }
     }
 
     @ApiOperation(value = "修改材质信息")
@@ -95,7 +101,7 @@ public class MaterialController {
     @RequestMapping(value = "/getall", method = RequestMethod.GET)
     public Object getAllMaterials() {
         List<Material> materials = materialService.findAll();
-        List<MaterialInfo> materialInfos=new ArrayList<>();
+        List<MaterialInfo> materialInfos = new ArrayList<>();
         if (materials != null) {
             List<Brand> brands = brandService.findAll();
             List<Materialtype> materialtypes = materialtypeService.findAll();
@@ -103,10 +109,10 @@ public class MaterialController {
                     Collectors.toMap(Brand::getId, Brand::getBrandName));
             Map<Integer, String> mapTypes = materialtypes.stream().collect(
                     Collectors.toMap(Materialtype::getId, Materialtype::getTypeName));
-            for (Material material:materials){
-                int b=material.getBrand();
-                int t=material.getMaterialType();
-                materialInfos.add(new MaterialInfo(material,mapBrands.get(b),mapTypes.get(t)));
+            for (Material material : materials) {
+                int b = material.getBrand();
+                int t = material.getMaterialType();
+                materialInfos.add(new MaterialInfo(material, mapBrands.get(b), mapTypes.get(t)));
             }
         }
         return materialInfos;

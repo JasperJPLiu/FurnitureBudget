@@ -72,7 +72,8 @@
                             <li class="active">
                                 <a href="/product" class="scroll">成品预算</a>
                             </li>
-                            <li>                                <a href="/budget" class="scroll">DIY家具预算</a>                            </li>                            <li>                                <a href="/message" class="scroll">留言板</a>                            </li>
+                            <li><a href="/budget" class="scroll">DIY家具预算</a></li>
+                            <li><a href="/message" class="scroll">留言板</a></li>
                             <li>
                                 <a href="/logout" class="scroll">注销</a>
                             </li>
@@ -150,7 +151,9 @@
 
     .product-photo {
         height: 300px;
-        background-color: red;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        -moz-background-size: 100% 100%;
     }
 
     .product-name {
@@ -267,7 +270,7 @@
                 <h4 class="modal-title" id="myModalLabel">家具信息</h4>
             </div>
             <div class="modal-body" id="myModalBody">
-                <div class="photo"></div>
+                <div class="photo" id="fphoto"></div>
                 <p class="name" id="fname">aaaaaaaaaaaaaaaaaaaaaaaa</p>
                 <div class="info">
                     <p class="price" id="fprice">100</p>
@@ -323,11 +326,12 @@
                         type: data[i].typeName,
                         price: data[i].unitPrice,
                         colour: data[i].colour,
-                        remark: data[i].otherInformation
+                        remark: data[i].otherInformation,
+                        image:data[i].image
                     }
                     furnitures.datalist.push(furnture);
                     str += '<div class="product">';
-                    str += '<div class="product-photo"></div>';
+                    str += '<div class="product-photo" style="background-image: url(\'/images/IMG/'+data[i].image+'\')"></div>';
                     str += '<div class="product-info">';
                     str += '<p class="product-name"><a href="#" onclick="showFurniture(' + data[i].id + ')">' + data[i].furnitureName + '</a> </p>';
                     str += '<p class="product-brand">' + data[i].brandName + '</p>';
@@ -365,7 +369,7 @@
                     var i = 0;
                     for (; i < data.length; i++) {
                         str += '<div class="product">';
-                        str += '<div class="product-photo"></div>';
+                        str += '<div class="product-photo" style="background-image: url(\'/images/IMG/'+data[i].image+'\')"></div>';
                         str += '<div class="product-info">';
                         str += '<p class="product-name"><a href="#" onclick="showFurniture(' + data[i].id + ')">' + data[i].furnitureName + '</a> </p>';
                         str += '<p class="product-brand">' + data[i].brandName + '</p>';
@@ -388,7 +392,7 @@
                     var i = 0;
                     for (; i < data.length; i++) {
                         str += '<div class="product">';
-                        str += '<div class="product-photo"></div>';
+                        str += '<div class="product-photo" style="background-image: url(\'/images/IMG/'+data[i].image+'\')"></div>';
                         str += '<div class="product-info">';
                         str += '<p class="product-name"><a href="#" onclick="showFurniture(' + data[i].id + ')">' + data[i].furnitureName + '</a> </p>';
                         str += '<p class="product-brand">' + data[i].brandName + '</p>';
@@ -416,7 +420,7 @@
                     var i = 0;
                     for (; i < data.length; i++) {
                         str += '<div class="product">';
-                        str += '<div class="product-photo"></div>';
+                        str += '<div class="product-photo" style="background-image: url(\'/images/IMG/'+data[i].image+'\')"></div>';
                         str += '<div class="product-info">';
                         str += '<p class="product-name"><a href="#" onclick="showFurniture(' + data[i].id + ')">' + data[i].furnitureName + '</a> </p>';
                         str += '<p class="product-brand">' + data[i].brandName + '</p>';
@@ -439,7 +443,7 @@
                     var i = 0;
                     for (; i < data.length; i++) {
                         str += '<div class="product">';
-                        str += '<div class="product-photo"></div>';
+                        str += '<div class="product-photo" style="background-image: url(\'/images/IMG/'+data[i].image+'\')"></div>';
                         str += '<div class="product-info">';
                         str += '<p class="product-name"><a href="#" onclick="showFurniture(' + data[i].id + ')">' + data[i].furnitureName + '</a> </p>';
                         str += '<p class="product-brand">' + data[i].brandName + '</p>';
@@ -460,6 +464,7 @@
         for (var i = 0; i < fs.length; i++) {
             if (fs[i].id != id)
                 continue;
+            $("#fphoto").css('background-image','url(\'/images/IMG/'+fs[i].image+'\')');
             $("#fname").text(fs[i].name);
             $("#fbrand").text(fs[i].brand);
             $("#ftype").text(fs[i].type);

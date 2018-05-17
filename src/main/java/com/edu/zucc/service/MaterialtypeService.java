@@ -35,7 +35,7 @@ public class MaterialtypeService {
         return result;
     }
 
-    public EButil delete(Materialtype materialtype) {
+    public EButil delete(Materialtype materialtype) throws Throwable{
         EButil result = new EButil();
         if (findById(materialtype.getId()) == null) {
             result.Error("Materialtype is not existed");

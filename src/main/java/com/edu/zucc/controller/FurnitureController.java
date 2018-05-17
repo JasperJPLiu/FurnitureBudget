@@ -7,6 +7,7 @@ import com.edu.zucc.service.FurnituretypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -79,7 +80,15 @@ public class FurnitureController {
     public Object delete(@PathVariable int id) {
         Furniture furniture = new Furniture();
         furniture.setId(id);
-        return furnitureService.delete(furniture);
+        try {
+            return furnitureService.delete(furniture);
+        } catch (DataIntegrityViolationException exception) {
+            exception.printStackTrace();
+            return EButil.Err("该记录存在子记录，不能删除");
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+            return EButil.Err(throwable.getMessage());
+        }
     }
 
     @ApiOperation(value = "修改家具信息")

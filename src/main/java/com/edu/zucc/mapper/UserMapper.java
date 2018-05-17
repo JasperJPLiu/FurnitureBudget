@@ -7,7 +7,7 @@ import java.util.List;
 public interface UserMapper {
     int add(User user);
 
-    int delete(User user);
+    int delete(User user) throws Throwable;
 
     int update(User user);
 

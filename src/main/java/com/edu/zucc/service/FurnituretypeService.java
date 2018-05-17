@@ -35,7 +35,7 @@ public class FurnituretypeService {
         return result;
     }
 
-    public EButil delete(Furnituretype furnituretype) {
+    public EButil delete(Furnituretype furnituretype) throws Throwable {
         EButil result = new EButil();
         if (findById(furnituretype.getId()) == null) {
             result.Error("Furnituretype is not existed");

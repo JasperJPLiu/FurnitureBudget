@@ -41,7 +41,7 @@ public class BrandService {
         return result;
     }
 
-    public EButil delete(Brand brand) {
+    public EButil delete(Brand brand) throws Throwable{
         EButil result = new EButil();
         if (findById(brand.getId()) == null) {
             result.Error("Brand is not existed");

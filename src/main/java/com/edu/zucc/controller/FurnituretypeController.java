@@ -1,10 +1,12 @@
 package com.edu.zucc.controller;
 
+import com.edu.zucc.model.EButil;
 import com.edu.zucc.model.Furnituretype;
 import com.edu.zucc.service.FurnituretypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 @Api(value = "06家具类型接口", description = "家具类型管理")
@@ -37,7 +39,15 @@ public class FurnituretypeController {
     public Object delete(@PathVariable int id) {
         Furnituretype furnituretype = new Furnituretype();
         furnituretype.setId(id);
-        return furnituretypeService.delete(furnituretype);
+        try {
+            return furnituretypeService.delete(furnituretype);
+        } catch (DataIntegrityViolationException exception) {
+            exception.printStackTrace();
+            return EButil.Err("该记录存在子记录，不能删除");
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+            return EButil.Err(throwable.getMessage());
+        }
     }
 
     @ApiOperation(value = "修改家具类型信息")

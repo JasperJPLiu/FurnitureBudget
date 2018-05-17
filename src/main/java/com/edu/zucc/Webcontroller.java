@@ -8,12 +8,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by moshenlin on 2018/1/4.
@@ -234,4 +238,21 @@ public class Webcontroller {
         return "register";
     }
 
+    //处理文件上传
+    @RequestMapping(value="/uploadIMG", method = RequestMethod.POST)
+    public @ResponseBody EButil uploadImg(@RequestParam("file") MultipartFile file,
+                                          HttpServletRequest request) {
+        String contentType = file.getContentType();
+        String fileName = file.getOriginalFilename();
+//        System.out.println("fileName-->" + fileName);
+//        System.out.println("getContentType-->" + contentType);
+        String filePath = "D:\\IdeaProjects\\FurnitureBudget\\src\\main\\resources\\static\\images\\IMG\\";
+        String name=UUID.randomUUID().toString()+"."+fileName.split("\\.")[1];
+        try {
+            FileUtil.uploadFile(file.getBytes(), filePath, name);
+        } catch (Exception e) {
+           return EButil.Err("未知错误");
+        }
+        return EButil.Succ(name);
+    }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 public interface MaterialtypeMapper {
     int add(Materialtype materialtype);
 
-    int delete(Materialtype materialtype);
+    int delete(Materialtype materialtype) throws Throwable;
 
     int update(Materialtype materialtype);
 

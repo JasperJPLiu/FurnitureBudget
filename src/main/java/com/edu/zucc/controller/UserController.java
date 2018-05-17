@@ -1,10 +1,12 @@
 package com.edu.zucc.controller;
 
+import com.edu.zucc.model.EButil;
 import com.edu.zucc.model.User;
 import com.edu.zucc.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -42,7 +44,15 @@ public class UserController {
     public Object deleteUser(@PathVariable int id) {
         User user = new User();
         user.setId(id);
-        return userService.delete(user);
+        try {
+            return userService.delete(user);
+        } catch (DataIntegrityViolationException exception) {
+            exception.printStackTrace();
+            return EButil.Err("该记录存在子记录，不能删除");
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+            return EButil.Err(throwable.getMessage());
+        }
     }
 
     @ApiOperation(value = "修改用户")

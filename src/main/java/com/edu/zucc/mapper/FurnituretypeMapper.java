@@ -8,7 +8,7 @@ import java.util.List;
 public interface FurnituretypeMapper {
     int add(Furnituretype furnituretype);
 
-    int delete(Furnituretype furnituretype);
+    int delete(Furnituretype furnituretype) throws Throwable;
 
     int update(Furnituretype furnituretype);
 

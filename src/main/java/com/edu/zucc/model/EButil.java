@@ -33,6 +33,25 @@ public class EButil {
         resultCode = 1;
     }
 
+    public static EButil Succ() {
+        EButil eButil = new EButil();
+        eButil.Success();
+        return eButil;
+    }
+
+    public static EButil Succ(String message) {
+        EButil eButil = new EButil();
+        eButil.Success();
+        eButil.setMessage(message);
+        return eButil;
+    }
+
+    public static EButil Err(String message) {
+        EButil eButil = new EButil();
+        eButil.Error(message);
+        return eButil;
+    }
+
     public boolean isSuccess() {
         if (resultCode == 0)
             return true;

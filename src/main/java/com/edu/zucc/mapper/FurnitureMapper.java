@@ -9,7 +9,7 @@ import java.util.List;
 public interface FurnitureMapper {
     int add(Furniture furniture);
 
-    int delete(Furniture furniture);
+    int delete(Furniture furniture) throws Throwable;
 
     int update(Furniture furniture);
 

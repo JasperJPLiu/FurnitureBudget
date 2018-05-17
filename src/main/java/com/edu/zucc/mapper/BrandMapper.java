@@ -8,7 +8,7 @@ import java.util.List;
 public interface BrandMapper {
     int add(Brand brand);
 
-    int delete(Brand brand);
+    int delete(Brand brand) throws Throwable;
 
     int update(Brand brand);
 

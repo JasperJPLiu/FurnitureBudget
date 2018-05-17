@@ -1,10 +1,12 @@
 package com.edu.zucc.controller;
 
+import com.edu.zucc.model.EButil;
 import com.edu.zucc.model.Materialtype;
 import com.edu.zucc.service.MaterialtypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 @Api(value = "08材质类型接口", description = "材质类型管理")
@@ -37,7 +39,15 @@ public class MaterialtypeController {
     public Object delete(@PathVariable int id) {
         Materialtype materialtype = new Materialtype();
         materialtype.setId(id);
-        return materialtypeService.delete(materialtype);
+        try {
+            return materialtypeService.delete(materialtype);
+        } catch (DataIntegrityViolationException exception) {
+            exception.printStackTrace();
+            return EButil.Err("该记录存在子记录，不能删除");
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+            return EButil.Err(throwable.getMessage());
+        }
     }
 
     @ApiOperation(value = "修改材质类型信息")
