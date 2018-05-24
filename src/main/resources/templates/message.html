@@ -235,7 +235,7 @@
     });
 
     function showpage(obj) {
-        $("#nav-page li.active").removeClass("active");
+        $("#nav-page .activeli").removeClass("active");
         $(obj).parent().addClass("active");
         $("#message-box div.active").removeClass("active");
         $("#mess_" + $(obj).text()).addClass("active");
@@ -249,7 +249,7 @@
                 var content = $("#inputContent").val();
                 if (title == "")
                     myAlert("新增失败","文章名不可以为空");
-                else if (content == "")
+                else if (content == null)
                     myAlert("新增失败","文章内容不可以为空");
                 else {
                     $.ajax({

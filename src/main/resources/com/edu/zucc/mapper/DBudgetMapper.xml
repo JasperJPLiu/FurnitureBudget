@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.edu.zucc.mapper.DBudgetMapper">
+    <insert id="add" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO dbudget(id,harea,room,hall,kitchen,toilet,balcony,province,city,htype,matfee,labfee,desfee,quafee,totalfee,user) VALUE (#{id},#{harea},#{room},#{hall},#{kitchen},#{toilet},#{balcony},#{province},#{city},#{htype},#{matfee},#{labfee},#{desfee},#{quafee},#{totalfee},#{user})
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM dbudget WHERE id=#{id}
+    </delete>
+
+    <select id="findAll" resultType="DBudget">
+        SELECT * FROM dbudget
+    </select>
+
+    <select id="findByUser" resultType="DBudget">
+        SELECT * FROM dbudget WHERE user=#{user}
+    </select>
+
+    <select id="findByKey" resultType="DBudget">
+        SELECT * FROM dbudget WHERE id=#{id}
+    </select>
+</mapper>
