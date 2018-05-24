@@ -17,17 +17,6 @@ public class DBudgetService {
         this.dBudgetMapper = dBudgetMapper;
     }
 
-    /*根据用户查*/
-    public List<DBudget> findByUser(int user) {
-        DBudget dBudget = new DBudget();
-        dBudget.setUser(user);
-        return dBudgetMapper.findByUser(dBudget);
-    }
-
-    public List<DBudget> findAll() {
-        return dBudgetMapper.findAll();
-    }
-
     public EButil add(DBudget dBudget) {
         EButil result = new EButil();
         dBudgetMapper.add(dBudget);
@@ -46,9 +35,24 @@ public class DBudgetService {
         return result;
     }
 
-    public DBudget findById(int user) {
+    public EButil update(DBudget dBudget) {
+        EButil result = new EButil();
+        if (findById(dBudget.getId()) == null) {
+            result.Error("DBudget is not existed");
+            return result;
+        }
+        dBudgetMapper.update(dBudget);
+        result.Success();
+        return result;
+    }
+
+    public List<DBudget> findAll() {
+        return dBudgetMapper.findAll();
+    }
+
+    public DBudget findById(int id) {
         DBudget dBudget = new DBudget();
-        dBudget.setUser(user);
+        dBudget.setId(id);
         return dBudgetMapper.findByKey(dBudget);
     }
 

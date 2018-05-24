@@ -9,10 +9,9 @@ public interface DBudgetMapper {
 
     int delete(DBudget dBudget);
 
-    List<DBudget> findAll();
+    int update(DBudget dBudget);
 
-    /*根据用户查*/
-    List<DBudget> findByUser(DBudget dBudget);
+    List<DBudget> findAll();
 
     DBudget findByKey(DBudget dBudget);
 }

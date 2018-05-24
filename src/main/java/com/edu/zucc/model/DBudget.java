@@ -2,21 +2,21 @@ package com.edu.zucc.model;
 
 public class DBudget {
     private int id;
+    private String province;
+    private String city;
     private double harea;
+    private String htype;
     private int room;
     private int hall;
     private int kitchen;
     private int toilet;
     private int balcony;
-    private String province;
-    private String city;
-    private String htype;
     private double matfee;
     private double labfee;
     private double desfee;
     private double quafee;
     private double totalfee;
-    private int user;
+
 
     public int getId() {
         return id;
@@ -138,11 +138,4 @@ public class DBudget {
         this.totalfee = totalfee;
     }
 
-    public int getUser() {
-        return user;
-    }
-
-    public void setUser(int user) {
-        this.user = user;
-    }
 }
