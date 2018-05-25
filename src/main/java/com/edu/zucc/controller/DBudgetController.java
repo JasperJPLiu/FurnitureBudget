@@ -46,4 +46,10 @@ public class DBudgetController {
         return dBudgetService.findById(id);
     }
 
+    @ApiOperation(value = "查询所需费用")
+    @RequestMapping(value = "/getfee", method = RequestMethod.POST)
+    public Object getFee(@RequestParam int city, @RequestParam int htype,  @RequestParam  double harea, @RequestParam int room, @RequestParam int hall, @RequestParam int kitchen, @RequestParam int toilet, @RequestParam int balcony) {
+        dBudgetService.setTheta();
+        return dBudgetService.getFee(city, htype, harea, room, hall, kitchen, toilet, balcony);
+    }
 }

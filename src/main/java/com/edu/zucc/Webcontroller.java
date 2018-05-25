@@ -72,6 +72,11 @@ public class Webcontroller {
         return "budget";
     }
 
+    @RequestMapping("/dbudget")
+    public String dbudget() {
+        return "dbudget";
+    }
+
     @RequestMapping("/message")
     public String message() {
         return "message";

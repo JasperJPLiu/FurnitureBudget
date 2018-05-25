@@ -1,0 +1,428 @@
+<!--
+	Author: W3layouts
+	Author URL: http://w3layouts.com
+	License: Creative Commons Attribution 3.0 Unported
+	License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <!-- Meta tags -->
+    <title>装修技巧</title>
+    <meta name="keywords" content="decorate a interior Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+	Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen"/> <!-- Testimonials js-->
+    <link rel="stylesheet" href="css/lightbox.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="http://www.bootcss.com/p/buttons/css/buttons.css">
+    <!-- google fonts -->
+    <link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,700i,800,900" rel="stylesheet">
+    <!-- scripts -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/alert.js"></script>
+</head>
+<body>
+<div class="agile-banner">
+
+    <nav class="navbar w3-navbar">
+
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <!-- Logo -->
+                    <div class="logo-container" style="margin-top: 4px">
+                        <div class="logo-wrap">
+                            <a href="#home" class="scroll">
+                                Decorate
+                            </a>
+                        </div>
+                    </div>
+                </div> <!-- end navbar-header -->
+
+
+                <div class="nav-wrap">
+                    <div class="collapse text-center navbar-collapse w3ls-nav navbar-collapse">
+
+                        <ul class="nav navbar-nav w3ls-nav1 text-center">
+
+                            <li>
+                                <a href="/index" class="scroll">用户中心</a>
+                            </li>
+                            <li>
+                                <a href="/skills" class="scroll">装修技巧</a>
+                            </li>
+                            <li>
+                                <a href="/knowledge" class="scroll">装修常识</a>
+                            </li>
+                            <li>
+                                <a href="/product" class="scroll">成品预算</a>
+                            </li>
+                            <li>
+                                <a href="/budget" class="scroll">DIY家具预算</a>
+                            </li>
+                            <li class="active">
+                                <a href="/dbudget" class="scroll">装修预算</a>
+                            </li>
+                            <li>
+                                <a href="/message" class="scroll">留言板</a>
+                            </li>
+                            <li>
+                                <a href="/logout" class="scroll">注销</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+        </div> <!-- end container -->
+
+    </nav> <!-- end navbar -->
+</div>
+<!-- About us -->
+<style>
+    .budget_box {
+        position: relative;
+        width: 80%;
+        height: 455px;
+        margin: 0 auto;
+    }
+
+    .budget_form {
+        box-sizing: border-box;
+        width: 50%;
+        float: left;
+        height: 455px;
+        border: 1px solid #ccc;
+        border-right: none;
+    }
+
+    .budget_form > div {
+        width: 80%;
+        margin: 60px 0px 0px 40px;
+    }
+
+    .budget_form > div > h3 {
+        margin-bottom: 35px;
+    }
+
+    .budget_result {
+        width: 50%;
+        float: left;
+        height: 455px;
+        border: 1px solid #ccc;
+    }
+
+    .budget_result > div {
+        width: 80%;
+        margin: 60px 0px 0px 80px;
+    }
+
+    .budget_result > div > h3 {
+        margin-bottom: 35px;
+    }
+
+    .budget_result > div > h3 em {
+        min-width: 92px;
+        font-size: 28px;
+        margin: 0 12px;
+        display: inline-block;
+        font-weight: 400;
+        color: #f36f20;
+        text-align: center;
+    }
+
+    .result_box {
+        width: 100%;
+        height: 200px;
+        border: 1px solid #aaaaaa;
+        padding-top: 24px;
+    }
+
+    .result_box span {
+        float: left;
+        width: 50%;
+        height: 40px;
+        text-align: right;
+        font-size: 18px;
+    }
+
+    .result_box strong {
+        height: 40px;
+        float: left;
+        width: 50%;
+        font-weight: 400;
+        text-align: left;
+        font-size: 18px;
+    }
+
+    .result_box strong em {
+        display: inline-block;
+        min-width: 55px;
+        font-style: normal;
+        margin-left: 10px;
+        margin-right: 10px;
+        font-size: 18px;
+    }
+
+    .form-group {
+        margin-bottom: 40px !important;
+    }
+
+    .budget_button {
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        top: 42%;
+    }
+
+    div.col-sm-2.large-col {
+        width: 16%;
+        padding-right: 2px !important;
+        padding-left: 2px !important;
+    }
+</style>
+<div class="budget_box">
+    <div class="budget_form">
+        <div>
+            <h3>装修计算器</h3>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">所在城市</label>
+                    <div class="col-sm-5">
+                        <select class="form-control" id="province">
+                            <option value="">省/市</option>
+                            <option value="1">浙江省</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-5">
+                        <select class="form-control" id="city">
+                            <option value="">市/地区</option>
+                            <option value="1">杭州市</option>
+                            <option value="2">宁波市</option>
+                            <option value="3">温州市</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="area" class="col-sm-2 control-label">房屋面积</label>
+                    <div class="col-sm-10">
+                        <div class="input-group" style="display: block">
+                            <input type="number" class="form-control" id="inputSuccess2"
+                                   aria-describedby="inputSuccess2Status" id="area" placeholder="房屋总面积">
+                            <span class="glyphicon form-control-feedback" aria-hidden="true">m²</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">房屋类型</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="type">
+                            <option value="1">新房</option>
+                            <option value="2">二手房</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" style="margin-right: 10px">房屋户型</label>
+                    <div class="col-sm-2 large-col">
+                        <select class="form-control" id="room">
+                            <option value="1">1室</option>
+                            <option value="2">2室</option>
+                            <option value="3">3室</option>
+                            <option value="4">4室</option>
+                            <option value="5">5室</option>
+                            <option value="6">6室</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 large-col">
+                        <select class="form-control" id="hall">
+                            <option value="1">1厅</option>
+                            <option value="2">2厅</option>
+                            <option value="3">3厅</option>
+                            <option value="4">4厅</option>
+                            <option value="5">5厅</option>
+                            <option value="6">6厅</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 large-col">
+                        <select class="form-control" id="kitchen">
+                            <option value="1">1厨</option>
+                            <option value="2">2厨</option>
+                            <option value="3">3厨</option>
+                            <option value="4">4厨</option>
+                            <option value="5">5厨</option>
+                            <option value="6">6厨</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 large-col">
+                        <select class="form-control" id="toilet">
+                            <option value="1">1卫</option>
+                            <option value="2">2卫</option>
+                            <option value="3">3卫</option>
+                            <option value="4">4卫</option>
+                            <option value="5">5卫</option>
+                            <option value="6">6卫</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 large-col">
+                        <select class="form-control" id="balcony">
+                            <option value="1">1阳</option>
+                            <option value="2">2阳</option>
+                            <option value="3">3阳</option>
+                            <option value="4">4阳</option>
+                            <option value="5">5阳</option>
+                            <option value="6">6阳</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="budget_result">
+        <div id="fee">
+            <h3>您家的装修预算<em id="totalfee">126391</em>元</h3>
+            <div class="result_box">
+                <span>材料费：</span><strong><em id="matfee">98098</em>元</strong>
+                <span>人工费：</span><strong><em id="labfee">36265</em>元</strong>
+                <span>设计费：</span><strong><em id="desfee">4010</em>元</strong>
+                <span>质检费：</span><strong><em id="quafee">936</em>元</strong>
+            </div>
+        </div>
+    </div>
+    <div class="budget_button">
+        <button class="button button-3d button-action button-circle  button-giant" onclick="calculate()"><i
+                class="fa fa-calculator"></i>
+        </button>
+    </div>
+</div>
+
+<!-- //Contact -->
+<!-- footer -->
+<div class="footer">
+    <div class="container">
+        <div class="list">
+            <ul class="social-footer-icons">
+                <li>Decorate</li>
+                <li>
+                    <a href="#"><span class="fa fa-dribbble" aria-hidden="true"></span></a>
+                    <a href="#"><span class="fa fa-facebook" aria-hidden="true"></span></a>
+                    <a href="#"><span class="fa fa-vk" aria-hidden="true"></span></a>
+                    <a href="#"><span class="fa fa-pinterest-p" aria-hidden="true"></span></a>
+                    <a href="#"><span class="fa fa-twitter" aria-hidden="true"></span></a>
+                </li>
+            </ul>
+
+            <ul class="address">
+                <li> Sophia Road</li>
+                <li> 1594 Nicolas</li>
+                <li> U S A</li>
+            </ul>
+
+            <ul class="email">
+                <li>+1 358 649 4885</li>
+                <li><a href="mailto:service@decorate.com">service@decorate.com</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- //footer -->
+<!-- copyright -->
+<div class="copyright">
+    <div class="container">
+        <p>© 2017 Decorate. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+    </div>
+</div>
+<!-- //copyright -->
+<!-- scripts -->
+
+<script src="js/bootstrap.min.js"></script>
+
+<script src="js/jquery.flexslider.js"></script>
+
+<!-- smooth scrolling -->
+<script src="js/SmoothScroll.min.js"></script>
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<!-- here stars scrolling icon -->
+<script type="application/javascript">
+    var isearch = false;
+
+    function randomfee() {
+        var matfee = 10000 + Math.round(89999 * Math.random());
+        var labfee = 10000 + Math.round(89999 * Math.random());
+        var desfee = 1000 + Math.round(8999 * Math.random());
+        var quafee = 1000 + Math.round(8999 * Math.random());
+        $("#matfee").text(matfee);
+        $("#labfee").text(labfee);
+        $("#desfee").text(desfee);
+        $("#quafee").text(quafee);
+        $("#totalfee").text(matfee + labfee + desfee + quafee)
+        if (isearch == false)
+            setTimeout(randomfee, 100);
+    }
+
+    window.onload = randomfee();
+
+    function calculate() {
+        var p = $("#province").val();
+        var c = $("#city").val();
+        var a = $("#area").val();
+        var t = $("#type").val();
+        var r = $("#room").val();
+        var h = $("#hall").val();
+        var k = $("#kitchen").val();
+        var to = $("#toilet").val();
+        var b = $("#balcony").val();
+        if (p == "") myAlert("计算错误", "省市不能为空");
+        else if (c == "") myAlert("计算错误", "市地区不能为空");
+        else if (a == "") myAlert("计算错误", "房屋面积不能为空");
+        else {
+            isearch = true;
+            $.ajax({
+                type: "POST",
+                url: "/api/dBudget/getfee",
+                data: {
+                    city: c,
+                    htype: t,
+                    harea: a,
+                    room: r,
+                    hall: h,
+                    kitchen: k,
+                    toilet: to,
+                    balcony: b
+                },
+                success: function (data) {
+                    var matfee = data[0];
+                    var labfee = data[1];
+                    var desfee = data[2];
+                    var quafee = data[3];
+                    var total=matfee + labfee + desfee + quafee;
+                    $("#fee").html('<h3>您家的装修预算<em>'+total+'</em>元</h3>\n' +
+                        '            <div class="result_box">\n' +
+                        '                <span>材料费：</span><strong><em>'+matfee+'</em>元</strong>\n' +
+                        '                <span>人工费：</span><strong><em>'+labfee+'</em>元</strong>\n' +
+                        '                <span>设计费：</span><strong><em>'+desfee+'</em>元</strong>\n' +
+                        '                <span>质检费：</span><strong><em>'+quafee+'</em>元</strong>\n' +
+                        '            </div>');
+                }
+            })
+        }
+    }
+</script>
+</body>
+</html>

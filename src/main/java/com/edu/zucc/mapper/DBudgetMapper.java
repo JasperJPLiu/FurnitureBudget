@@ -14,4 +14,6 @@ public interface DBudgetMapper {
     List<DBudget> findAll();
 
     DBudget findByKey(DBudget dBudget);
+
+    List<DBudget> findByCity();
 }

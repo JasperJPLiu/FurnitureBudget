@@ -63,4 +63,8 @@
     <select id="findByKey" resultType="DBudget">
         SELECT * FROM dbudget WHERE id=#{id}
     </select>
+
+    <select id="findByCity" resultType="DBudget">
+        SELECT * FROM dbudget WHERE province="浙江" AND city="杭州" AND htype="新房"
+    </select>
 </mapper>
